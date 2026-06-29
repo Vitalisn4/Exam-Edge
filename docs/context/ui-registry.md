@@ -61,6 +61,8 @@ _Empty — populate as built._
 
 ---
 
+## Math Components
+
 | Component   | Path                              | Notes                         |
 | ----------- | --------------------------------- | ----------------------------- |
 | MathDisplay | `components/math/MathDisplay.tsx` | KaTeX wrapper, error boundary |
