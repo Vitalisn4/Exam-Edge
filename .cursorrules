@@ -1,0 +1,342 @@
+# ExamEdge — Cursor Development Rules
+# Version 1.0 | June 2026
+# Definitive coding standards for AI-assisted development
+
+You are building ExamEdge: an AI-powered examination preparation and personalized
+learning platform for secondary school students across Africa — curriculum-
+agnostic by design, beginning with GCE Ordinary and Advanced Level examinations
+in Cameroon and expanding to multiple curricula and national examination systems.
+Read AGENTS.md and docs/context/ before every task.
+
+---
+
+## 1. Mandatory Read Order
+
+Before writing or modifying code:
+
+1. `AGENTS.md` — AI architecture, guardrails, chain specifications
+2. `docs/context/project-overview.md` — vision and MVP scope
+3. `docs/context/roadmap.md` — post-MVP releases (when planning beyond current unit)
+4. `docs/context/progress-tracker.md` — current phase and unit
+5. `docs/context/build-plan.md` — current unit UI + Logic spec (31 units)
+5b. `docs/context/feature-development-prompts.md` — §1b research, workflow §2–§2d, unit prompt
+5c. `docs/context/CHAT-IMPLEMENTATION-PROMPT.md` — paste into chat; post Research Summary before code
+6. `docs/context/library-docs.md` — project patterns + official external documentation URLs
+7. `docs/context/architecture.md` — invariants and boundaries
+8. `docs/context/security.md` — auth, RBAC, privacy (Units 06, 08, 23)
+9. `docs/context/code-standards.md` — implementation conventions
+10. `docs/context/ui-tokens.md` + `docs/context/ui-rules.md` — for UI work
+11. `docs/context/documentation-map.md` — find the right doc for any concern
+
+**Research gate:** Identify technologies → read internal docs → study official vendor docs (`library-docs.md` URLs) → post Context and Research Summary → then implement.
+
+Do not skip context files. Do not guess product behaviour. Do not code on assumptions.
+
+---
+
+## 2. Project-Wide Engineering Principles
+
+- **Clarity over cleverness** — readable code a junior developer understands
+- **Scope is sacred** — build only the current unit; no speculative features
+- **UI first, logic second** — mock data UI verified before backend wiring
+- **Educational correctness** — a hint that leaks an answer is a critical bug
+- **Offline-first** — core student flows must work without internet
+- **Mobile-first** — design for 360px viewport, min 16px body text, 44px touch targets
+- **Cost discipline** — Haiku for marking; Sonnet only where AGENTS.md specifies
+- **Fail safely** — no unvalidated AI output reaches students
+- **Minimize diff** — change only what the current unit requires
+
+---
+
+## 3. Architecture Guidelines
+
+### Monorepo Structure
+```
+apps/web/          → Next.js 16 App Router (student PWA + API + admin)
+packages/db/       → Drizzle schema, migrations, repositories ONLY
+packages/ai/       → LangChain chains, router, RAG, Zod schemas ONLY
+packages/shared/   → Types, constants, pure helpers (no I/O)
+```
+
+### Layer Rules
+- Route handlers: authenticate → authorise → validate → delegate → respond
+- No business logic in route handlers — use repositories and chain functions
+- No raw SQL outside `packages/db/repositories/`
+- No AI calls outside `packages/ai/chains/` invoked from route handlers or cron
+- No database access from React components — Server Components or API only
+- No chain calls another chain — orchestration in routes/cron only
+
+### Architecture Invariants (Never Violate)
+1. No client-side AI/Anthropic calls
+2. No unvalidated AI output to students (Zod required)
+3. No answer revelation in Socratic hints
+4. No unvalidated questions served (`validated=true` required)
+5. No Sonnet for high-frequency marking
+6. No PII in LLM prompts
+7. Idempotency on all answer submissions
+
+---
+
+## 4. Folder and File Organization
+
+| Item | Convention | Example |
+|------|------------|---------|
+| Route folders | kebab-case | `app/(student)/study/[topicId]/` |
+| Components | PascalCase file | `QuestionCard.tsx` |
+| Utilities | camelCase | `rate-limit.ts` |
+| Repositories | camelCase plural | `responses.ts` |
+| AI chains | camelCase | `marking.ts` |
+| Schemas | `*.schema.ts` | `marking.schema.ts` |
+| Migrations | timestamp prefix | `0001_initial.sql` |
+
+- One component per file
+- Colocate tests: `marking.test.ts` next to `marking.ts`
+- Context docs in `docs/context/`
+- Spec files in `docs/context/specs/`
+
+---
+
+## 5. Naming Conventions
+
+- **Variables/functions:** camelCase — `submitResponse`, `markScheme`
+- **Types/interfaces:** PascalCase — `MarkingResult`, `StudentSession`
+- **Constants:** SCREAMING_SNAKE — `MAX_HINTS_PER_QUESTION`, `CONFIDENCE_THRESHOLD`
+- **Database tables:** snake_case — `student_responses`, `mastery_records`
+- **API routes:** RESTful plural — `/api/sessions/:id/responses`
+- **Environment variables:** SCREAMING_SNAKE — `ANTHROPIC_API_KEY`
+- **Git branches:** `feature/`, `fix/`, `chore/`, `docs/` prefixes
+
+---
+
+## 6. Coding Standards
+
+### TypeScript
+- Strict mode — no `any`, no unchecked `@ts-ignore`
+- Explicit parameter and return types on all exported functions
+- Zod for runtime validation at API boundaries and AI outputs
+- Prefer `type` over `interface` except for extendable component props
+
+### Next.js 16
+- App Router only; Node.js 22 LTS (see `docs/context/tech-stack-versions.md`)
+- Server Components by default
+- `"use client"` only when required (state, effects, MathQuill, browser APIs)
+- No data fetching in Client Components
+- Verify patterns against https://nextjs.org/docs before each web unit
+
+### React
+- Functional components only
+- Props typed explicitly
+- No inline functions in JSX for hot paths (exam timer components)
+- Error boundaries around KaTeX/MathQuill renderers
+
+### Error Handling
+- Application error codes as constants
+- Include `requestId` in all API error responses
+- Never expose stack traces or secrets to client
+- AI failures: log server-side, return safe student-facing message
+
+---
+
+## 7. Documentation Expectations
+
+- **AGENTS.md** — update when chain behaviour, guardrails, or router changes
+- **docs/context/** — update when scope, architecture, or UI tokens change
+- **progress-tracker.md** — update after every completed unit
+- **Code comments** — explain WHY, not WHAT; no commented-out code
+- **README.md** — update setup steps when dependencies or env vars change
+- **Migrations** — every schema change gets a migration file with comment
+
+---
+
+## 8. Testing Requirements
+
+Before marking a unit complete:
+
+```bash
+npm run typecheck
+npm run lint
+npm run test
+```
+
+Required test coverage areas:
+- Repository CRUD operations
+- Zod schema validation (valid + invalid inputs)
+- Marking chain benchmark fixtures (when modifying marking)
+- Anti-leakage detection (when modifying guidance)
+- Parameter instantiation determinism
+- Idempotency duplicate handling
+- Rate limit threshold behaviour
+
+Manual verification:
+- 360px viewport for all student UI
+- Complete user flow for the unit's feature
+- No console errors in browser
+
+---
+
+## 9. Git Workflow
+
+- **Main branch:** `main` — always deployable
+- **Feature branches:** `feature/unit-NN-description`
+- **Pull requests:** required even for solo dev — documents decisions
+- **Merge strategy:** squash merge to main
+- **Never force push** to main
+- **Never commit:** `.env.local`, secrets, credentials, API keys
+
+### Commit Message Format (Conventional Commits)
+```
+feat(marking): add follow-through mark support
+fix(auth): resolve refresh token race condition
+docs(agents): add retrieval mechanisms section
+chore(deps): update drizzle-orm to 0.30
+test(guidance): add anti-leakage regression cases
+```
+
+---
+
+## 10. Dependency Management
+
+- **Do not add npm packages** without explicit approval in the current unit spec
+- Prefer existing stack: Next.js, Drizzle, LangChain, Anthropic, Zod, Tailwind
+- Pin major versions in package.json
+- Document new dependencies in architecture.md with rationale
+- No duplicate libraries for same purpose (one ORM, one AI SDK, one validator)
+
+---
+
+## 11. Security Best Practices
+
+- All secrets in environment variables — never in code or client bundles
+- `ANTHROPIC_API_KEY`, `DATABASE_URL`, `AUTH_SECRET` server-only
+- Auth.js JWT in HTTP-only cookies — never localStorage for tokens
+- bcrypt factor 12 for passwords
+- Sanitise user text before LLM inclusion (strip injection patterns)
+- Mark schemes as structured JSON in prompts — not free text
+- Rate limiting on all authenticated endpoints
+- RBAC enforced at middleware AND route handler level
+- CORS: same-origin only for API (monorepo eliminates cross-origin)
+- Minors' data: no names in prompts, consent flow, deletion endpoints
+
+---
+
+## 12. Performance Considerations
+
+- **Marking latency target:** < 3 seconds synchronous
+- **Dashboard initial load:** Server Components, no client fetch waterfall
+- **Question delivery:** no LLM at request time — pool selection only
+- **Redis caching:** mark schemes (1h), warm question pool (1h), idempotency (5min)
+- **Bundle size:** dynamic import MathQuill/KaTeX on study pages only
+- **PWA:** service worker caches app shell; lazy load non-critical routes
+- **Images:** WebP, max 1MP for photo uploads; store in R2 not DB
+- **Database:** index on user_id, session_id, topic_id, validated columns
+
+---
+
+## 13. AI-Specific Development Guidelines
+
+### Chain Implementation
+- System prompts as immutable TypeScript constants — never from user input
+- User content in human message only — never in system message
+- Every chain output validated with Zod before return
+- Router enforced: `getModelConfig(task)` before every LLM call
+- Log: chain_type, model, input_tokens, output_tokens, latency_ms, confidence
+
+### Marking Chain
+- Haiku only, temperature 0.1
+- 3 few-shot examples in system prompt
+- confidence < 0.70 → flagForReview, never silently accept
+
+### Guidance Chain
+- Anti-leakage post-processing mandatory
+- Max 2 retries on leakage detection
+- Never remove or bypass anti-leakage checks
+
+### Generation Chain
+- RAG required — abort if k < 5 validated examples
+- Cross-examination before admin queue
+- Never serve generated content without admin approval
+
+### UVE Chain
+- Async only — never block marking response
+- MVP: L1 + L2 only (Haiku)
+
+### Curriculum Chain
+- Check cache before LLM call
+- Syllabus chunk required — no generation without source text
+
+---
+
+## 14. UI Development Guidelines
+
+- Read `docs/context/ui-context.md` before any UI work
+- Use semantic color tokens — never raw hex in components
+- Mobile-first: 360px primary, scale up with `max-w-lg mx-auto`
+- Exam mode: paper-white background, no shadows, no navbar
+- Confidence badges on all AI-generated content
+- KaTeX error boundary — never crash session on bad LaTeX
+- Offline indicator banner when `navigator.onLine === false`
+- No guilt-trip streak notifications
+
+---
+
+## 15. Code Review Expectations
+
+Every change must satisfy the checklist in AGENTS.md "Code Review Expectations".
+Key blockers that must never merge:
+
+- Client-side AI calls
+- Unvalidated AI output displayed to students
+- Removed rate limiting or idempotency
+- Raw SQL in route handlers
+- `any` types in production code
+- Secrets in committed files
+- MVP scope creep (mobile app, teacher dashboard, OAuth before V1.1)
+
+---
+
+## 16. MVP Scope Enforcement
+
+**In MVP (build now):**
+Web PWA, email auth, 3 subjects, marking, hints, basic UVE, exam simulation,
+offline queue, photo OCR, admin validation queue
+
+**Not in MVP (do not build unless explicitly requested):**
+React Native app, Google OAuth, teacher dashboard, French UI, 16 subjects,
+OBC/WAEC boards, Whisper ASR, fine-tuned models, payment system
+
+If asked to build a deferred feature, confirm with the user before proceeding.
+
+---
+
+## 17. Session Workflow
+
+**Start:**
+```
+Read CHAT-IMPLEMENTATION-PROMPT.md — fill placeholders, paste into chat.
+Post Context and Research Summary before any code.
+Read library-docs.md + official docs for each technology in the unit.
+Implement current unit from build-plan.md exactly.
+Follow feature-development-prompts.md §2–§2d. Do not go beyond scope.
+```
+
+**End:**
+```
+Update docs/context/progress-tracker.md.
+List files changed and how to test end-to-end.
+Note open questions.
+```
+
+---
+
+## 18. When Stuck
+
+1. Re-read current unit in build playbook
+2. Check architecture invariants — is the approach forbidden?
+3. Split unit into UI-only and backend-only steps
+4. Write spec at `docs/context/specs/NN-name.md`
+5. Ask one clarifying question — do not guess on marking or hint behaviour
+
+---
+
+*ExamEdge · Ngam Vitalis Yuh · June 2026*
+*Companion: AGENTS.md · docs/ExamEdge_AI_Driven_Build_Playbook.md*
