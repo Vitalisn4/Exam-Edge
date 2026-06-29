@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* Token definitions — single source of truth (ui-tokens.md). Hex only here, never in components. */
 :root {
   --font-sans: "Inter", system-ui, sans-serif;
   --font-math: "KaTeX_Main", "Times New Roman", serif;
@@ -67,7 +66,6 @@
   --radius-xl: 16px;
   --radius-full: 9999px;
 
-  /* shadcn/ui semantic aliases */
   --background: var(--color-background);
   --foreground: var(--color-text-primary);
   --card: var(--color-surface);

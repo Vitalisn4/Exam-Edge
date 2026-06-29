@@ -8,7 +8,6 @@ const unusedVarsRule = {
   ],
 };
 
-/** @type {import("eslint").Linter.Config[]} */
 export default tseslint.config(
   {
     ignores: ["**/node_modules/**", "**/.next/**", "**/dist/**", "**/.turbo/**"],

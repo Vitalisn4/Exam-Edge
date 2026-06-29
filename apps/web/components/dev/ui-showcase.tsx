@@ -131,9 +131,7 @@ export function UiShowcase() {
     <div className="mx-auto flex w-full max-w-lg flex-col gap-6 px-4 py-6">
       <header className="flex flex-col gap-2">
         <h1 className="text-2xl font-bold text-text-primary">Design system</h1>
-        <p className="text-base text-text-secondary">
-          ExamEdge UI tokens and primitives — Unit 02 dev preview.
-        </p>
+        <p className="text-base text-text-secondary">ExamEdge UI tokens and primitives.</p>
       </header>
 
       <SwatchGrid title="Brand" swatches={BRAND_SWATCHES} />
