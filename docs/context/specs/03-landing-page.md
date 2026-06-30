@@ -59,13 +59,13 @@ No new packages required (lucide-react if not already installed with shadcn).
 
 ## Verify when done
 
-- [ ] Landing renders on 360px without horizontal scroll
-- [ ] All CTAs use ui-tokens.md classes
-- [ ] Authenticated user visiting `/` redirects to `/dashboard`
-- [ ] "See how it works" scrolls to features section
-- [ ] `npm run typecheck` passes
-- [ ] `npm run lint` passes
-- [ ] `ui-registry.md` updated with Hero, Features, HowItWorks, Footer
+- [x] Landing renders on 360px without horizontal scroll
+- [x] All CTAs use ui-tokens.md classes
+- [x] Authenticated user visiting `/` redirects to `/dashboard`
+- [x] "See how it works" scrolls to features section
+- [x] `npm run typecheck` passes
+- [x] `npm run lint` passes
+- [x] `ui-registry.md` updated with Hero, Features, HowItWorks, Footer
 
 ---
 
