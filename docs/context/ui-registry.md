@@ -18,8 +18,6 @@ After building any component — update this file with: component name, file pat
 
 ## Layout Components
 
-_Empty — populate as built._
-
 | Component     | Path                                  | Notes                                          |
 | ------------- | ------------------------------------- | ---------------------------------------------- |
 | Navbar        | `components/layout/Navbar.tsx`        | Landing nav — logo, Log in, Start preparing    |
@@ -35,7 +33,7 @@ _Empty — populate as built._
 | Features    | `components/landing/Features.tsx`    | 3 value props with lucide icons, `#features`    |
 | HowItWorks  | `components/landing/HowItWorks.tsx`  | 4 steps: Register → Practice → Mark → Verify    |
 | SocialProof | `components/landing/SocialProof.tsx` | Africa / GCE Board Buea placeholder             |
-| BottomCta   | `components/landing/BottomCta.tsx`   | Repeat Start preparing free CTA                 |
+| BottomCta   | `components/landing/BottomCta.tsx`   | Repeat Start preparing CTA                      |
 
 ---
 

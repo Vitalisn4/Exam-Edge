@@ -14,3 +14,10 @@ export function hasAuthenticatedSession(cookieHeader: string | null | undefined)
     return new RegExp(`(?:^|;\\s*)${escaped}=[^;]+`).test(cookieHeader);
   });
 }
+
+export function shouldRedirectHomeToDashboard(
+  pathname: string,
+  cookieHeader: string | null | undefined,
+): boolean {
+  return pathname === "/" && hasAuthenticatedSession(cookieHeader);
+}

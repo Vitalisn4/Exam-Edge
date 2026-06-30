@@ -9,7 +9,7 @@ export function BottomCta() {
         Ready to prepare with purpose?
       </h2>
       <Button className="w-full" asChild>
-        <Link href="/register">Start preparing free</Link>
+        <Link href="/register">Start preparing</Link>
       </Button>
     </section>
   );

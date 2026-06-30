@@ -10,8 +10,8 @@ export function Hero() {
           Master your exams — understand, don&apos;t memorise
         </h1>
         <p className="text-base text-text-secondary">
-          Examiner-accurate M1/A1/B1 marking and offline-ready practice — built for students across
-          Africa, starting with GCE Board Buea.
+          Examiner-accurate M1/A1/B1 marking with offline access — built for students across Africa,
+          starting with GCE Board Buea.
         </p>
       </div>
       <div className="flex flex-col gap-3">
