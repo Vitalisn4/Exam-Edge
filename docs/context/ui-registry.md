@@ -20,19 +20,22 @@ After building any component — update this file with: component name, file pat
 
 _Empty — populate as built._
 
-| Component     | Path                                  | Notes       |
-| ------------- | ------------------------------------- | ----------- |
-| Navbar        | `components/layout/Navbar.tsx`        | _Not built_ |
-| OfflineBanner | `components/layout/OfflineBanner.tsx` | _Not built_ |
+| Component     | Path                                  | Notes                                          |
+| ------------- | ------------------------------------- | ---------------------------------------------- |
+| Navbar        | `components/layout/Navbar.tsx`        | Landing nav — logo, Log in, Start preparing    |
+| Footer        | `components/layout/Footer.tsx`        | Login, Privacy, Contact links, © ExamEdge 2026 |
+| OfflineBanner | `components/layout/OfflineBanner.tsx` | _Not built_                                    |
 
 ## Landing Components (Unit 03)
 
-| Component  | Path                                | Notes       |
-| ---------- | ----------------------------------- | ----------- |
-| Hero       | `components/landing/Hero.tsx`       | _Not built_ |
-| Features   | `components/landing/Features.tsx`   | _Not built_ |
-| HowItWorks | `components/landing/HowItWorks.tsx` | _Not built_ |
-| Footer     | `components/layout/Footer.tsx`      | _Not built_ |
+| Component   | Path                                 | Notes                                           |
+| ----------- | ------------------------------------ | ----------------------------------------------- |
+| LandingPage | `components/landing/LandingPage.tsx` | Composes all landing sections                   |
+| Hero        | `components/landing/Hero.tsx`        | Headline, subheadline, primary + secondary CTAs |
+| Features    | `components/landing/Features.tsx`    | 3 value props with lucide icons, `#features`    |
+| HowItWorks  | `components/landing/HowItWorks.tsx`  | 4 steps: Register → Practice → Mark → Verify    |
+| SocialProof | `components/landing/SocialProof.tsx` | Africa / GCE Board Buea placeholder             |
+| BottomCta   | `components/landing/BottomCta.tsx`   | Repeat Start preparing free CTA                 |
 
 ---
 
@@ -125,9 +128,10 @@ Installed Unit 02 — themed with ExamEdge tokens from `globals.css`.
 
 ## Page Compositions
 
-| Page            | Path                                         | Key Components Used |
-| --------------- | -------------------------------------------- | ------------------- |
-| Dashboard       | `app/(student)/dashboard/page.tsx`           | _Not built_         |
-| Study Session   | `app/(student)/study/[topicId]/page.tsx`     | _Not built_         |
-| Exam Simulation | `app/(student)/exam/[simulationId]/page.tsx` | _Not built_         |
-| Admin Queue     | `app/(admin)/questions/page.tsx`             | _Not built_         |
+| Page            | Path                                         | Key Components Used                                     |
+| --------------- | -------------------------------------------- | ------------------------------------------------------- |
+| Landing         | `app/page.tsx`                               | LandingPage, Navbar, Hero, Features, HowItWorks, Footer |
+| Dashboard       | `app/(student)/dashboard/page.tsx`           | _Stub — Unit 15_                                        |
+| Study Session   | `app/(student)/study/[topicId]/page.tsx`     | _Not built_                                             |
+| Exam Simulation | `app/(student)/exam/[simulationId]/page.tsx` | _Not built_                                             |
+| Admin Queue     | `app/(admin)/questions/page.tsx`             | _Not built_                                             |
