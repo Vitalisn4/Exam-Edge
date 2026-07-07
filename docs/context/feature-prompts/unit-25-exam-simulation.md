@@ -4,13 +4,13 @@
 
 ## Feature overview
 
-| Field | Value |
-|-------|-------|
-| **Feature ID** | Unit 25 |
-| **Feature name** | Exam Simulation Mode |
-| **Release** | V1.0 MVP |
-| **Branch** | `feature/unit-25-exam-simulation` |
-| **Prerequisites** | Units 17 and 24 merged to main. |
+| Field             | Value                             |
+| ----------------- | --------------------------------- |
+| **Feature ID**    | Unit 25                           |
+| **Feature name**  | Exam Simulation Mode              |
+| **Release**       | V1.0 MVP                          |
+| **Branch**        | `feature/unit-25-exam-simulation` |
+| **Prerequisites** | Units 17 and 24 merged to main.   |
 
 ## Purpose and business objectives
 
@@ -46,6 +46,9 @@ Units 17 and 24 merged to main.
 
 ## Internal documentation (read before coding)
 
+- [ ] docs/context/design-brand-identity.md
+- [ ] docs/context/ui-tokens.md
+- [ ] docs/context/ui-rules.md
 - [ ] docs/context/tech-stack-versions.md
 - [ ] AGENTS.md
 - [ ] .cursorrules
@@ -82,6 +85,7 @@ Also consult `docs/context/library-docs.md` § Official External Documentation f
 ## Functional requirements
 
 **UI:**
+
 - Entry from practice page
 - Fullscreen on start
 - ExamTimer — amber at 5min, red at 1min
@@ -90,23 +94,25 @@ Also consult `docs/context/library-docs.md` § Official External Documentation f
 - ExamReport page post-submit
 
 **API:**
+
 - `POST /api/simulations` — assemble paper from pool
 - `POST /api/simulations/:id/submit`
 - `GET /api/simulations/:id/report`
 
 **Logic:**
+
 - Page Visibility API — log focus_breaks
 - Fullscreen API on start
 
 ## Non-functional requirements
 
-| Category | Requirement |
-|----------|-------------|
-| **Quality** | TypeScript strict mode; no `any` without documented exception |
-| **Testing** | Vitest unit tests for all new logic; integration tests for API routes |
-| **Accessibility** | 360px viewport; 44px minimum touch targets; 16px minimum body text |
-| **Security** | Zod validation at all boundaries; auth on protected routes |
-| **Performance** | No LLM calls during question delivery; Server Components default |
+| Category          | Requirement                                                           |
+| ----------------- | --------------------------------------------------------------------- |
+| **Quality**       | TypeScript strict mode; no `any` without documented exception         |
+| **Testing**       | Vitest unit tests for all new logic; integration tests for API routes |
+| **Accessibility** | 360px viewport; 44px minimum touch targets; 16px minimum body text    |
+| **Security**      | Zod validation at all boundaries; auth on protected routes            |
+| **Performance**   | No LLM calls during question delivery; Server Components default      |
 
 ## Database and schema changes
 
@@ -115,6 +121,7 @@ No schema changes in this unit. Use existing tables via repositories.
 ## Backend requirements and API contracts
 
 **UI:**
+
 - Entry from practice page
 - Fullscreen on start
 - ExamTimer — amber at 5min, red at 1min
@@ -123,11 +130,13 @@ No schema changes in this unit. Use existing tables via repositories.
 - ExamReport page post-submit
 
 **API:**
+
 - `POST /api/simulations` — assemble paper from pool
 - `POST /api/simulations/:id/submit`
 - `GET /api/simulations/:id/report`
 
 **Logic:**
+
 - Page Visibility API — log focus_breaks
 - Fullscreen API on start
 
@@ -154,10 +163,10 @@ Follow existing Auth.js middleware for any protected routes added.
 
 ## Performance and scalability
 
-| Metric | Target |
-|--------|--------|
-| API p95 | < 3s for synchronous AI routes |
-| Build | `npm run typecheck` passes all packages |
+| Metric  | Target                                  |
+| ------- | --------------------------------------- |
+| API p95 | < 3s for synchronous AI routes          |
+| Build   | `npm run typecheck` passes all packages |
 
 ## Logging, analytics, and observability
 
@@ -204,6 +213,7 @@ Follow existing Auth.js middleware for any protected routes added.
 - [ ] docs/context/library-docs.md (if new integration pattern established)
 
 ---
+
 ## Mandatory implementation process
 
 **Do not write code until you post a Context and Research Summary.**

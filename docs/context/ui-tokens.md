@@ -1,6 +1,8 @@
 # UI Tokens — ExamEdge
 
-Design tokens for ExamEdge. All colors, typography, spacing, and component values. Use these exact values throughout — never hardcode hex or use raw Tailwind color classes in components.
+Design tokens for ExamEdge (**Teal Forest** brand). All colors, typography, spacing, and component values. Use these exact values throughout — never hardcode hex or use raw Tailwind color classes in components.
+
+**Brand SSOT:** `design-brand-identity.md` · **Full mockup spec:** `examedge-ui-mockup-prompt.md`
 
 ---
 
@@ -16,13 +18,13 @@ className="bg-surface text-text-primary border-border"
 style={{ color: 'var(--color-text-primary)' }}
 
 // Never — hardcoded hex
-className="bg-[#1E40AF] text-[#111827]"
+className="bg-[#1DA08C] text-[#111827]"
 
 // Never — raw Tailwind palette
-className="bg-blue-800 text-gray-900"
+className="bg-teal-500 text-gray-900"
 ```
 
-**Tailwind v4 setup:** `@import "tailwindcss"` in `globals.css`; `@tailwindcss/postcss` in `postcss.config.mjs`. See [Tailwind + Next.js guide](https://tailwindcss.com/docs/guides/nextjs) and `tech-stack-versions.md`.
+**Tailwind v4 setup:** `@import "tailwindcss"` in `globals.css`; `@tailwindcss/postcss` in `postcss.config.mjs`. See `tech-stack-versions.md`.
 
 ---
 
@@ -32,105 +34,194 @@ className="bg-blue-800 text-gray-900"
 @import "tailwindcss";
 
 @theme {
-  /* Map semantic tokens — see full variable list below */
-  --color-primary: #1E40AF;
-  /* ... remaining tokens defined in :root block or @theme */
+  /* Semantic aliases — map to :root variables below */
 }
 
 :root {
-  /* Font */
-  --font-sans: "Inter", system-ui, sans-serif;
+  /* Fonts */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Clash Display", "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", "Courier New", monospace;
   --font-math: "KaTeX_Main", "Times New Roman", serif;
 
-  /* Brand — Exam Blue */
-  --color-primary: #1E40AF;
-  --color-primary-light: #3B82F6;
-  --color-primary-dark: #1E3A8A;
-  --color-primary-foreground: #FFFFFF;
-  --color-primary-muted: #EFF6FF;
+  /* Primary — Teal Forest */
+  --color-primary-50: #e6f4f1;
+  --color-primary-100: #c0e4dc;
+  --color-primary-200: #97d2c6;
+  --color-primary-300: #6bbfaf;
+  --color-primary-400: #46b09e;
+  --color-primary-500: #1da08c;
+  --color-primary-600: #0e8a78;
+  --color-primary-700: #0e5c4a;
+  --color-primary-800: #0a3d31;
+  --color-primary-900: #051f19;
 
-  /* Page and surface backgrounds */
-  --color-background: #F8FAFC;
-  --color-surface: #FFFFFF;
-  --color-surface-secondary: #F1F5F9;
-  --color-surface-tertiary: #E2E8F0;
+  /* Semantic primary shortcuts */
+  --color-primary: var(--color-primary-500);
+  --color-primary-light: var(--color-primary-400);
+  --color-primary-dark: var(--color-primary-700);
+  --color-primary-foreground: #ffffff;
+  --color-primary-muted: var(--color-primary-50);
+
+  /* Secondary — Ivory Parchment / achievement gold */
+  --color-secondary-50: #fefdf9;
+  --color-secondary-100: #fdf8ed;
+  --color-secondary-200: #faf0d4;
+  --color-secondary-300: #f5e5b0;
+  --color-secondary-400: #edd57f;
+  --color-secondary-500: #e2c04a;
+  --color-secondary-600: #c4a13a;
+  --color-secondary-700: #9e7e28;
+  --color-secondary-800: #735a19;
+  --color-secondary-900: #3d2f09;
+  --color-secondary: var(--color-secondary-500);
+
+  /* Accent — Electric Cyan (AI highlights) */
+  --color-accent-400: #22d3ee;
+  --color-accent-500: #06b6d4;
+  --color-accent-600: #0891b2;
+
+  /* Neutrals — Slate */
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1e293b;
+  --color-neutral-900: #0f172a;
+  --color-neutral-950: #080e1a;
+
+  /* Page and surface (light mode) */
+  --color-background: var(--color-neutral-50);
+  --color-surface: var(--color-neutral-0);
+  --color-surface-secondary: var(--color-neutral-100);
+  --color-surface-tertiary: var(--color-neutral-200);
 
   /* Exam simulation — paper aesthetic */
-  --color-exam-paper: #FFFEF7;
-  --color-exam-ink: #1A1A1A;
+  --color-exam-paper: #fffef7;
+  --color-exam-ink: #1a1a1a;
 
   /* Borders */
-  --color-border: #E2E8F0;
-  --color-border-light: #F1F5F9;
-  --color-border-focus: #3B82F6;
+  --color-border: var(--color-neutral-200);
+  --color-border-light: var(--color-neutral-100);
+  --color-border-focus: var(--color-primary-500);
 
   /* Text */
-  --color-text-primary: #0F172A;
-  --color-text-secondary: #475569;
-  --color-text-muted: #94A3B8;
-  --color-text-inverse: #FFFFFF;
+  --color-text-primary: var(--color-neutral-900);
+  --color-text-secondary: var(--color-neutral-600);
+  --color-text-muted: var(--color-neutral-400);
+  --color-text-inverse: #ffffff;
 
-  /* Mastery states */
-  --color-mastery-red: #DC2626;
-  --color-mastery-amber: #D97706;
-  --color-mastery-green: #16A34A;
-  --color-mastery-red-bg: #FEF2F2;
-  --color-mastery-amber-bg: #FFFBEB;
-  --color-mastery-green-bg: #F0FDF4;
+  /* Mastery heatmap states (signature element) */
+  --mastery-not-started: #e2e8f0;
+  --mastery-introduced: #97d2c6;
+  --mastery-developing: #46b09e;
+  --mastery-proficient: #1da08c;
+  --mastery-mastered: #0e5c4a;
+  --mastery-at-risk: #f59e0b;
 
-  /* Mark types */
-  --color-mark-m1: #1D4ED8;
-  --color-mark-m1-bg: #DBEAFE;
-  --color-mark-a1: #15803D;
-  --color-mark-a1-bg: #DCFCE7;
-  --color-mark-b1: #7E22CE;
-  --color-mark-b1-bg: #F3E8FF;
-  --color-mark-denied: #DC2626;
-  --color-mark-denied-bg: #FEE2E2;
-  --color-mark-ft: #B45309;
-  --color-mark-ft-bg: #FEF3C7;
+  /* Legacy mastery labels (progress copy — optional alongside heatmap) */
+  --color-mastery-red: #dc2626;
+  --color-mastery-amber: #d97706;
+  --color-mastery-green: #16a34a;
+  --color-mastery-red-bg: #fef2f2;
+  --color-mastery-amber-bg: #fffbeb;
+  --color-mastery-green-bg: #f0fdf4;
+
+  /* Mark types (GCE M1/A1/B1 — unchanged pedagogically) */
+  --color-mark-m1: #1d4ed8;
+  --color-mark-m1-bg: #dbeafe;
+  --color-mark-a1: #15803d;
+  --color-mark-a1-bg: #dcfce7;
+  --color-mark-b1: #7e22ce;
+  --color-mark-b1-bg: #f3e8ff;
+  --color-mark-denied: #dc2626;
+  --color-mark-denied-bg: #fee2e2;
+  --color-mark-ft: #b45309;
+  --color-mark-ft-bg: #fef3c7;
 
   /* Semantic */
-  --color-success: #16A34A;
-  --color-success-light: #DCFCE7;
-  --color-warning: #D97706;
-  --color-warning-light: #FFFBEB;
-  --color-error: #DC2626;
-  --color-error-light: #FEE2E2;
-  --color-info: #0EA5E9;
-  --color-info-light: #E0F2FE;
+  --color-success: #22c55e;
+  --color-success-light: #f0fdf4;
+  --color-warning: #f59e0b;
+  --color-warning-light: #fffbeb;
+  --color-error: #ef4444;
+  --color-error-light: #fef2f2;
+  --color-info: #3b82f6;
+  --color-info-light: #eff6ff;
 
   /* Confidence / review */
-  --color-review: #D97706;
-  --color-review-bg: #FFFBEB;
+  --color-review: var(--color-warning);
+  --color-review-bg: var(--color-warning-light);
 
   /* Offline indicator */
-  --color-offline: #64748B;
-  --color-offline-bg: #F1F5F9;
+  --color-offline: var(--color-neutral-500);
+  --color-offline-bg: var(--color-neutral-100);
+
+  /* Subject accent colours */
+  --subject-mathematics: #6366f1;
+  --subject-physics: #0ea5e9;
+  --subject-chemistry: #10b981;
+  --subject-biology: #84cc16;
+  --subject-english: #ec4899;
+  --subject-economics: #f59e0b;
+  --subject-geography: #14b8a6;
+  --subject-history: #a78bfa;
+  --subject-literature: #fb7185;
+  --subject-french: #38bdf8;
+  --subject-computer: #6ee7b7;
+  --subject-further-math: #818cf8;
+
+  /* Spacing base */
+  --space-unit: 4px;
 
   /* Border radius */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
   --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.1), 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 6px rgba(15, 23, 42, 0.08), 0 2px 4px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 10px 15px rgba(15, 23, 42, 0.1), 0 4px 6px rgba(15, 23, 42, 0.05);
+  --shadow-primary-glow: 0 0 0 3px rgba(29, 160, 140, 0.25);
+
+  /* Animation */
+  --duration-normal: 200ms;
+  --duration-moderate: 300ms;
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --transition-color: color 200ms ease-out, background-color 200ms ease-out;
+
+  /* Z-index */
+  --z-sticky: 200;
+  --z-modal: 400;
+  --z-toast: 600;
+  --z-exam: 700;
 }
-```
 
-Map in `tailwind.config.ts`:
-
-```typescript
-theme: {
-  extend: {
-    colors: {
-      primary: { DEFAULT: 'var(--color-primary)', foreground: 'var(--color-primary-foreground)' },
-      surface: { DEFAULT: 'var(--color-surface)', secondary: 'var(--color-surface-secondary)' },
-      'text-primary': 'var(--color-text-primary)',
-      'exam-paper': 'var(--color-exam-paper)',
-      // ... etc
-    },
-  },
-},
+/* Dark mode — implement V1.1; tokens defined for mockups and future CSS */
+.dark,
+[data-theme="dark"] {
+  --color-background: #0f172a;
+  --color-surface: #1e293b;
+  --color-surface-secondary: #263448;
+  --color-surface-tertiary: #080e1a;
+  --color-border: #1e293b;
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+  --color-primary: #1da08c;
+  --color-primary-light: #46b09e;
+}
 ```
 
 ---
@@ -139,159 +230,126 @@ theme: {
 
 ### Page Layout
 
-| Element | Token |
-|---------|-------|
-| Page background | `bg-background` |
-| Card / surface | `bg-surface` |
-| Secondary surface | `bg-surface-secondary` |
-| Default border | `border-border` |
-| Exam mode background | `bg-exam-paper` |
-| Exam mode text | `text-[var(--color-exam-ink)]` |
+| Element              | Token                          |
+| -------------------- | ------------------------------ |
+| Page background      | `bg-background`                |
+| Card / surface       | `bg-surface`                   |
+| Secondary surface    | `bg-surface-secondary`         |
+| Default border       | `border-border`                |
+| Exam mode background | `bg-exam-paper`                |
+| Exam mode text       | `text-[var(--color-exam-ink)]` |
 
-### Mastery Map Topic Cells
+### Mastery Heatmap Cells (signature)
 
-| State | Background | Text/Border | Threshold |
-|-------|------------|-------------|-----------|
-| Not started / weak | `bg-mastery-red-bg` | `text-mastery-red border-mastery-red` | theta < 0.30 |
-| Developing | `bg-mastery-amber-bg` | `text-mastery-amber border-mastery-amber` | 0.30 ≤ theta < 0.70 |
-| Mastered | `bg-mastery-green-bg` | `text-mastery-green border-mastery-green` | theta ≥ 0.70 |
+| State       | CSS variable            | When                                          |
+| ----------- | ----------------------- | --------------------------------------------- |
+| Not started | `--mastery-not-started` | theta = 0 or never attempted                  |
+| Introduced  | `--mastery-introduced`  | 0 < theta < 0.25                              |
+| Developing  | `--mastery-developing`  | 0.25 ≤ theta < 0.50                           |
+| Proficient  | `--mastery-proficient`  | 0.50 ≤ theta < 0.75                           |
+| Mastered    | `--mastery-mastered`    | theta ≥ 0.75                                  |
+| At risk     | `--mastery-at-risk`     | declining mastery / spaced repetition overdue |
+
+**Cell spec:** 32×32px (28px on compact mobile), `border-radius: var(--radius-xs)`, gap 3px, hover scale 1.15 with tooltip, fill transition 400ms ease-out.
 
 ### Mark Type Badges
 
-| Mark | Background | Text |
-|------|------------|------|
-| M1 (Method) | `bg-[var(--color-mark-m1-bg)]` | `text-[var(--color-mark-m1)]` |
-| A1 (Accuracy) | `bg-[var(--color-mark-a1-bg)]` | `text-[var(--color-mark-a1)]` |
-| B1 (Independent) | `bg-[var(--color-mark-b1-bg)]` | `text-[var(--color-mark-b1)]` |
-| ft (Follow-through) | `bg-[var(--color-mark-ft-bg)]` | `text-[var(--color-mark-ft)]` |
-| Denied | `bg-[var(--color-mark-denied-bg)]` | `text-[var(--color-mark-denied)] line-through` |
+| Mark                | Background                         | Text                                           |
+| ------------------- | ---------------------------------- | ---------------------------------------------- |
+| M1 (Method)         | `bg-[var(--color-mark-m1-bg)]`     | `text-[var(--color-mark-m1)]`                  |
+| A1 (Accuracy)       | `bg-[var(--color-mark-a1-bg)]`     | `text-[var(--color-mark-a1)]`                  |
+| B1 (Independent)    | `bg-[var(--color-mark-b1-bg)]`     | `text-[var(--color-mark-b1)]`                  |
+| ft (Follow-through) | `bg-[var(--color-mark-ft-bg)]`     | `text-[var(--color-mark-ft)]`                  |
+| Denied              | `bg-[var(--color-mark-denied-bg)]` | `text-[var(--color-mark-denied)] line-through` |
 
-### Confidence Indicators
+### AI-Generated Content
 
-| State | Badge |
-|-------|-------|
-| confidence ≥ 0.70 | No badge — normal display |
-| confidence < 0.70 | Amber badge: "Under review" on `bg-review-bg text-review` |
+| Element                       | Style                                                       |
+| ----------------------------- | ----------------------------------------------------------- |
+| Tutor / hint / feedback panel | `border-l-[3px] border-primary-500` or `border-primary-600` |
+| AI loading indicator          | Teal pulsing dots — "ExamEdge AI is thinking..."            |
+| AI accent highlight           | `text-accent-500` sparingly                                 |
 
 ---
 
 ## Typography
 
-| Element | Size | Weight | Line Height | Color |
-|---------|------|--------|-------------|-------|
-| Page title (mobile) | 24px | 700 | 32px | text-primary |
-| Section heading | 20px | 600 | 28px | text-primary |
-| Question text (KaTeX) | 18px | 400 | 28px | text-primary |
-| Body text | 16px | 400 | 24px | text-primary |
-| Nav item | 14px | 500 | 20px | text-secondary / primary when active |
-| Card label | 14px | 500 | 20px | text-secondary |
-| Badge / caption | 12px | 500 | 16px | text-muted |
-| Exam timer | 20px | 600 | 28px | exam-ink |
-| Stat number (readiness) | 36px | 700 | 40px | text-primary |
+| Element                | Size    | Weight  | Line height | Token class          |
+| ---------------------- | ------- | ------- | ----------- | -------------------- |
+| Display hero (desktop) | 48–64px | 700–800 | 1.1–1.15    | `font-display`       |
+| Page title             | 24–30px | 700     | 1.25        | `text-heading-lg`    |
+| Section heading        | 20px    | 600     | 1.35        | `text-heading-md`    |
+| Body (primary)         | 16px    | 400     | 1.7         | `text-body-lg`       |
+| Body (secondary)       | 15px    | 400     | 1.65        | `text-body-md`       |
+| Exam question          | 18px    | 400     | 1.8         | `text-exam-question` |
+| UI button / label      | 14–16px | 500     | 1.25        | `text-ui-md`         |
+| Badge / caption        | 12px    | 500     | 1.2         | `text-ui-sm`         |
+| Exam timer             | 20px+   | 600     | 1.25        | monospace feel       |
 
-Font: **Inter** via `next/font/google`. Math: KaTeX default fonts via MathDisplay component.
-
-Minimum body text: **16px** — never smaller for readable content on mobile.
+**Minimum body text: 15px** (16px preferred) on mobile. **Never below 400 font weight** on low-end Android screens.
 
 ---
 
-## Spacing
+## Spacing (4px base unit)
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| `gap-2` | 8px | Inline badge gaps |
-| `gap-3` | 12px | Form field gaps |
-| `gap-4` | 16px | Card internal spacing |
-| `gap-6` | 24px | Between sections |
-| `p-4` | 16px | Standard card padding (mobile) |
-| `p-6` | 24px | Large card padding (desktop) |
-| `px-4 py-3` | 16px/12px | Button padding (min 44px height) |
-| Page padding | `px-4 py-6` | All student pages mobile |
+| Token        | Value | Usage                                    |
+| ------------ | ----- | ---------------------------------------- |
+| `--space-1`  | 4px   | Tight inline gaps                        |
+| `--space-2`  | 8px   | Badge padding, chip inner                |
+| `--space-3`  | 12px  | Small button padding                     |
+| `--space-4`  | 16px  | Card padding mobile, page padding mobile |
+| `--space-6`  | 24px  | Card padding desktop, section gaps       |
+| `--space-8`  | 32px  | Large card padding                       |
+| `--space-12` | 48px  | Section gap mobile                       |
+| `--space-24` | 96px  | Section gap desktop                      |
+
+Page padding: `px-4` mobile · `px-8` tablet · `px-12` desktop.
 
 ---
 
 ## Component Tokens
+
+### Primary Button
+
+```
+background: var(--color-primary-600)
+hover: var(--color-primary-700)
+active: var(--color-primary-800) scale(0.98)
+focus: var(--shadow-primary-glow)
+color: white
+border-radius: var(--radius-sm)
+padding: 12px 24px (md)
+min-height: 44px
+font: text-ui-lg, weight 500
+```
 
 ### Cards
 
 ```
 background: bg-surface
 border: 1px solid var(--color-border)
-border-radius: var(--radius-lg) (12px)
+border-radius: var(--radius-md)
 padding: 16px mobile / 24px desktop
-box-shadow: 0 1px 3px rgba(0,0,0,0.08)
+shadow: var(--shadow-sm)
 ```
 
-Exam mode cards: no shadow, `bg-exam-paper`, no border.
+**Subject card:** left border 4px solid subject colour; hover `shadow-lg` + translateY(-2px).
 
-### Buttons
-
-**Primary:**
-```
-background: bg-primary
-color: text-primary-foreground
-border-radius: rounded-md (8px)
-padding: px-4 py-3
-min-height: 44px
-font-weight: 500
-font-size: 16px
-```
-
-**Secondary:**
-```
-background: bg-surface
-border: 1px solid var(--color-border)
-color: text-primary
-```
-
-**Hint button:**
-```
-background: bg-surface-secondary
-border: 1px solid var(--color-border)
-color: text-secondary
-icon: Lightbulb (lucide), 20px
-```
-
-**Submit answer:**
-```
-background: bg-primary
-full-width on mobile
-disabled: opacity-50 when empty answer
-loading: spinner + "Marking your answer..."
-```
-
-### Form Inputs
+### Mastery Heatmap Grid
 
 ```
-background: bg-surface
-border: 1px solid var(--color-border)
-border-radius: rounded-md
-padding: px-3 py-3
-min-height: 44px
-font-size: 16px
-focus: ring-2 ring-primary ring-offset-2
-error: border-error + text-error caption below
-```
-
-### Mastery Map Grid
-
-```
-grid: grid-cols-2 gap-3 (mobile) / grid-cols-3 (tablet+)
-cell: rounded-lg p-3 border-2
-cell min-height: 72px
-topic name: 14px font-medium
-mastery %: 12px text-muted
+grid: 4–6 cols mobile (horizontal scroll if >8), 8–10 cols desktop
+cell: 32×32px, gap 3px, radius-xs
+legend: 5–6 colour stops at bottom
 ```
 
 ### Readiness Score Ring
 
 ```
-size: 80px diameter
-stroke-width: 8px
-track: var(--color-border)
-fill: var(--color-primary) proportional to score
-centre text: 24px font-bold
-label below: "Exam Readiness"
+size: 80–120px diameter
+stroke: var(--color-primary-600) proportional to score
+track: var(--color-neutral-200)
+centre: large bold percentage
 ```
 
 ### Offline Banner
@@ -299,10 +357,8 @@ label below: "Exam Readiness"
 ```
 background: var(--color-offline-bg)
 border-bottom: 1px solid var(--color-border)
-text: var(--color-offline)
 icon: WifiOff (lucide)
-padding: py-2 px-4
-position: sticky top-0 z-50
+sticky below nav, z-index below exam overlay
 ```
 
 ---
@@ -311,9 +367,36 @@ position: sticky top-0 z-50
 
 ```
 App name: ExamEdge
-Primary color: #1E40AF
-Logo mark: BookOpen + graduation cap concept (simple, no complex illustration)
+Primary colour: #1DA08C (Teal Forest)
+Secondary accent: #E2C04A (achievement gold)
+Logo mark: BookOpen + graduation cap concept
 Navbar logo height: 32px
+```
+
+---
+
+## Tailwind Config Extension
+
+```javascript
+// tailwind.config.ts — extend theme
+colors: {
+  primary: {
+    50: '#E6F4F1', 100: '#C0E4DC', 200: '#97D2C6',
+    300: '#6BBFAF', 400: '#46B09E', 500: '#1DA08C',
+    600: '#0E8A78', 700: '#0E5C4A', 800: '#0A3D31', 900: '#051F19',
+    DEFAULT: '#1DA08C', foreground: '#FFFFFF',
+  },
+  secondary: { 500: '#E2C04A', 600: '#C4A13A', 700: '#9E7E28' },
+  navy: { 900: '#0F172A', 800: '#1E293B', 700: '#334155' },
+},
+fontFamily: {
+  sans: ['Inter', 'system-ui', 'sans-serif'],
+  display: ['Clash Display', 'Inter', 'sans-serif'],
+  mono: ['JetBrains Mono', 'monospace'],
+},
+boxShadow: {
+  'primary-glow': '0 0 0 3px rgba(29, 160, 140, 0.25)',
+},
 ```
 
 ---
@@ -321,10 +404,17 @@ Navbar logo height: 32px
 ## Invariants
 
 - Never use hex directly in components — always CSS variables / Tailwind token classes
-- Font is Inter — import via next/font/google, never system font as primary
-- Never use Tailwind built-in color scales (`bg-blue-500`, `text-gray-600`)
-- Mastery colors always use mastery-red/amber/green tokens — never generic red/yellow/green
-- Mark type badges always use mark-m1/a1/b1 tokens — consistent across MarkingDisplay
-- Exam mode always uses exam-paper background — never white with shadows
-- Min touch target 44×44px for all interactive elements
-- Min body text 16px — accessibility requirement for low-end Android screens
+- Primary UI font is **Inter**; display font **Clash Display** for marketing hero only
+- Never use Tailwind built-in colour scales (`bg-teal-500`, `text-gray-600`)
+- Mastery heatmap uses `--mastery-*` tokens — never generic red/green for heatmap cells
+- Mark type badges always use mark-m1/a1/b1 tokens
+- Exam mode always uses exam-paper background
+- Min touch target **44×44px**
+- Min body text **15px**
+- AI content panels always have teal left border
+
+---
+
+## Migration from Exam Blue (legacy Unit 02)
+
+If `globals.css` still uses `#1E40AF`, treat as legacy. Update to this document during Unit 31 polish or a dedicated design-system refresh PR before pilot demo.

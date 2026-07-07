@@ -10,7 +10,7 @@ Build the complete public landing page at `/` with mock content, mobile-first la
 
 ## Design
 
-Reference `ui-tokens.md` and `ui-rules.md`.
+Reference `design-brand-identity.md`, `ui-tokens.md`, and `ui-rules.md` (Teal Forest). Mockup target: `examedge-ui-mockup-prompt.md` Screen 1 (MVP scope — no pricing/testimonials yet).
 
 - Single column layout, 360px minimum width, no horizontal scroll
 - Navbar: ExamEdge logo (text OK for MVP), "Log in" link, "Start preparing" primary button

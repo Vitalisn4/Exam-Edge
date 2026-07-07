@@ -4,12 +4,12 @@
 
 ## Feature overview
 
-| Field | Value |
-|-------|-------|
-| **Feature ID** | Unit 06 |
-| **Feature name** | Auth Scaffold |
-| **Release** | V1.0 MVP |
-| **Branch** | `feature/unit-06-auth-scaffold` |
+| Field             | Value                           |
+| ----------------- | ------------------------------- |
+| **Feature ID**    | Unit 06                         |
+| **Feature name**  | Auth Scaffold                   |
+| **Release**       | V1.0 MVP                        |
+| **Branch**        | `feature/unit-06-auth-scaffold` |
 | **Prerequisites** | Units 01 and 05 merged to main. |
 
 ## Purpose and business objectives
@@ -46,6 +46,9 @@ Units 01 and 05 merged to main.
 
 ## Internal documentation (read before coding)
 
+- [ ] docs/context/design-brand-identity.md
+- [ ] docs/context/ui-tokens.md
+- [ ] docs/context/ui-rules.md
 - [ ] docs/context/security.md
 - [ ] docs/context/tech-stack-versions.md
 - [ ] AGENTS.md
@@ -85,6 +88,7 @@ Also consult `docs/context/library-docs.md` § Official External Documentation f
 **UI:** `/login`, `/register`, `/forgot-password` (Resend stub OK)
 
 **Logic:**
+
 - Auth.js v5 in `apps/web/lib/auth.ts`
 - JWT HTTP-only cookie, SameSite=Lax
 - `middleware.ts` — protect `(student)/*`, `(admin)/*`
@@ -94,13 +98,13 @@ Also consult `docs/context/library-docs.md` § Official External Documentation f
 
 ## Non-functional requirements
 
-| Category | Requirement |
-|----------|-------------|
-| **Quality** | TypeScript strict mode; no `any` without documented exception |
-| **Testing** | Vitest unit tests for all new logic; integration tests for API routes |
-| **Accessibility** | 360px viewport; 44px minimum touch targets; 16px minimum body text |
-| **Security** | Zod validation at all boundaries; auth on protected routes |
-| **Performance** | No LLM calls during question delivery; Server Components default |
+| Category          | Requirement                                                           |
+| ----------------- | --------------------------------------------------------------------- |
+| **Quality**       | TypeScript strict mode; no `any` without documented exception         |
+| **Testing**       | Vitest unit tests for all new logic; integration tests for API routes |
+| **Accessibility** | 360px viewport; 44px minimum touch targets; 16px minimum body text    |
+| **Security**      | Zod validation at all boundaries; auth on protected routes            |
+| **Performance**   | No LLM calls during question delivery; Server Components default      |
 
 ## Database and schema changes
 
@@ -134,10 +138,10 @@ No LLM calls in this unit.
 
 ## Performance and scalability
 
-| Metric | Target |
-|--------|--------|
-| API p95 | < 3s for synchronous AI routes |
-| Build | `npm run typecheck` passes all packages |
+| Metric  | Target                                  |
+| ------- | --------------------------------------- |
+| API p95 | < 3s for synchronous AI routes          |
+| Build   | `npm run typecheck` passes all packages |
 
 ## Logging, analytics, and observability
 
@@ -180,6 +184,7 @@ No LLM calls in this unit.
 - [ ] docs/context/library-docs.md (if new integration pattern established)
 
 ---
+
 ## Mandatory implementation process
 
 **Do not write code until you post a Context and Research Summary.**

@@ -4,13 +4,13 @@
 
 ## Feature overview
 
-| Field | Value |
-|-------|-------|
-| **Feature ID** | Unit 19 |
-| **Feature name** | Dashboard Real Data |
-| **Release** | V1.0 MVP |
-| **Branch** | `feature/unit-19-dashboard-real-data` |
-| **Prerequisites** | Units 15 and 17 merged to main. |
+| Field             | Value                                 |
+| ----------------- | ------------------------------------- |
+| **Feature ID**    | Unit 19                               |
+| **Feature name**  | Dashboard Real Data                   |
+| **Release**       | V1.0 MVP                              |
+| **Branch**        | `feature/unit-19-dashboard-real-data` |
+| **Prerequisites** | Units 15 and 17 merged to main.       |
 
 ## Purpose and business objectives
 
@@ -44,6 +44,9 @@ Units 15 and 17 merged to main.
 
 ## Internal documentation (read before coding)
 
+- [ ] docs/context/design-brand-identity.md
+- [ ] docs/context/ui-tokens.md
+- [ ] docs/context/ui-rules.md
 - [ ] docs/context/tech-stack-versions.md
 - [ ] AGENTS.md
 - [ ] .cursorrules
@@ -87,13 +90,13 @@ Also consult `docs/context/library-docs.md` § Official External Documentation f
 
 ## Non-functional requirements
 
-| Category | Requirement |
-|----------|-------------|
-| **Quality** | TypeScript strict mode; no `any` without documented exception |
-| **Testing** | Vitest unit tests for all new logic; integration tests for API routes |
-| **Accessibility** | 360px viewport; 44px minimum touch targets; 16px minimum body text |
-| **Security** | Zod validation at all boundaries; auth on protected routes |
-| **Performance** | No LLM calls during question delivery; Server Components default |
+| Category          | Requirement                                                           |
+| ----------------- | --------------------------------------------------------------------- |
+| **Quality**       | TypeScript strict mode; no `any` without documented exception         |
+| **Testing**       | Vitest unit tests for all new logic; integration tests for API routes |
+| **Accessibility** | 360px viewport; 44px minimum touch targets; 16px minimum body text    |
+| **Security**      | Zod validation at all boundaries; auth on protected routes            |
+| **Performance**   | No LLM calls during question delivery; Server Components default      |
 
 ## Database and schema changes
 
@@ -169,6 +172,7 @@ Follow existing Auth.js middleware for any protected routes added.
 - [ ] docs/context/library-docs.md (if new integration pattern established)
 
 ---
+
 ## Mandatory implementation process
 
 **Do not write code until you post a Context and Research Summary.**

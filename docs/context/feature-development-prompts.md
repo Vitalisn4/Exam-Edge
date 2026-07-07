@@ -2,14 +2,14 @@
 
 **Implementation playbook and single source of truth for feature-by-feature development.**
 
-| Attribute | Value |
-|-----------|-------|
-| **Version** | 3.0 |
-| **Date** | June 2026 |
-| **Scope** | MVP V1.0 (31 units) + post-MVP roadmap (V1.1 → V4.0+) |
-| **Authority** | Implements `build-plan.md` + `roadmap.md`; defers to `AGENTS.md`, `.cursorrules`, `architecture.md` on conflicts |
-| **Companion template** | `feature-implementation-prompt-template.md` (18-section reusable template) |
-| **Status** | Phase 0 — no application code yet |
+| Attribute              | Value                                                                                                            |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| **Version**            | 3.0                                                                                                              |
+| **Date**               | June 2026                                                                                                        |
+| **Scope**              | MVP V1.0 (31 units) + post-MVP roadmap (V1.1 → V4.0+)                                                            |
+| **Authority**          | Implements `build-plan.md` + `roadmap.md`; defers to `AGENTS.md`, `.cursorrules`, `architecture.md` on conflicts |
+| **Companion template** | `feature-implementation-prompt-template.md` (18-section reusable template)                                       |
+| **Status**             | Phase 0 — no application code yet                                                                                |
 
 ---
 
@@ -17,23 +17,23 @@
 
 ### What v1.0 covered
 
-| Area | v1.0 status | v2.0 remediation |
-|------|-------------|------------------|
-| MVP units 01–31 | ✅ Detailed prompts | Enhanced with universal requirements block (§3.6) |
-| Mandatory doc read order | ✅ Partial | Expanded full reference matrix (§1) |
-| Development workflow | ⚠️ 8 steps only | Full lifecycle §2 + git/PR/merge §2b–§2d |
-| Code review process | ❌ Missing | Formal CodeRabbit-style checklist §2c |
-| Merge gate | ❌ Missing | §2d — no merge without approval |
-| Per-feature PR workflow | ❌ Missing | §2b steps 6–9 |
-| Accessibility requirements | ⚠️ Implicit | Explicit in §3.6 + template §5 |
-| E2E testing | ⚠️ Mentioned once | Defined per phase in §3.6 |
-| Post-MVP features | ⚠️ Index only | Full prompts §5 (F-32 → F-55) |
-| Reusable 18-section template | ⚠️ Abbreviated §6 | `feature-implementation-prompt-template.md` |
-| Infrastructure docs | ⚠️ Partial refs | `zero-budget-stack.md`, `engineering-operations.md` in matrix |
-| Tier 3 engineering docs | ⚠️ Not listed | Added to conditional read list |
-| Documentation update rules | ⚠️ Partial | Template §17 + §2b step 4 |
-| Per-feature research + official docs | ❌ Missing in v2.0 | **§1b + Phase A0–A3** + Context and Research Summary |
-| Traceability | ✅ Unit matrix | Extended with infra + ops docs |
+| Area                                 | v1.0 status         | v2.0 remediation                                              |
+| ------------------------------------ | ------------------- | ------------------------------------------------------------- |
+| MVP units 01–31                      | ✅ Detailed prompts | Enhanced with universal requirements block (§3.6)             |
+| Mandatory doc read order             | ✅ Partial          | Expanded full reference matrix (§1)                           |
+| Development workflow                 | ⚠️ 8 steps only     | Full lifecycle §2 + git/PR/merge §2b–§2d                      |
+| Code review process                  | ❌ Missing          | Formal CodeRabbit-style checklist §2c                         |
+| Merge gate                           | ❌ Missing          | §2d — no merge without approval                               |
+| Per-feature PR workflow              | ❌ Missing          | §2b steps 6–9                                                 |
+| Accessibility requirements           | ⚠️ Implicit         | Explicit in §3.6 + template §5                                |
+| E2E testing                          | ⚠️ Mentioned once   | Defined per phase in §3.6                                     |
+| Post-MVP features                    | ⚠️ Index only       | Full prompts §5 (F-32 → F-55)                                 |
+| Reusable 18-section template         | ⚠️ Abbreviated §6   | `feature-implementation-prompt-template.md`                   |
+| Infrastructure docs                  | ⚠️ Partial refs     | `zero-budget-stack.md`, `engineering-operations.md` in matrix |
+| Tier 3 engineering docs              | ⚠️ Not listed       | Added to conditional read list                                |
+| Documentation update rules           | ⚠️ Partial          | Template §17 + §2b step 4                                     |
+| Per-feature research + official docs | ❌ Missing in v2.0  | **§1b + Phase A0–A3** + Context and Research Summary          |
+| Traceability                         | ✅ Unit matrix      | Extended with infra + ops docs                                |
 
 ### Authoritative hierarchy (conflict resolution)
 
@@ -77,42 +77,42 @@ If Tier 1 context docs and Tier 3 engineering docs conflict on implementation, *
 
 Before writing code for **any** feature, read these documents in order:
 
-| # | Document | Purpose |
-|---|----------|---------|
-| 1 | `AGENTS.md` | AI chains, guardrails, model routing, evaluation thresholds |
-| 2 | `.cursorrules` | IDE-enforced standards, MVP scope, invariants, git workflow |
-| 3 | `docs/context/strategic-charter.md` | Vision, mission, values (context only) |
-| 4 | `docs/context/progress-tracker.md` | Current phase and unit; prior unit merged? |
-| 5 | `docs/context/build-plan.md` or `roadmap.md` | Current feature spec |
-| 6 | `docs/context/feature-development-prompts.md` | This playbook — §2–§2d for current unit |
-| 7 | `docs/context/feature-implementation-prompt-template.md` | 18-section template (fill before coding) |
-| 8 | `docs/context/architecture.md` | Invariants, schema, API contracts, env vars |
-| 9 | `docs/context/security.md` | Auth, RBAC, privacy (Units 06, 08, 17+, 23) |
-| 10 | `docs/context/code-standards.md` | TypeScript, routes, testing, Plausible events |
-| 11 | `docs/context/ui-tokens.md` + `ui-rules.md` + `ui-context.md` | UI units only |
-| 12 | `docs/context/library-docs.md` | Third-party integrations |
-| 13 | Unit-specific spec in `docs/context/specs/` | If exists for current unit |
+| #   | Document                                                                                   | Purpose                                                                                         |
+| --- | ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| 1   | `AGENTS.md`                                                                                | AI chains, guardrails, model routing, evaluation thresholds                                     |
+| 2   | `.cursorrules`                                                                             | IDE-enforced standards, MVP scope, invariants, git workflow                                     |
+| 3   | `docs/context/strategic-charter.md`                                                        | Vision, mission, values (context only)                                                          |
+| 4   | `docs/context/progress-tracker.md`                                                         | Current phase and unit; prior unit merged?                                                      |
+| 5   | `docs/context/build-plan.md` or `roadmap.md`                                               | Current feature spec                                                                            |
+| 6   | `docs/context/feature-development-prompts.md`                                              | This playbook — §2–§2d for current unit                                                         |
+| 7   | `docs/context/feature-implementation-prompt-template.md`                                   | 18-section template (fill before coding)                                                        |
+| 8   | `docs/context/architecture.md`                                                             | Invariants, schema, API contracts, env vars                                                     |
+| 9   | `docs/context/security.md`                                                                 | Auth, RBAC, privacy (Units 06, 08, 17+, 23)                                                     |
+| 10  | `docs/context/code-standards.md`                                                           | TypeScript, routes, testing, Plausible events                                                   |
+| 11  | `docs/context/design-brand-identity.md` + `ui-tokens.md` + `ui-rules.md` + `ui-context.md` | **UI units only** — Teal Forest tokens, mastery heatmap, mockup: `examedge-ui-mockup-prompt.md` |
+| 12  | `docs/context/library-docs.md`                                                             | Third-party integrations                                                                        |
+| 13  | Unit-specific spec in `docs/context/specs/`                                                | If exists for current unit                                                                      |
 
 ### Complete documentation reference matrix
 
-| Domain | Primary doc | Supporting docs |
-|--------|-------------|-----------------|
-| Identity & strategy | `strategic-charter.md` | `ExamEdge_Innovation_Document.md` |
-| MVP product & flows | `project-overview.md` | `student-journey.md`, `demo-script.md` |
-| Build order | `build-plan.md` | `ExamEdge_AI_Driven_Build_Playbook.md` |
-| Post-MVP releases | `roadmap.md` | `continent-scale-blueprint.md` |
-| System architecture | `architecture.md` | `ExamEdge_Engineering_Document.md` |
-| Security | `security.md` | `ExamEdge_Responsible_AI_Framework.md` |
-| AI chains & pedagogy | `AGENTS.md` | `platform-how-it-works.md`, `ai-cost-and-exam-system.md`, `ai-workflow-rules.md` |
-| Content model | `content-architecture.md` | `content-governance.md`, `ExamEdge_Volume_V_Blueprint.md` |
-| UI system | `ui-tokens.md`, `ui-rules.md` | `ui-registry.md`, `ui-context.md` |
-| Testing & CI/CD | `engineering-operations.md` | `.github/workflows/` (when created) |
-| Infrastructure & cost | `zero-budget-stack.md` | `architecture.md` § env vars |
-| KPIs & pilot | `learning-impact.md` | `project-overview.md` § success criteria |
-| Ecosystem & ops | `platform-ecosystem-ops.md` | `engineering-operations.md` § DR |
-| Doc index | `documentation-map.md` | `documentation-completeness-audit.md` |
-| Coding standards | `code-standards.md` | `.cursorrules` |
-| **Technology official docs** | **`library-docs.md` § Official External Documentation** | Official vendor sites |
+| Domain                       | Primary doc                                             | Supporting docs                                                                               |
+| ---------------------------- | ------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Identity & strategy          | `strategic-charter.md`                                  | `ExamEdge_Innovation_Document.md`                                                             |
+| MVP product & flows          | `project-overview.md`                                   | `student-journey.md`, `demo-script.md`                                                        |
+| Build order                  | `build-plan.md`                                         | `ExamEdge_AI_Driven_Build_Playbook.md`                                                        |
+| Post-MVP releases            | `roadmap.md`                                            | `continent-scale-blueprint.md`                                                                |
+| System architecture          | `architecture.md`                                       | `ExamEdge_Engineering_Document.md`                                                            |
+| Security                     | `security.md`                                           | `ExamEdge_Responsible_AI_Framework.md`                                                        |
+| AI chains & pedagogy         | `AGENTS.md`                                             | `platform-how-it-works.md`, `ai-cost-and-exam-system.md`, `ai-workflow-rules.md`              |
+| Content model                | `content-architecture.md`                               | `content-governance.md`, `ExamEdge_Volume_V_Blueprint.md`                                     |
+| UI system                    | `ui-tokens.md`, `ui-rules.md`                           | `design-brand-identity.md`, `examedge-ui-mockup-prompt.md`, `ui-registry.md`, `ui-context.md` |
+| Testing & CI/CD              | `engineering-operations.md`                             | `.github/workflows/` (when created)                                                           |
+| Infrastructure & cost        | `zero-budget-stack.md`                                  | `architecture.md` § env vars                                                                  |
+| KPIs & pilot                 | `learning-impact.md`                                    | `project-overview.md` § success criteria                                                      |
+| Ecosystem & ops              | `platform-ecosystem-ops.md`                             | `engineering-operations.md` § DR                                                              |
+| Doc index                    | `documentation-map.md`                                  | `documentation-completeness-audit.md`                                                         |
+| Coding standards             | `code-standards.md`                                     | `.cursorrules`                                                                                |
+| **Technology official docs** | **`library-docs.md` § Official External Documentation** | Official vendor sites                                                                         |
 
 ---
 
@@ -152,16 +152,16 @@ For each technology identified:
 
 Before writing any code, the agent **must produce and post** this summary (template in `CHAT-IMPLEMENTATION-PROMPT.md` Phase A3):
 
-| Section | Content |
-|---------|---------|
-| Internal documents reviewed | List with checkmarks — must include `tech-stack-versions.md` |
-| Confirmed technology versions | Table: technology, pinned version, official source, patch verified Y/N |
-| Official technology documentation consulted | Table: technology, URL, key practices adopted |
-| Best practices identified | From official docs + library-docs.md |
-| Architectural considerations | Fit with architecture.md; invariants preserved |
-| Risks, constraints, limitations | SSR issues, rate limits, cost, offline, etc. |
-| Implementation approach | Ordered steps; files to create/modify |
-| Decisions, trade-offs, assumptions | Document anything not explicit in project docs |
+| Section                                     | Content                                                                |
+| ------------------------------------------- | ---------------------------------------------------------------------- |
+| Internal documents reviewed                 | List with checkmarks — must include `tech-stack-versions.md`           |
+| Confirmed technology versions               | Table: technology, pinned version, official source, patch verified Y/N |
+| Official technology documentation consulted | Table: technology, URL, key practices adopted                          |
+| Best practices identified                   | From official docs + library-docs.md                                   |
+| Architectural considerations                | Fit with architecture.md; invariants preserved                         |
+| Risks, constraints, limitations             | SSR issues, rate limits, cost, offline, etc.                           |
+| Implementation approach                     | Ordered steps; files to create/modify                                  |
+| Decisions, trade-offs, assumptions          | Document anything not explicit in project docs                         |
 
 **Implementation may begin only after this summary is complete** (and any clarifying question answered).
 
@@ -176,17 +176,17 @@ Before writing any code, the agent **must produce and post** this summary (templ
 
 ### Engineering priorities (all features)
 
-| Priority | Requirement |
-|----------|-------------|
-| **Code quality** | Clean, maintainable, readable — clarity over cleverness |
-| **Typing & validation** | TypeScript strict; Zod at boundaries; no `any` |
-| **Security** | Auth, RBAC, sanitize, rate limits, no PII in prompts, no client secrets |
-| **Performance** | Marking < 3s; no LLM at delivery; Server Components; Redis cache |
-| **Accessibility** | 360px, 16px body, 44px touch, semantic tokens, exam contrast |
-| **Error handling** | Safe client messages; never crash student session; Sentry on server |
-| **Observability** | Structured AI logs; Plausible events; health checks |
-| **Testing** | Unit + integration; manual 360px browser validation |
-| **Documentation** | Update progress-tracker, ui-registry, AGENTS, library-docs as needed |
+| Priority                | Requirement                                                             |
+| ----------------------- | ----------------------------------------------------------------------- |
+| **Code quality**        | Clean, maintainable, readable — clarity over cleverness                 |
+| **Typing & validation** | TypeScript strict; Zod at boundaries; no `any`                          |
+| **Security**            | Auth, RBAC, sanitize, rate limits, no PII in prompts, no client secrets |
+| **Performance**         | Marking < 3s; no LLM at delivery; Server Components; Redis cache        |
+| **Accessibility**       | 360px, 16px body, 44px touch, semantic tokens, exam contrast            |
+| **Error handling**      | Safe client messages; never crash student session; Sentry on server     |
+| **Observability**       | Structured AI logs; Plausible events; health checks                     |
+| **Testing**             | Unit + integration; manual 360px browser validation                     |
+| **Documentation**       | Update progress-tracker, ui-registry, AGENTS, library-docs as needed    |
 
 ---
 
@@ -196,39 +196,39 @@ Every feature **must** follow this sequence. **Do not proceed to the next featur
 
 ### Phase A — Research & understand (before any code)
 
-| Step | Action | Required output |
-|------|--------|-----------------|
-| A0 | Identify all technologies, libraries, APIs, services for this unit | Technology list in chat prompt or spec §2b |
-| A1 | Read all internal docs in §1 + §1b Step 2 | Checked read list |
-| A2 | Study official external docs per §1b Step 3 + `library-docs.md` URLs | Notes on API patterns and limitations |
-| A3 | **Post Context and Research Summary** | Mandatory — see §1b Step 4; **no code before this** |
-| A4 | Read unit prompt §4 or post-MVP §5 | System context understood |
-| A5 | Verify prior unit/feature merged to `main` | `progress-tracker.md` confirms |
-| A6 | Fill template §1–§13 (complex units) OR use CHAT prompt | Spec in `specs/NN-*.md` if needed |
-| A7 | Confirm env vars / dependencies provisioned | Neon, Redis, API keys per unit |
+| Step | Action                                                               | Required output                                     |
+| ---- | -------------------------------------------------------------------- | --------------------------------------------------- |
+| A0   | Identify all technologies, libraries, APIs, services for this unit   | Technology list in chat prompt or spec §2b          |
+| A1   | Read all internal docs in §1 + §1b Step 2                            | Checked read list                                   |
+| A2   | Study official external docs per §1b Step 3 + `library-docs.md` URLs | Notes on API patterns and limitations               |
+| A3   | **Post Context and Research Summary**                                | Mandatory — see §1b Step 4; **no code before this** |
+| A4   | Read unit prompt §4 or post-MVP §5                                   | System context understood                           |
+| A5   | Verify prior unit/feature merged to `main`                           | `progress-tracker.md` confirms                      |
+| A6   | Fill template §1–§13 (complex units) OR use CHAT prompt              | Spec in `specs/NN-*.md` if needed                   |
+| A7   | Confirm env vars / dependencies provisioned                          | Neon, Redis, API keys per unit                      |
 
 ### Phase B — Implement
 
-| Step | Action | Rule |
-|------|--------|------|
-| B1 | Create branch `feature/unit-NN-description` | Never commit directly to `main` |
-| B2 | UI first with mock data (UI units) | Verified on 360px before backend |
-| B3 | Logic, API, repositories, chains | Match `build-plan.md` exactly |
-| B4 | Minimize diff — current feature only | No scope creep (.cursorrules §16) |
+| Step | Action                                      | Rule                              |
+| ---- | ------------------------------------------- | --------------------------------- |
+| B1   | Create branch `feature/unit-NN-description` | Never commit directly to `main`   |
+| B2   | UI first with mock data (UI units)          | Verified on 360px before backend  |
+| B3   | Logic, API, repositories, chains            | Match `build-plan.md` exactly     |
+| B4   | Minimize diff — current feature only        | No scope creep (.cursorrules §16) |
 
 ### Phase C — Test & validate
 
-| Step | Action | Command / method |
-|------|--------|------------------|
-| C1 | Unit tests | `npm run test` |
-| C2 | Integration tests | `npm run test:integration` (when available; required for API units 06+) |
-| C3 | Static analysis | `npm run typecheck` · `npm run lint` |
-| C4 | Manual browser validation | 360px viewport — template §16 |
-| C5 | Security smoke tests | Auth 401, ownership 403, rate limit 429 |
-| C6 | Accessibility check | 16px body, 44px touch, contrast, no horizontal scroll |
-| C7 | Performance spot-check | Marking < 3s; no client fetch waterfall |
-| C8 | Edge cases | Empty states, AI failure, offline (if applicable) |
-| C9 | Alignment audit | AGENTS.md + .cursorrules + architecture invariants §3.1 |
+| Step | Action                    | Command / method                                                        |
+| ---- | ------------------------- | ----------------------------------------------------------------------- |
+| C1   | Unit tests                | `npm run test`                                                          |
+| C2   | Integration tests         | `npm run test:integration` (when available; required for API units 06+) |
+| C3   | Static analysis           | `npm run typecheck` · `npm run lint`                                    |
+| C4   | Manual browser validation | 360px viewport — template §16                                           |
+| C5   | Security smoke tests      | Auth 401, ownership 403, rate limit 429                                 |
+| C6   | Accessibility check       | 16px body, 44px touch, contrast, no horizontal scroll                   |
+| C7   | Performance spot-check    | Marking < 3s; no client fetch waterfall                                 |
+| C8   | Edge cases                | Empty states, AI failure, offline (if applicable)                       |
+| C9   | Alignment audit           | AGENTS.md + .cursorrules + architecture invariants §3.1                 |
 
 ### Phase D — Review, document, merge
 
@@ -258,21 +258,21 @@ Follow §2–§2d workflow. Merge gate before next feature.
 
 Execute in order after Phase C passes:
 
-| Step | Action | Detail |
-|------|--------|--------|
-| 1 | **Implement** | Feature complete per documented requirements (Phase B) |
-| 2 | **Execute tests** | Unit + integration + E2E (when CI available) — all green |
-| 3 | **Manual browser validation** | Template §16 — UX behaves as expected |
-| 4 | **Update documentation** | Template §17 — progress-tracker, ui-registry, AGENTS if needed |
-| 5 | **Lint, format, static analysis** | `npm run typecheck` · `npm run lint` · Husky pre-commit |
-| 6 | **Security self-check** | Template §10 — no secrets in diff, invariants satisfied |
-| 7 | **Commit** | Conventional Commits: `feat(scope): description` — see `.cursorrules` §9 |
-| 8 | **Push branch** | `git push -u origin feature/unit-NN-description` |
-| 9 | **Open Pull Request** | Target: `main` — use PR template in template §14 |
-| 10 | **Code review** | §2c — automated + manual checklist |
-| 11 | **Address review comments** | Re-run tests after changes |
-| 12 | **Merge** | Squash merge only — §2d Merge Gate |
-| 13 | **Post-implementation review** | Template §18 — session notes in progress-tracker |
+| Step | Action                            | Detail                                                                   |
+| ---- | --------------------------------- | ------------------------------------------------------------------------ |
+| 1    | **Implement**                     | Feature complete per documented requirements (Phase B)                   |
+| 2    | **Execute tests**                 | Unit + integration + E2E (when CI available) — all green                 |
+| 3    | **Manual browser validation**     | Template §16 — UX behaves as expected                                    |
+| 4    | **Update documentation**          | Template §17 — progress-tracker, ui-registry, AGENTS if needed           |
+| 5    | **Lint, format, static analysis** | `npm run typecheck` · `npm run lint` · Husky pre-commit                  |
+| 6    | **Security self-check**           | Template §10 — no secrets in diff, invariants satisfied                  |
+| 7    | **Commit**                        | Conventional Commits: `feat(scope): description` — see `.cursorrules` §9 |
+| 8    | **Push branch**                   | `git push -u origin feature/unit-NN-description`                         |
+| 9    | **Open Pull Request**             | Target: `main` — use PR template in template §14                         |
+| 10   | **Code review**                   | §2c — automated + manual checklist                                       |
+| 11   | **Address review comments**       | Re-run tests after changes                                               |
+| 12   | **Merge**                         | Squash merge only — §2d Merge Gate                                       |
+| 13   | **Post-implementation review**    | Template §18 — session notes in progress-tracker                         |
 
 **Git rules (from `.cursorrules`):**
 
@@ -290,14 +290,14 @@ Every Pull Request undergoes review equivalent to automated tools (CodeRabbit, B
 
 ### Automated review (CI — must pass)
 
-| Check | Tool | Blocker? |
-|-------|------|----------|
-| ESLint | `npm run lint` | Yes |
-| TypeScript strict | `npm run typecheck` | Yes |
-| Unit tests | `npm run test` | Yes |
-| Integration tests | `npm run test:integration` | Yes (when configured) |
-| E2E tests | `npm run test:e2e` on preview | V1.1+ gate |
-| Secret scanning | Manual / git diff review | Yes |
+| Check             | Tool                          | Blocker?              |
+| ----------------- | ----------------------------- | --------------------- |
+| ESLint            | `npm run lint`                | Yes                   |
+| TypeScript strict | `npm run typecheck`           | Yes                   |
+| Unit tests        | `npm run test`                | Yes                   |
+| Integration tests | `npm run test:integration`    | Yes (when configured) |
+| E2E tests         | `npm run test:e2e` on preview | V1.1+ gate            |
+| Secret scanning   | Manual / git diff review      | Yes                   |
 
 ### Manual review checklist
 
@@ -349,11 +349,11 @@ Every Pull Request undergoes review equivalent to automated tools (CodeRabbit, B
 
 ### Review outcomes
 
-| Outcome | Action |
-|---------|--------|
-| **Approve** | All blockers resolved → proceed to §2d |
-| **Request changes** | Fix issues → re-run CI → re-review |
-| **Reject (scope)** | Remove out-of-scope code → re-submit |
+| Outcome             | Action                                 |
+| ------------------- | -------------------------------------- |
+| **Approve**         | All blockers resolved → proceed to §2d |
+| **Request changes** | Fix issues → re-run CI → re-review     |
+| **Reject (scope)**  | Remove out-of-scope code → re-submit   |
 
 ---
 
@@ -395,6 +395,31 @@ Every Pull Request undergoes review equivalent to automated tools (CodeRabbit, B
 - [ ] No known blockers for next unit
 
 **Only after merge:** begin next feature. Update `progress-tracker.md` § Current Goal to next unit.
+
+---
+
+## 2e. Optional: GitHub Project Board (Team Tracking)
+
+ExamEdge already has a **complete implementation system** — you do not need a separate issues document.
+
+| Need                        | Use this (SSOT)                 |
+| --------------------------- | ------------------------------- |
+| What to build               | `build-plan.md` — Unit NN       |
+| Copy-paste agent prompt     | `feature-prompts/unit-NN-*.md`  |
+| Process, review, merge gate | **this document** §2–§2d        |
+| Current status              | `progress-tracker.md`           |
+| Per-unit written spec       | `specs/NN-*.md` where it exists |
+
+**If you want GitHub Issues for visibility** (like NombaFlow), mirror the existing docs — do not duplicate them:
+
+1. Create labels: `type:setup`, `type:frontend`, `type:backend`, `type:ai`, `type:database`, `type:devops`, `priority:critical|high|medium|low`, `milestone:phase-0` through `phase-4`
+2. Create milestones matching build-plan phases (Foundation, AI Chains, Student Core, Assessment, Resilience)
+3. For each unit NN: create one GitHub issue whose body is **`feature-prompts/unit-NN-*.md`** + link to `build-plan.md` Unit NN
+4. Set Depends on / Blocks from the **Unit Index** table in `build-plan.md`
+5. Project board columns: Backlog → Ready → In Progress → In Review → Done
+6. Definition of Done = **§2d Merge Gate** above (not a second checklist)
+
+**Rule:** When implementation docs and a GitHub issue disagree, **`build-plan.md` + `feature-prompts/` win.**
 
 ---
 
@@ -448,27 +473,27 @@ Import from `@examedge/shared/constants/thresholds` — never hardcode:
 
 **Every unit prompt below is supplemented by this block** and **§1b Documentation Research**. Each unit must also satisfy template §14–§18.
 
-| Requirement | Standard |
-|-------------|----------|
-| **Technology research** | Identify all tech; read `library-docs.md` + official vendor docs; post Context and Research Summary **before code** |
-| **Context understanding** | Agent reads §1 + §1b docs; understands feature in system architecture |
-| **Implementation** | Matches `build-plan.md` + official framework conventions — not assumptions |
-| **Unit tests** | Required for all logic, repos, chains, helpers |
-| **Integration tests** | Required for API routes (Units 06+) |
-| **E2E tests** | Manual MVP; automated Playwright V1.1+ |
-| **Manual browser test** | 360px viewport; full user flow; no console errors |
-| **Security** | `security.md` checklist for auth/API/AI units |
-| **Accessibility** | 16px min body, 44px touch, semantic tokens, exam contrast |
-| **Performance** | Per `architecture.md` and unit-specific targets |
-| **Error handling & observability** | Standard error shape, requestId, Sentry, AI structured logs |
-| **Edge cases** | Empty, error, AI failure, offline — per unit |
-| **AGENTS.md compliance** | All AI units follow chain specs exactly |
-| **.cursorrules compliance** | Scope, naming, git, no `any` |
-| **PR includes research** | Context and Research Summary in PR description |
-| **Definition of Done** | Template §15 + §2d Merge Gate |
-| **PR & code review** | §2b + §2c before merge |
-| **Documentation updates** | Template §17 + `library-docs.md` if new integration pattern |
-| **Retrospective** | Template §18 in progress-tracker |
+| Requirement                        | Standard                                                                                                            |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **Technology research**            | Identify all tech; read `library-docs.md` + official vendor docs; post Context and Research Summary **before code** |
+| **Context understanding**          | Agent reads §1 + §1b docs; understands feature in system architecture                                               |
+| **Implementation**                 | Matches `build-plan.md` + official framework conventions — not assumptions                                          |
+| **Unit tests**                     | Required for all logic, repos, chains, helpers                                                                      |
+| **Integration tests**              | Required for API routes (Units 06+)                                                                                 |
+| **E2E tests**                      | Manual MVP; automated Playwright V1.1+                                                                              |
+| **Manual browser test**            | 360px viewport; full user flow; no console errors                                                                   |
+| **Security**                       | `security.md` checklist for auth/API/AI units                                                                       |
+| **Accessibility**                  | 16px min body, 44px touch, semantic tokens, exam contrast                                                           |
+| **Performance**                    | Per `architecture.md` and unit-specific targets                                                                     |
+| **Error handling & observability** | Standard error shape, requestId, Sentry, AI structured logs                                                         |
+| **Edge cases**                     | Empty, error, AI failure, offline — per unit                                                                        |
+| **AGENTS.md compliance**           | All AI units follow chain specs exactly                                                                             |
+| **.cursorrules compliance**        | Scope, naming, git, no `any`                                                                                        |
+| **PR includes research**           | Context and Research Summary in PR description                                                                      |
+| **Definition of Done**             | Template §15 + §2d Merge Gate                                                                                       |
+| **PR & code review**               | §2b + §2c before merge                                                                                              |
+| **Documentation updates**          | Template §17 + `library-docs.md` if new integration pattern                                                         |
+| **Retrospective**                  | Template §18 in progress-tracker                                                                                    |
 
 ---
 
@@ -525,9 +550,9 @@ Establish the monorepo foundation so all subsequent features share types, databa
 
 #### API Requirements
 
-| Method | Route | Auth | Response |
-|--------|-------|------|----------|
-| GET | `/api/health` | Public | `{ status: "ok", version: "0.1.0" }` |
+| Method | Route         | Auth   | Response                             |
+| ------ | ------------- | ------ | ------------------------------------ |
+| GET    | `/api/health` | Public | `{ status: "ok", version: "0.1.0" }` |
 
 #### Frontend Requirements
 
@@ -557,11 +582,11 @@ Establish the monorepo foundation so all subsequent features share types, databa
 
 #### Testing Requirements
 
-| Type | Scope |
-|------|-------|
-| Unit | Health route returns correct JSON |
-| Integration | N/A |
-| E2E | N/A |
+| Type        | Scope                             |
+| ----------- | --------------------------------- |
+| Unit        | Health route returns correct JSON |
+| Integration | N/A                               |
+| E2E         | N/A                               |
 
 #### Definition of Done
 
@@ -635,11 +660,11 @@ Implement the visual foundation for a mobile-first African student audience. Ens
 
 #### Testing Requirements
 
-| Type | Scope |
-|------|-------|
-| Unit | N/A |
-| Integration | N/A |
-| Manual | Visual verification on 360px |
+| Type        | Scope                        |
+| ----------- | ---------------------------- |
+| Unit        | N/A                          |
+| Integration | N/A                          |
+| Manual      | Visual verification on 360px |
 
 #### Definition of Done
 
@@ -778,9 +803,9 @@ Enable mathematical notation for GCE Pure Mathematics (0765). Foundation for que
 
 #### Testing Requirements
 
-| Type | Scope |
-|------|-------|
-| Unit | `math.ts` validation helpers |
+| Type   | Scope                                 |
+| ------ | ------------------------------------- |
+| Unit   | `math.ts` validation helpers          |
 | Manual | All sample expressions on `/dev/math` |
 
 #### Definition of Done
@@ -853,9 +878,9 @@ Full column definitions in `architecture.md` § Database Schema. Key constraints
 
 #### Testing Requirements
 
-| Type | Scope |
-|------|-------|
-| Unit | Repository CRUD per table |
+| Type        | Scope                            |
+| ----------- | -------------------------------- |
+| Unit        | Repository CRUD per table        |
 | Integration | Migration up/down on test branch |
 
 #### Definition of Done
@@ -899,6 +924,7 @@ Secure student access via email/password. Protect all student and admin routes. 
 **UI:** `/login`, `/register`, `/forgot-password` (Resend stub OK)
 
 **Logic:**
+
 - Auth.js v5 in `apps/web/lib/auth.ts`
 - JWT HTTP-only cookie, SameSite=Lax
 - `middleware.ts` — protect `(student)/*`, `(admin)/*`
@@ -930,10 +956,10 @@ Secure student access via email/password. Protect all student and admin routes. 
 
 #### Testing Requirements
 
-| Type | Scope |
-|------|-------|
+| Type        | Scope                                     |
+| ----------- | ----------------------------------------- |
 | Integration | Register, login, protected route redirect |
-| Manual | Full auth flow in browser |
+| Manual      | Full auth flow in browser                 |
 
 #### Definition of Done
 
@@ -996,9 +1022,9 @@ Privacy-first analytics before student events fire. Enables product learning wit
 
 #### Testing Requirements
 
-| Type | Scope |
-|------|-------|
-| Unit | `trackEvent` SSR no-op |
+| Type   | Scope                                |
+| ------ | ------------------------------------ |
+| Unit   | `trackEvent` SSR no-op               |
 | Manual | Network tab shows Plausible requests |
 
 #### Definition of Done
@@ -1063,10 +1089,10 @@ Protect auth endpoints from brute force, control AI costs per user, and enable i
 
 #### Testing Requirements
 
-| Type | Scope |
-|------|-------|
-| Integration | 6 auth attempts → 429 |
-| Unit | Idempotency SET NX behavior (mock Redis) |
+| Type        | Scope                                    |
+| ----------- | ---------------------------------------- |
+| Integration | 6 auth attempts → 429                    |
+| Unit        | Idempotency SET NX behavior (mock Redis) |
 
 #### Definition of Done
 
@@ -1126,10 +1152,10 @@ Single point of model selection and shared AI infrastructure for all five chains
 
 #### Testing Requirements
 
-| Type | Scope |
-|------|-------|
+| Type | Scope                                               |
+| ---- | --------------------------------------------------- |
 | Unit | Router returns Haiku for marking, Sonnet for hint_3 |
-| Unit | Sanitize strips known injection patterns |
+| Unit | Sanitize strips known injection patterns            |
 
 #### Definition of Done
 
@@ -1199,11 +1225,11 @@ Core product value: board-accurate M1/A1/B1 partial credit marking at scale. Rep
 
 #### Testing Requirements
 
-| Type | Scope |
-|------|-------|
-| Unit | Zod schema valid/invalid cases |
-| Benchmark | 10+ known cases minimum |
-| AI eval | Full marks, M1-only, invalid JSON |
+| Type      | Scope                             |
+| --------- | --------------------------------- |
+| Unit      | Zod schema valid/invalid cases    |
+| Benchmark | 10+ known cases minimum           |
+| AI eval   | Full marks, M1-only, invalid JSON |
 
 #### Definition of Done
 
@@ -1251,6 +1277,7 @@ Guide struggling students without revealing answers. Core pedagogical differenti
 #### AI / Agent Interactions
 
 **Critical constraint (hardcoded):**
+
 ```
 You MUST NOT state the correct answer.
 You MUST NOT state the next correct step.
@@ -1264,9 +1291,9 @@ You MUST NOT reveal any intermediate result the student has not produced.
 
 #### Testing Requirements
 
-| Type | Scope |
-|------|-------|
-| Unit | Leakage detection function |
+| Type    | Scope                                    |
+| ------- | ---------------------------------------- |
+| Unit    | Leakage detection function               |
 | AI eval | 20 scenarios, forbidden phrase detection |
 
 #### Definition of Done
@@ -1318,10 +1345,10 @@ Maintain validated question pool through AI generation grounded in similar past 
 
 #### Testing Requirements
 
-| Type | Scope |
-|------|-------|
-| Unit | RAG abort when k < 5 |
-| Unit | Zod validation on generation output |
+| Type        | Scope                                 |
+| ----------- | ------------------------------------- |
+| Unit        | RAG abort when k < 5                  |
+| Unit        | Zod validation on generation output   |
 | Integration | pgvector query with seeded embeddings |
 
 #### Definition of Done
@@ -1374,10 +1401,10 @@ Verify genuine understanding after answers. Differentiates mastery from answer c
 
 #### Testing Requirements
 
-| Type | Scope |
-|------|-------|
-| Unit | L1 param substitution differs from original |
-| Integration | Async completion writes MVS |
+| Type        | Scope                                       |
+| ----------- | ------------------------------------------- |
+| Unit        | L1 param substitution differs from original |
+| Integration | Async completion writes MVS                 |
 
 #### Definition of Done
 
@@ -1422,10 +1449,10 @@ Explain topics grounded in official syllabus text. Cached permanently to control
 
 #### Testing Requirements
 
-| Type | Scope |
-|------|-------|
+| Type | Scope                                   |
+| ---- | --------------------------------------- |
 | Unit | Cache hit returns without LLM mock call |
-| Unit | No syllabus → abort with safe error |
+| Unit | No syllabus → abort with safe error     |
 
 #### Definition of Done
 
@@ -1459,6 +1486,7 @@ Visualize mastery, streak, and readiness — the student's home base. UI verifie
 #### Functional Requirements
 
 **UI sections:**
+
 - Navbar: Dashboard (active), Practice, Progress, Profile
 - Welcome header with name
 - ReadinessScore ring (mock 62%)
@@ -1517,6 +1545,7 @@ Complete study session interface — the core learning loop UI. Verified before 
 #### Functional Requirements
 
 **Components:**
+
 - QuestionCard with KaTeX sample question
 - MathInput answer area
 - Photo upload icon (stub)
@@ -1576,6 +1605,7 @@ Wire the study session to real backend — Pattern 1 from architecture.md. First
 #### Functional Requirements
 
 **API routes:**
+
 - `POST /api/sessions` — create `{ subjectId, mode: 'practice' }`
 - `POST /api/sessions/:id/next-question` — serve question (mock pool OK if Unit 24 not done)
 - `POST /api/sessions/:id/responses` — full Pattern 1 flow
@@ -1595,6 +1625,7 @@ auth → validate Zod → idempotency → mark scheme → runMarkingChain → tr
 **POST /api/sessions/:id/responses**
 
 Request:
+
 ```typescript
 {
   questionId: string;
@@ -1606,6 +1637,7 @@ Request:
 ```
 
 Response:
+
 ```typescript
 {
   marksAwarded: MarkingResult;
@@ -1641,12 +1673,12 @@ Response:
 
 #### Testing Requirements
 
-| Type | Scope |
-|------|-------|
-| Integration | Full submit flow with mocked chain |
+| Type        | Scope                               |
+| ----------- | ----------------------------------- |
+| Integration | Full submit flow with mocked chain  |
 | Integration | Idempotency duplicate returns cache |
-| Integration | 403 for wrong user |
-| Manual | Browser submit → marks display |
+| Integration | 403 for wrong user                  |
+| Manual      | Browser submit → marks display      |
 
 #### Definition of Done
 
@@ -1693,6 +1725,7 @@ Wire Socratic hints — Pattern 2. Pedagogical guidance without answer leakage.
 - runGuidanceChain + anti-leakage check
 
 **UI:**
+
 - Hint button disabled until first submission with marks < 50%
 - "Hints remaining: N/3"
 - HintPanel slides in
@@ -1705,6 +1738,7 @@ Wire Socratic hints — Pattern 2. Pedagogical guidance without answer leakage.
 #### API Contract
 
 Response:
+
 ```typescript
 {
   hint: string;
@@ -1720,10 +1754,10 @@ Response:
 
 #### Testing Requirements
 
-| Type | Scope |
-|------|-------|
-| Integration | 4th hint → 400 |
-| AI eval | No numerical leakage in 20 scenarios |
+| Type        | Scope                                |
+| ----------- | ------------------------------------ |
+| Integration | 4th hint → 400                       |
+| AI eval     | No numerical leakage in 20 scenarios |
 
 #### Definition of Done
 
@@ -1779,10 +1813,10 @@ Replace mock dashboard with live mastery and session data from PostgreSQL.
 
 #### Testing Requirements
 
-| Type | Scope |
-|------|-------|
+| Type        | Scope                                |
+| ----------- | ------------------------------------ |
 | Integration | Dashboard data after seeded sessions |
-| Manual | Visual verification after 3 sessions |
+| Manual      | Visual verification after 3 sessions |
 
 #### Definition of Done
 
@@ -1986,6 +2020,7 @@ Student settings, subject preferences, and MVP privacy controls for minors.
 **UI sections:** Account · Subjects · Offline · Privacy · Data · Deletion
 
 **APIs:**
+
 - `PATCH /api/students/me` — preferences
 - `POST /api/students/me/data-export` — queue job
 - `POST /api/students/me/delete` — soft-delete
@@ -2058,12 +2093,12 @@ Real question delivery without LLM at request time — Pattern 3. Scales to mill
 
 #### Testing Requirements
 
-| Type | Scope |
-|------|-------|
-| Unit | instantiateParams determinism |
-| Unit | renderTemplate with params |
+| Type        | Scope                                    |
+| ----------- | ---------------------------------------- |
+| Unit        | instantiateParams determinism            |
+| Unit        | renderTemplate with params               |
 | Integration | Pool selection excludes recent templates |
-| Integration | validated=false never returned |
+| Integration | validated=false never returned           |
 
 #### Definition of Done
 
@@ -2098,6 +2133,7 @@ Timed full-paper examination practice. Core exam readiness feature for competiti
 #### Functional Requirements
 
 **UI:**
+
 - Entry from practice page
 - Fullscreen on start
 - ExamTimer — amber at 5min, red at 1min
@@ -2106,11 +2142,13 @@ Timed full-paper examination practice. Core exam readiness feature for competiti
 - ExamReport page post-submit
 
 **API:**
+
 - `POST /api/simulations` — assemble paper from pool
 - `POST /api/simulations/:id/submit`
 - `GET /api/simulations/:id/report`
 
 **Logic:**
+
 - Page Visibility API — log focus_breaks
 - Fullscreen API on start
 
@@ -2227,10 +2265,10 @@ Offline-first study for intermittent connectivity — African network realities.
 
 #### Testing Requirements
 
-| Type | Scope |
-|------|-------|
-| Manual | Airplane mode submit + reconnect |
-| Integration | Idempotency on sync |
+| Type        | Scope                            |
+| ----------- | -------------------------------- |
+| Manual      | Airplane mode submit + reconnect |
+| Integration | Idempotency on sync              |
 
 #### Definition of Done
 
@@ -2323,11 +2361,13 @@ Human gate before AI questions reach students. Quality and safety control.
 #### Functional Requirements
 
 **UI:** `(admin)/questions/page.tsx`
+
 - Table: pending questions with topic, difficulty, marks, cross-exam result
 - Detail: KaTeX rendered question + mark scheme + param schema
 - Approve / Reject + notes
 
 **API:**
+
 - `GET /api/admin/questions/review`
 - `PATCH /api/admin/questions/:id/validate`
 
@@ -2439,6 +2479,7 @@ Production readiness for 20-student pilot and 10-minute competition demo.
 - `docs/demo-script.md` walkthrough validated
 
 **Demo script steps:**
+
 1. Login demo student (30s)
 2. Dashboard — mastery, streak, readiness (1min)
 3. Pure Maths practice — live question (1min)
@@ -2456,11 +2497,11 @@ Production readiness for 20-student pilot and 10-minute competition demo.
 
 #### Testing Requirements
 
-| Type | Scope |
-|------|-------|
-| Load | 50 concurrent marking requests |
-| E2E | Full demo script path |
-| Security | security.md pilot checklist |
+| Type     | Scope                          |
+| -------- | ------------------------------ |
+| Load     | 50 concurrent marking requests |
+| E2E      | Full demo script path          |
+| Security | security.md pilot checklist    |
 
 #### Definition of Done
 
@@ -2493,16 +2534,16 @@ Each post-MVP prompt follows the 18-section template. Copy `feature-implementati
 
 ### F-32: React Native + Expo Mobile App (V1.1)
 
-| Section | Detail |
-|---------|--------|
-| **Objective** | Native mobile app sharing web API; offline SQLite question cache |
-| **Docs** | `roadmap.md` V1.1 · `architecture.md` mobile note · `platform-ecosystem-ops.md` · `library-docs.md` Expo |
-| **Scope** | `apps/mobile/` Expo Router; secure token in expo-secure-store; same API as web |
-| **Out of scope** | Rewriting backend; new AI chains |
-| **Acceptance** | Login → practice → submit → marks on Android 7+ device; offline cache serves cached questions |
-| **NFR** | 512MB RAM target; 4.5" screen; offline study flow |
-| **Security** | JWT in secure store — not AsyncStorage; same RBAC as web |
-| **Tests** | E2E on device/emulator; offline sync integration |
+| Section          | Detail                                                                                                   |
+| ---------------- | -------------------------------------------------------------------------------------------------------- |
+| **Objective**    | Native mobile app sharing web API; offline SQLite question cache                                         |
+| **Docs**         | `roadmap.md` V1.1 · `architecture.md` mobile note · `platform-ecosystem-ops.md` · `library-docs.md` Expo |
+| **Scope**        | `apps/mobile/` Expo Router; secure token in expo-secure-store; same API as web                           |
+| **Out of scope** | Rewriting backend; new AI chains                                                                         |
+| **Acceptance**   | Login → practice → submit → marks on Android 7+ device; offline cache serves cached questions            |
+| **NFR**          | 512MB RAM target; 4.5" screen; offline study flow                                                        |
+| **Security**     | JWT in secure store — not AsyncStorage; same RBAC as web                                                 |
+| **Tests**        | E2E on device/emulator; offline sync integration                                                         |
 
 ---
 
@@ -2720,33 +2761,33 @@ Each post-MVP prompt follows the 18-section template. Copy `feature-implementati
 
 ### Post-MVP feature index (quick reference)
 
-| ID | Feature | Version |
-|----|---------|---------|
-| F-32 | React Native mobile | V1.1 |
-| F-33 | Google OAuth | V1.1 |
-| F-34 | Teacher dashboard | V1.1 |
-| F-35 | PostgreSQL RLS | V1.1 |
-| F-36 | JWT refresh rotation | V1.1 |
-| F-37 | CSP + CSRF | V1.1 |
-| F-38 | French UI / i18n | V1.1 |
-| F-39 | Expanded GCE subjects | V1.1 |
-| F-40 | UVE L3-L4 | V1.1 |
-| F-41 | Automated data export | V1.1 |
-| F-42 | WAEC / NECO | V2.0 |
-| F-43 | KCSE | V2.0 |
-| F-44 | OBC / Francophone | V2.0 |
-| F-45 | Graduate Success hub | V2.0 |
-| F-46 | USSD/SMS | V2.0 |
-| F-47 | Whisper oral ASR | V2.0 |
-| F-48 | Cognitive fingerprint | V2.0 |
-| F-49 | Alumni mentors | V2.0 |
-| F-50 | Payment / subscription | V2.0 |
-| F-51 | Local model routing | V2.0+ |
-| F-52 | Syllabus auto-chunking | V2.0 |
-| F-53 | Local marking + ministry analytics | V3.0 |
-| F-54 | Public API + multi-tenant | V3.0 |
-| F-55 | Edge + integrity analytics | V3.0 |
-| F-56 | Ecosystem (mentors, peer, career) | V4.0+ |
+| ID   | Feature                            | Version |
+| ---- | ---------------------------------- | ------- |
+| F-32 | React Native mobile                | V1.1    |
+| F-33 | Google OAuth                       | V1.1    |
+| F-34 | Teacher dashboard                  | V1.1    |
+| F-35 | PostgreSQL RLS                     | V1.1    |
+| F-36 | JWT refresh rotation               | V1.1    |
+| F-37 | CSP + CSRF                         | V1.1    |
+| F-38 | French UI / i18n                   | V1.1    |
+| F-39 | Expanded GCE subjects              | V1.1    |
+| F-40 | UVE L3-L4                          | V1.1    |
+| F-41 | Automated data export              | V1.1    |
+| F-42 | WAEC / NECO                        | V2.0    |
+| F-43 | KCSE                               | V2.0    |
+| F-44 | OBC / Francophone                  | V2.0    |
+| F-45 | Graduate Success hub               | V2.0    |
+| F-46 | USSD/SMS                           | V2.0    |
+| F-47 | Whisper oral ASR                   | V2.0    |
+| F-48 | Cognitive fingerprint              | V2.0    |
+| F-49 | Alumni mentors                     | V2.0    |
+| F-50 | Payment / subscription             | V2.0    |
+| F-51 | Local model routing                | V2.0+   |
+| F-52 | Syllabus auto-chunking             | V2.0    |
+| F-53 | Local marking + ministry analytics | V3.0    |
+| F-54 | Public API + multi-tenant          | V3.0    |
+| F-55 | Edge + integrity analytics         | V3.0    |
+| F-56 | Ecosystem (mentors, peer, career)  | V4.0+   |
 
 ---
 
@@ -2783,39 +2824,39 @@ Do not duplicate the full template in this file — maintain single source in `f
 
 ## 7. Traceability Matrix
 
-| Unit | build-plan | architecture | AGENTS.md | security | engineering-ops | zero-budget | Spec |
-|------|------------|--------------|-----------|----------|-----------------|-------------|------|
-| 01 | ✓ | Stack | — | — | CI setup | — | — |
-| 02 | ✓ | — | — | — | — | — | — |
-| 03 | ✓ | Routes | — | — | — | — | specs/03 |
-| 04 | ✓ | Math | — | — | — | — | — |
-| 05 | ✓ | Schema | — | — | — | Neon | — |
-| 06 | ✓ | Auth | — | ✓ | — | — | — |
-| 07 | ✓ | Analytics | — | PII | — | Plausible | specs/07 |
-| 08 | ✓ | Redis | — | ✓ | — | Upstash | — |
-| 09 | ✓ | AI bounds | ✓ Router | ✓ Sanitize | — | API keys | — |
-| 10 | ✓ | Pattern 1 | ✓ Marking | ✓ | AI eval | Anthropic | — |
-| 11 | ✓ | — | ✓ Guidance | ✓ Anti-leak | AI eval | — | — |
-| 12 | ✓ | RAG | ✓ Generation | — | — | Voyage | — |
-| 13 | ✓ | Async UVE | ✓ UVE | — | — | — | — |
-| 14 | ✓ | Cache | ✓ Curriculum | — | — | — | — |
-| 15 | ✓ | Dashboard | — | — | — | — | — |
-| 16 | ✓ | Study | — | — | — | — | — |
-| 17 | ✓ | Pattern 1 | ✓ Marking | ✓ Full | Monitoring | — | — |
-| 18 | ✓ | Pattern 2 | ✓ Guidance | ✓ | — | — | — |
-| 19 | ✓ | Repos | — | — | — | — | — |
-| 20 | ✓ | Explain API | ✓ Curriculum | — | — | — | specs/20 |
-| 21 | ✓ | Progress | — | — | — | — | specs/21 |
-| 22 | ✓ | Appeals | — | ✓ Audit | — | — | specs/22 |
-| 23 | ✓ | Profile | — | ✓ Minors | — | — | specs/23 |
-| 24 | ✓ | Pattern 3 | — | validated | — | — | — |
-| 25 | ✓ | Simulations | — | — | — | — | demo-script |
-| 26 | ✓ | Focus | — | — | — | — | ui-rules |
-| 27 | ✓ | Pattern 7 | — | Idempotency | — | — | — |
-| 28 | ✓ | R2 OCR | ✓ ocr_fallback | ✓ Storage | — | R2 | — |
-| 29 | ✓ | Admin | ✓ Human gate | ✓ RBAC | Audit | — | — |
-| 30 | ✓ | Cron | ✓ Batch | ✓ CRON_SECRET | Cron | Resend | — |
-| 31 | ✓ | All | ✓ Eval | ✓ Pilot | CI/CD | All infra | demo-script |
+| Unit | build-plan | architecture | AGENTS.md      | security      | engineering-ops | zero-budget | Spec        |
+| ---- | ---------- | ------------ | -------------- | ------------- | --------------- | ----------- | ----------- |
+| 01   | ✓          | Stack        | —              | —             | CI setup        | —           | —           |
+| 02   | ✓          | —            | —              | —             | —               | —           | —           |
+| 03   | ✓          | Routes       | —              | —             | —               | —           | specs/03    |
+| 04   | ✓          | Math         | —              | —             | —               | —           | —           |
+| 05   | ✓          | Schema       | —              | —             | —               | Neon        | —           |
+| 06   | ✓          | Auth         | —              | ✓             | —               | —           | —           |
+| 07   | ✓          | Analytics    | —              | PII           | —               | Plausible   | specs/07    |
+| 08   | ✓          | Redis        | —              | ✓             | —               | Upstash     | —           |
+| 09   | ✓          | AI bounds    | ✓ Router       | ✓ Sanitize    | —               | API keys    | —           |
+| 10   | ✓          | Pattern 1    | ✓ Marking      | ✓             | AI eval         | Anthropic   | —           |
+| 11   | ✓          | —            | ✓ Guidance     | ✓ Anti-leak   | AI eval         | —           | —           |
+| 12   | ✓          | RAG          | ✓ Generation   | —             | —               | Voyage      | —           |
+| 13   | ✓          | Async UVE    | ✓ UVE          | —             | —               | —           | —           |
+| 14   | ✓          | Cache        | ✓ Curriculum   | —             | —               | —           | —           |
+| 15   | ✓          | Dashboard    | —              | —             | —               | —           | —           |
+| 16   | ✓          | Study        | —              | —             | —               | —           | —           |
+| 17   | ✓          | Pattern 1    | ✓ Marking      | ✓ Full        | Monitoring      | —           | —           |
+| 18   | ✓          | Pattern 2    | ✓ Guidance     | ✓             | —               | —           | —           |
+| 19   | ✓          | Repos        | —              | —             | —               | —           | —           |
+| 20   | ✓          | Explain API  | ✓ Curriculum   | —             | —               | —           | specs/20    |
+| 21   | ✓          | Progress     | —              | —             | —               | —           | specs/21    |
+| 22   | ✓          | Appeals      | —              | ✓ Audit       | —               | —           | specs/22    |
+| 23   | ✓          | Profile      | —              | ✓ Minors      | —               | —           | specs/23    |
+| 24   | ✓          | Pattern 3    | —              | validated     | —               | —           | —           |
+| 25   | ✓          | Simulations  | —              | —             | —               | —           | demo-script |
+| 26   | ✓          | Focus        | —              | —             | —               | —           | ui-rules    |
+| 27   | ✓          | Pattern 7    | —              | Idempotency   | —               | —           | —           |
+| 28   | ✓          | R2 OCR       | ✓ ocr_fallback | ✓ Storage     | —               | R2          | —           |
+| 29   | ✓          | Admin        | ✓ Human gate   | ✓ RBAC        | Audit           | —           | —           |
+| 30   | ✓          | Cron         | ✓ Batch        | ✓ CRON_SECRET | Cron            | Resend      | —           |
+| 31   | ✓          | All          | ✓ Eval         | ✓ Pilot       | CI/CD           | All infra   | demo-script |
 
 ---
 
@@ -2842,18 +2883,18 @@ Update this document when:
 
 This document is the **authoritative implementation playbook** for ExamEdge when used together with:
 
-| Document | Role |
-|----------|------|
-| **This file** | Workflow, merge gates, code review, MVP unit prompts, post-MVP prompts |
-| **`feature-implementation-prompt-template.md`** | 18-section per-feature template |
-| **`build-plan.md`** | MVP unit UI + logic detail |
-| **`roadmap.md`** | Post-MVP prioritisation |
-| **`AGENTS.md` + `.cursorrules`** | AI and coding standards |
-| **`architecture.md`** | Schema, API, invariants |
+| Document                                        | Role                                                                   |
+| ----------------------------------------------- | ---------------------------------------------------------------------- |
+| **This file**                                   | Workflow, merge gates, code review, MVP unit prompts, post-MVP prompts |
+| **`feature-implementation-prompt-template.md`** | 18-section per-feature template                                        |
+| **`build-plan.md`**                             | MVP unit UI + logic detail                                             |
+| **`roadmap.md`**                                | Post-MVP prioritisation                                                |
+| **`AGENTS.md` + `.cursorrules`**                | AI and coding standards                                                |
+| **`architecture.md`**                           | Schema, API, invariants                                                |
 
 **Development rule:** One feature at a time · fully tested · reviewed · merged · then next.
 
 ---
 
-*ExamEdge Feature Development Prompts v2.1 — June 2026*
-*Research first: library-docs.md + official vendor docs · CHAT-IMPLEMENTATION-PROMPT.md*
+_ExamEdge Feature Development Prompts v2.1 — June 2026_
+_Research first: library-docs.md + official vendor docs · CHAT-IMPLEMENTATION-PROMPT.md_

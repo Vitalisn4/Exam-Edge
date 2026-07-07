@@ -8,6 +8,19 @@ Copy-paste-ready prompts for every MVP unit and post-MVP feature.
 
 **Process reference:** [`feature-development-prompts.md`](../feature-development-prompts.md) §2–§2d
 
+## Design system (all UI units — Units 02, 03, 04, 06, 15–23, 25–29, 31)
+
+Before any UI unit, read:
+
+1. [`design-brand-identity.md`](../design-brand-identity.md) — Teal Forest brand, tagline, mastery heatmap
+2. [`ui-tokens.md`](../ui-tokens.md) — CSS variables (authoritative)
+3. [`ui-rules.md`](../ui-rules.md) — layout, navigation, do-nots
+4. [`examedge-ui-mockup-prompt.md`](../examedge-ui-mockup-prompt.md) — full screen mockup target
+
+**Solo dev note:** GitHub Issues are optional. Track progress in [`progress-tracker.md`](../progress-tracker.md) only.
+
+**Code vs docs:** If merged code still uses legacy Exam Blue (`#1E40AF`), docs/mockups use Teal Forest — rebrand in Unit 31.
+
 ## Build order
 
 ### MVP V1.0 — Phase 0 Foundation (Units 01–08)
