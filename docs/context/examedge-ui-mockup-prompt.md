@@ -1450,7 +1450,7 @@ Keyboard navigation:
 Focus ring: 3px solid --color-primary-500 with 2px offset (always visible, no hidden outlines)
 Tab order: logical, matches visual order
 All interactive elements reachable by keyboard
-Escape key: closes modals, popovers, exam timer pauses
+Escape key: closes modals and popovers only; exam timer pauses only on fullscreen exit or focus loss
 
 Screen reader:
 ARIA roles on all navigation, landmark regions

@@ -311,7 +311,7 @@ Page padding: `px-4` mobile · `px-8` tablet · `px-12` desktop.
 
 ### Primary Button
 
-```
+```css
 background: var(--color-primary-600)
 hover: var(--color-primary-700)
 active: var(--color-primary-800) scale(0.98)
@@ -325,7 +325,7 @@ font: text-ui-lg, weight 500
 
 ### Cards
 
-```
+```css
 background: bg-surface
 border: 1px solid var(--color-border)
 border-radius: var(--radius-md)
@@ -337,7 +337,7 @@ shadow: var(--shadow-sm)
 
 ### Mastery Heatmap Grid
 
-```
+```css
 grid: 4–6 cols mobile (horizontal scroll if >8), 8–10 cols desktop
 cell: 32×32px, gap 3px, radius-xs
 legend: 5–6 colour stops at bottom
@@ -345,7 +345,7 @@ legend: 5–6 colour stops at bottom
 
 ### Readiness Score Ring
 
-```
+```css
 size: 80–120px diameter
 stroke: var(--color-primary-600) proportional to score
 track: var(--color-neutral-200)
@@ -354,7 +354,7 @@ centre: large bold percentage
 
 ### Offline Banner
 
-```
+```css
 background: var(--color-offline-bg)
 border-bottom: 1px solid var(--color-border)
 icon: WifiOff (lucide)
@@ -365,7 +365,7 @@ sticky below nav, z-index below exam overlay
 
 ## Logo / Brand
 
-```
+```text
 App name: ExamEdge
 Primary colour: #1DA08C (Teal Forest)
 Secondary accent: #E2C04A (achievement gold)

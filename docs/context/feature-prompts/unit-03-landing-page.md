@@ -4,11 +4,11 @@
 
 ## Implementation status
 
-| Field       | Value                                                                   |
-| ----------- | ----------------------------------------------------------------------- |
-| **Status**  | **COMPLETE** — on branch `feature/unit-03-landing-page`, ready to merge |
-| **Commits** | `45a29b8` (landing UI), `8671d51` (spec alignment)                      |
-| **Tests**   | 10 passing (`session.test.ts`, `health/route.test.ts`)                  |
+| Field       | Value                                                                                   |
+| ----------- | --------------------------------------------------------------------------------------- |
+| **Status**  | **IMPLEMENTED** — pending manual validation and merge on `feature/unit-03-landing-page` |
+| **Commits** | `45a29b8` (landing UI), `8671d51` (spec alignment)                                      |
+| **Tests**   | 10 passing (`session.test.ts`, `health/route.test.ts`)                                  |
 
 ---
 
@@ -49,7 +49,7 @@ Convert visitors into registered students. Communicates examiner marking, Socrat
 ## Prerequisites and dependencies
 
 - **Prior units:** 01, 02
-- **Spec:** `specs/03-landing-page.md`
+- **Spec:** `docs/context/specs/03-landing-page.md`
 
 ## Internal documentation (read before coding)
 
@@ -69,12 +69,13 @@ Convert visitors into registered students. Communicates examiner marking, Socrat
 
 - **Next.js 16 App Router:** https://nextjs.org/docs
 - **Next.js Middleware:** https://nextjs.org/docs/app/building-your-application/routing/middleware
+- **Auth.js v5 (session cookies):** https://authjs.dev/getting-started/session-management
 - **Tailwind CSS v4:** https://tailwindcss.com/docs/upgrade-guide
 - **lucide-react:** https://lucide.dev/icons/
 
 ## Functional requirements
 
-See `build-plan.md` Unit 03 and `specs/03-landing-page.md`.
+See `docs/context/build-plan.md` Unit 03 and `docs/context/specs/03-landing-page.md`.
 
 ### Page — `apps/web/app/page.tsx`
 
@@ -96,7 +97,7 @@ Renders `<LandingPage />` — public, not behind auth layout.
 ### Auth redirect
 
 - `middleware.ts` — matcher `["/"]`; uses `shouldRedirectHomeToDashboard()`
-- `lib/auth/session.ts` — detects Auth.js session cookies (Unit 06 will wire real auth)
+- `lib/auth/session.ts` — detects Auth.js v5 session cookies (`authjs.session-token`, `__Secure-authjs.session-token`; Unit 06 will wire real auth)
 
 ### Stub routes (CTA targets)
 
@@ -129,13 +130,13 @@ None — static landing + cookie check in middleware only.
 ## Documentation updates (after merge)
 
 - [ ] `progress-tracker.md` — mark Unit 03 complete, set Unit 04 as current goal
-- [ ] `specs/03-landing-page.md` — verify checklist (already complete)
+- [ ] `docs/context/specs/03-landing-page.md` — verify checklist (already complete)
 
 ---
 
 ## Mandatory implementation process
 
-1. Read `specs/03-landing-page.md` and internal docs above.
+1. Read `docs/context/specs/03-landing-page.md` and internal docs above.
 2. Post Context and Research Summary before coding.
 3. Branch: `feature/unit-03-landing-page`.
 4. Run: `npm run typecheck`, `npm run lint`, `npm run test`.

@@ -69,7 +69,7 @@ Do not replace heatmap with a list-only progress view on dashboard.
 
 Every content section lives in a card except exam mode.
 
-```
+```css
 background: bg-surface
 border: 1px solid border
 border-radius: var(--radius-md) (12px)
@@ -89,7 +89,7 @@ Exam mode: flat paper layout, no card shadows.
 
 All AI tutor, hint, marking feedback, and curriculum explanation panels:
 
-```
+```css
 border-left: 3px solid var(--color-primary-500)
 optional: "ExamEdge AI" label with teal gradient top bar (3px)
 ```
@@ -116,7 +116,7 @@ Students must always distinguish AI content from static syllabus text.
 
 Mobile viewport split:
 
-```
+```text
 ┌─────────────────────────┐
 │ Question 2/5    [Hint]  │
 ├─────────────────────────┤

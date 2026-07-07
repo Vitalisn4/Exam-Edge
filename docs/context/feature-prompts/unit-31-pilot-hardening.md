@@ -36,7 +36,7 @@ Completing this unit advances ExamEdge toward a demo-ready MVP pilot — an AI-p
 - [ ] Load test: 50 concurrent marking — p95 < 3s
 - [ ] All 31 units marked complete in progress-tracker.md
 - [ ] `/dev/*` routes hidden in production
-- [ ] Teal Forest rebrand applied in `globals.css` and all student screens (migrate from legacy Exam Blue if present)
+- [ ] Teal Forest rebrand applied in `globals.css` and all web routes — landing (`/`), auth stubs (`/login`, `/register`), legal stubs (`/privacy`, `/contact`), student, teacher, and admin screens (migrate from legacy Exam Blue if present)
 
 ## Prerequisites and dependencies
 

@@ -126,10 +126,10 @@ Installed Unit 02 — themed with ExamEdge tokens from `globals.css`.
 
 ## Page Compositions
 
-| Page            | Path                                         | Key Components Used                                     |
-| --------------- | -------------------------------------------- | ------------------------------------------------------- |
-| Landing         | `app/page.tsx`                               | LandingPage, Navbar, Hero, Features, HowItWorks, Footer |
-| Dashboard       | `app/(student)/dashboard/page.tsx`           | _Stub — Unit 15_                                        |
-| Study Session   | `app/(student)/study/[topicId]/page.tsx`     | _Not built_                                             |
-| Exam Simulation | `app/(student)/exam/[simulationId]/page.tsx` | _Not built_                                             |
-| Admin Queue     | `app/(admin)/questions/page.tsx`             | _Not built_                                             |
+| Page            | Path                                         | Key Components Used                                                             |
+| --------------- | -------------------------------------------- | ------------------------------------------------------------------------------- |
+| Landing         | `app/page.tsx`                               | LandingPage, Navbar, Hero, Features, HowItWorks, SocialProof, BottomCta, Footer |
+| Dashboard       | `app/(student)/dashboard/page.tsx`           | _Stub — Unit 15_                                                                |
+| Study Session   | `app/(student)/study/[topicId]/page.tsx`     | _Not built_                                                                     |
+| Exam Simulation | `app/(student)/exam/[simulationId]/page.tsx` | _Not built_                                                                     |
+| Admin Queue     | `app/(admin)/questions/page.tsx`             | _Not built_                                                                     |

@@ -97,7 +97,7 @@ Link to privacy policy (required before public launch — `content-governance.md
 | Element         | First-visit behaviour                                                                |
 | --------------- | ------------------------------------------------------------------------------------ |
 | Greeting        | "Welcome, {firstName}. Let's prepare for your {level} exams."                        |
-| Mastery map     | All topics **red** (not started) — honest empty state                                |
+| Mastery map     | All topics **`--mastery-not-started`** (not started) — honest empty state            |
 | Exam countdown  | If exam date set in profile (optional V1.1); else "Set your exam date" gentle prompt |
 | Readiness score | Hidden or "Complete your first session to see readiness"                             |
 | Streak          | "Start your streak today" — not guilt                                                |
@@ -149,13 +149,13 @@ Link to privacy policy (required before public launch — `content-governance.md
 
 Features revealed as student earns them — **not day-one overload**:
 
-| Day / trigger                   | Unlocked                                                  | Still hidden       |
-| ------------------------------- | --------------------------------------------------------- | ------------------ |
-| First session complete          | Full practice loop, mastery map colours                   | Exam simulation    |
-| 3 sessions OR 1 topic amber     | Exam simulation CTA on dashboard                          | —                  |
-| 1 topic mastered (theta ≥ 0.70) | `topic_mastered` celebration; spaced repetition explained | —                  |
-| Week 1 complete                 | Weekly email report; progress page meaning                | —                  |
-| 2 weeks + AL student (V2.0)     | "Beyond exams" hub teaser                                 | Full career module |
+| Day / trigger                                             | Unlocked                                                  | Still hidden       |
+| --------------------------------------------------------- | --------------------------------------------------------- | ------------------ |
+| First session complete                                    | Full practice loop, mastery map colours                   | Exam simulation    |
+| 3 sessions OR 1 topic developing (`--mastery-developing`) | Exam simulation CTA on dashboard                          | —                  |
+| 1 topic mastered (theta ≥ 0.70)                           | `topic_mastered` celebration; spaced repetition explained | —                  |
+| Week 1 complete                                           | Weekly email report; progress page meaning                | —                  |
+| 2 weeks + AL student (V2.0)                               | "Beyond exams" hub teaser                                 | Full career module |
 
 **Exam simulation gate (MVP):** Soft recommendation — "Complete 3 practice sessions before your first mock exam" — not hard block (exam_focus mode may skip).
 
@@ -250,15 +250,15 @@ Digital platforms fail when they optimize **time-on-app**. ExamEdge optimizes **
 
 ### 4.3 Motivation Systems (Ethical)
 
-| Mechanism                     | Type            | Burnout prevention                     |
-| ----------------------------- | --------------- | -------------------------------------- |
-| Mastery map (red/amber/green) | Competence      | Reflects real progress                 |
-| Streak                        | Habit           | **1 grace day per week**               |
-| Exam countdown                | Purpose         | Real-world goal, not platform pressure |
-| Readiness score               | Honest estimate | Not inflated                           |
-| Weekly report                 | Information     | Actionable, not guilt                  |
-| Session reflection            | Metacognition   | V1.1 — three honest sentences          |
-| Spaced repetition             | Science         | Surfaces due topics — doesn't overload |
+| Mechanism                              | Type            | Burnout prevention                     |
+| -------------------------------------- | --------------- | -------------------------------------- |
+| Mastery map (`--mastery-*` teal scale) | Competence      | Reflects real progress                 |
+| Streak                                 | Habit           | **1 grace day per week**               |
+| Exam countdown                         | Purpose         | Real-world goal, not platform pressure |
+| Readiness score                        | Honest estimate | Not inflated                           |
+| Weekly report                          | Information     | Actionable, not guilt                  |
+| Session reflection                     | Metacognition   | V1.1 — three honest sentences          |
+| Spaced repetition                      | Science         | Surfaces due topics — doesn't overload |
 
 **Excluded:** Points for time-on-app, loot boxes, shame notifications, pay-to-win.
 
@@ -423,7 +423,7 @@ LANDING          REGISTER         FIRST WIN          GROW             EXCEL     
    │                │                 │                │                │                │
    ▼                ▼                 ▼                ▼                ▼                ▼
 Understand       Personalize       One question     Mastery map      Exam sim         University
-the mission      level/subjects    marked + UVE     fills green      timed paper      scholarships
+the mission      level/subjects    marked + UVE     gains mastery    timed paper      scholarships
                  learning mode     first streak     spaced rep       readiness        global comps
                  privacy trust                      focus blocks     grade path       career explore
 ```

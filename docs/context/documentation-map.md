@@ -302,7 +302,7 @@ Tier 4 — External methodology (do not edit)
 | New API route                           | architecture.md, build-plan unit, security.md if auth changes |
 | New AI chain behaviour                  | AGENTS.md only (never duplicate full spec elsewhere)          |
 | New analytics event                     | project-overview.md, code-standards.md, library-docs.md       |
-| Positioning / vision / mission / values | `strategic-charter.md`                                        | project-overview.md, roadmap.md |
+| Positioning / vision / mission / values | `strategic-charter.md`, `project-overview.md`, `roadmap.md`   |
 | Unit completed                          | progress-tracker.md, ui-registry.md if UI                     |
 
 **Do not duplicate** full AI chain specifications outside `AGENTS.md`. Other docs reference and link.
