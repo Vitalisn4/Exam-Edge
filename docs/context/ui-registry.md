@@ -18,11 +18,15 @@ After building any component — update this file with: component name, file pat
 
 ## Layout Components
 
-| Component     | Path                                  | Notes                                          |
-| ------------- | ------------------------------------- | ---------------------------------------------- |
-| Navbar        | `components/layout/Navbar.tsx`        | Landing nav — logo, Log in, Start preparing    |
-| Footer        | `components/layout/Footer.tsx`        | Login, Privacy, Contact links, © ExamEdge 2026 |
-| OfflineBanner | `components/layout/OfflineBanner.tsx` | _Not built_                                    |
+| Component       | Path                                    | Notes                                                       |
+| --------------- | --------------------------------------- | ----------------------------------------------------------- |
+| MarketingNavbar | `components/layout/MarketingNavbar.tsx` | Sticky nav, anchor links, theme toggle, Get started (03b)   |
+| ExamEdgeLogo    | `components/layout/ExamEdgeLogo.tsx`    | BookOpen mark + wordmark                                    |
+| ThemeProvider   | `components/layout/ThemeProvider.tsx`   | Light/dark context, localStorage persistence                |
+| ThemeToggle     | `components/layout/ThemeToggle.tsx`     | Sun/moon toggle, 44px target                                |
+| Navbar          | `components/layout/Navbar.tsx`          | _Legacy Unit 03 — superseded by MarketingNavbar on landing_ |
+| Footer          | `components/layout/Footer.tsx`          | Login, Privacy, Contact links, © ExamEdge 2026              |
+| OfflineBanner   | `components/layout/OfflineBanner.tsx`   | _Not built_                                                 |
 
 ## Landing Components (Unit 03)
 
@@ -64,10 +68,10 @@ After building any component — update this file with: component name, file pat
 
 ## Math Components
 
-| Component   | Path                              | Notes                         |
-| ----------- | --------------------------------- | ----------------------------- |
-| MathDisplay | `components/math/MathDisplay.tsx` | KaTeX wrapper, error boundary |
-| MathInput   | `components/math/MathInput.tsx`   | MathQuill, client-only        |
+| Component   | Path                              | Notes                                         |
+| ----------- | --------------------------------- | --------------------------------------------- |
+| MathDisplay | `components/math/MathDisplay.tsx` | KaTeX wrapper, error boundary, `trust: false` |
+| MathInput   | `components/math/MathInput.tsx`   | MathQuill WYSIWYG, client-only, `ssr: false`  |
 
 ---
 
@@ -126,10 +130,11 @@ Installed Unit 02 — themed with ExamEdge tokens from `globals.css`.
 
 ## Page Compositions
 
-| Page            | Path                                         | Key Components Used                                                             |
-| --------------- | -------------------------------------------- | ------------------------------------------------------------------------------- |
-| Landing         | `app/page.tsx`                               | LandingPage, Navbar, Hero, Features, HowItWorks, SocialProof, BottomCta, Footer |
-| Dashboard       | `app/(student)/dashboard/page.tsx`           | _Stub — Unit 15_                                                                |
-| Study Session   | `app/(student)/study/[topicId]/page.tsx`     | _Not built_                                                                     |
-| Exam Simulation | `app/(student)/exam/[simulationId]/page.tsx` | _Not built_                                                                     |
-| Admin Queue     | `app/(admin)/questions/page.tsx`             | _Not built_                                                                     |
+| Page            | Path                                         | Key Components Used                                                         |
+| --------------- | -------------------------------------------- | --------------------------------------------------------------------------- |
+| Landing         | `app/page.tsx`                               | MarketingNavbar, Hero, Features, HowItWorks, SocialProof, BottomCta, Footer |
+| Math Dev        | `app/dev/math/page.tsx`                      | MathPlayground, MathDisplay, MathInput                                      |
+| Dashboard       | `app/(student)/dashboard/page.tsx`           | _Stub — Unit 15_                                                            |
+| Study Session   | `app/(student)/study/[topicId]/page.tsx`     | _Not built_                                                                 |
+| Exam Simulation | `app/(student)/exam/[simulationId]/page.tsx` | _Not built_                                                                 |
+| Admin Queue     | `app/(admin)/questions/page.tsx`             | _Not built_                                                                 |

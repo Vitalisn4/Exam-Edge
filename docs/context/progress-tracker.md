@@ -39,9 +39,10 @@ _None — merge Unit 03 PR, then start Unit 04._
 
 ## Next Up
 
-1. Merge `feature/unit-03-landing-page` → `main`
-2. Unit 04 — KaTeX + MathQuill
+1. Merge `feature/unit-03-landing-page` → `main` (if not done)
+2. Merge `feature/unit-04-katex-mathquill` → `main` (PR #3)
 3. Unit 05 — Database schema v1 (Neon required)
+4. **Unit 03b** — Landing marketing refresh (Lovable mockup) — can run in parallel with 05–06 after Unit 03 merges; see `specs/03b-landing-marketing-refresh.md`
 
 ---
 
@@ -57,15 +58,15 @@ _None — merge Unit 03 PR, then start Unit 04._
 
 ## Architecture Decisions
 
-| Date    | Decision                         | Rationale                                      |
-| ------- | -------------------------------- | ---------------------------------------------- |
-| 2026-06 | Monorepo npm workspaces          | Solo dev velocity; shared types                |
-| 2026-06 | MVP = web PWA only               | 10-week constraint                             |
-| 2026-06 | Auth.js over Clerk               | Avoid vendor lock-in                           |
-| 2026-06 | Haiku for all marking            | Cost + latency                                 |
-| 2026-06 | Curriculum-agnostic schema       | Pan-African expansion without rewrites         |
-| 2026-06 | Phase 1 = GCE Buea launch config | Pilot in Cameroon                              |
-| 2026-07 | Teal Forest rebrand in docs      | design-brand-identity.md; code rebrand Unit 31 |
+| Date    | Decision                          | Rationale                                        |
+| ------- | --------------------------------- | ------------------------------------------------ |
+| 2026-06 | Monorepo npm workspaces           | Solo dev velocity; shared types                  |
+| 2026-06 | MVP = web PWA only                | 10-week constraint                               |
+| 2026-06 | Auth.js over Clerk                | Avoid vendor lock-in                             |
+| 2026-06 | Haiku for all marking             | Cost + latency                                   |
+| 2026-06 | Curriculum-agnostic schema        | Pan-African expansion without rewrites           |
+| 2026-06 | Phase 1 = GCE Buea launch config  | Pilot in Cameroon                                |
+| 2026-07 | Unit 03b spec for Lovable landing | Full mockup map; dark/light; after Unit 03 merge |
 
 ---
 

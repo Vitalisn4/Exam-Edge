@@ -4,11 +4,22 @@
   --font-sans: "Inter", system-ui, sans-serif;
   --font-math: "KaTeX_Main", "Times New Roman", serif;
 
-  --color-primary: #1e40af;
-  --color-primary-light: #3b82f6;
-  --color-primary-dark: #1e3a8a;
+  --color-primary-50: #e6f4f1;
+  --color-primary-100: #c0e4dc;
+  --color-primary-200: #97d2c6;
+  --color-primary-300: #6bbfaf;
+  --color-primary-400: #46b09e;
+  --color-primary-500: #1da08c;
+  --color-primary-600: #0e8a78;
+  --color-primary-700: #0e5c4a;
+  --color-primary-800: #0a3d31;
+  --color-primary-900: #051f19;
+
+  --color-primary: var(--color-primary-500);
+  --color-primary-light: var(--color-primary-400);
+  --color-primary-dark: var(--color-primary-700);
   --color-primary-foreground: #ffffff;
-  --color-primary-muted: #eff6ff;
+  --color-primary-muted: var(--color-primary-50);
 
   --color-background: #f8fafc;
   --color-surface: #ffffff;
@@ -20,12 +31,19 @@
 
   --color-border: #e2e8f0;
   --color-border-light: #f1f5f9;
-  --color-border-focus: #3b82f6;
+  --color-border-focus: var(--color-primary-500);
 
   --color-text-primary: #0f172a;
   --color-text-secondary: #475569;
   --color-text-muted: #94a3b8;
   --color-text-inverse: #ffffff;
+
+  --mastery-not-started: #e2e8f0;
+  --mastery-introduced: #97d2c6;
+  --mastery-developing: #46b09e;
+  --mastery-proficient: #1da08c;
+  --mastery-mastered: #0e5c4a;
+  --mastery-at-risk: #f59e0b;
 
   --color-mastery-red: #dc2626;
   --color-mastery-amber: #d97706;
@@ -45,17 +63,17 @@
   --color-mark-ft: #b45309;
   --color-mark-ft-bg: #fef3c7;
 
-  --color-success: #16a34a;
-  --color-success-light: #dcfce7;
-  --color-warning: #d97706;
+  --color-success: #22c55e;
+  --color-success-light: #f0fdf4;
+  --color-warning: #f59e0b;
   --color-warning-light: #fffbeb;
-  --color-error: #dc2626;
-  --color-error-light: #fee2e2;
-  --color-info: #0ea5e9;
-  --color-info-light: #e0f2fe;
+  --color-error: #ef4444;
+  --color-error-light: #fef2f2;
+  --color-info: #3b82f6;
+  --color-info-light: #eff6ff;
 
-  --color-review: #d97706;
-  --color-review-bg: #fffbeb;
+  --color-review: var(--color-warning);
+  --color-review-bg: var(--color-warning-light);
 
   --color-offline: #64748b;
   --color-offline-bg: #f1f5f9;
@@ -86,6 +104,45 @@
   --input: var(--color-border);
   --ring: var(--color-border-focus);
   --radius: var(--radius-md);
+}
+
+.dark,
+[data-theme="dark"] {
+  --color-background: #0f172a;
+  --color-surface: #1e293b;
+  --color-surface-secondary: #263448;
+  --color-surface-tertiary: #080e1a;
+  --color-border: #334155;
+  --color-border-light: #1e293b;
+  --color-border-focus: var(--color-primary-400);
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+  --color-primary: #1da08c;
+  --color-primary-light: #46b09e;
+  --color-primary-dark: #97d2c6;
+  --color-primary-muted: #0a3d31;
+  --color-primary-foreground: #ffffff;
+  --secondary: var(--color-surface-secondary);
+  --secondary-foreground: var(--color-text-primary);
+  --muted: var(--color-surface-secondary);
+  --muted-foreground: var(--color-text-muted);
+  --accent: var(--color-primary-muted);
+  --accent-foreground: var(--color-primary-light);
+  --color-offline-bg: #1e293b;
+  --color-mastery-red-bg: #3f1d1d;
+  --color-mastery-amber-bg: #3f2e0a;
+  --color-mastery-green-bg: #0f2e1a;
+  --color-mark-m1-bg: #1e2a4a;
+  --color-mark-a1-bg: #0f2e1a;
+  --color-mark-b1-bg: #2e1a4a;
+  --color-mark-denied-bg: #3f1d1d;
+  --color-mark-ft-bg: #3f2e0a;
+  --color-success-light: #0f2e1a;
+  --color-warning-light: #3f2e0a;
+  --color-error-light: #3f1d1d;
+  --color-info-light: #1e2a4a;
+  --color-review-bg: #3f2e0a;
 }
 
 @theme inline {
@@ -165,10 +222,45 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-text-primary antialiased;
     font-family: var(--font-sans), system-ui, sans-serif;
     font-size: 16px;
     line-height: 1.5;
+    transition:
+      background-color 200ms ease-out,
+      color 200ms ease-out;
+  }
+
+  .math-display {
+    font-family: var(--font-math), "Times New Roman", serif;
+    font-size: 1rem;
+    min-height: 1.5rem;
+  }
+
+  .math-display .katex {
+    font-size: 1.0625rem;
+  }
+
+  .math-display-error {
+    border: 1px solid var(--color-error);
+  }
+
+  .math-input .mq-editable-field {
+    min-height: 2.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+  }
+
+  .math-input .mq-editable-field.mq-focused {
+    border-color: var(--color-border-focus);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary-light) 25%, transparent);
   }
 }

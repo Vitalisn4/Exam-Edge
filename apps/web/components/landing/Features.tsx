@@ -24,7 +24,7 @@ const FEATURES = [
 
 export function Features() {
   return (
-    <section id="features" className="scroll-mt-14 flex flex-col gap-4 px-4 py-6">
+    <section id="features" className="scroll-mt-16 flex flex-col gap-4 px-4 py-6 md:px-8">
       <h2 className="text-lg font-semibold text-text-primary">Why ExamEdge</h2>
       <div className="flex flex-col gap-4">
         {FEATURES.map((feature) => (

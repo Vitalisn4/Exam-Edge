@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 export function BottomCta() {
   return (
-    <section className="flex flex-col gap-4 px-4 py-8">
+    <section className="flex flex-col gap-4 px-4 py-8 md:px-8">
       <h2 className="text-center text-lg font-semibold text-text-primary">
         Ready to prepare with purpose?
       </h2>

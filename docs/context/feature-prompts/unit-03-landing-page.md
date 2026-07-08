@@ -158,3 +158,5 @@ None — static landing + cookie check in middleware only.
 - Plausible events on landing (optional later)
 - Full auth forms (Unit 06)
 - Teal Forest rebrand (Unit 31 — uses Unit 02 Exam Blue tokens)
+
+**Full Lovable mockup** (dark/light, 6 features, examinations grid, pricing, etc.) → **Unit 03b** — `docs/context/specs/03b-landing-marketing-refresh.md`

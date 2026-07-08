@@ -98,6 +98,31 @@ Build the complete public landing page — mock content first, auth-aware CTAs.
 
 **Spec:** Copy `specs/00-spec-template.md` → `specs/03-landing-page.md` before implementing
 
+**Follow-up:** Full Lovable mockup (dark/light, 6 features, pricing, etc.) → **Unit 03b** (`specs/03b-landing-marketing-refresh.md`)
+
+---
+
+### 03b Landing Page Marketing Refresh
+
+Upgrade Unit 03 MVP to **Lovable / Teal Forest mockup parity** — dark + light mode, sticky marketing nav, hero with mastery map preview, examinations grid, testimonials structure, pricing display, multi-column footer.
+
+**Depends on:** Unit 03 merged  
+**Does not block:** Units 04–06 (can run in parallel after 03 merges)
+
+**UI:** See `specs/03b-landing-marketing-refresh.md` for full mockup → component map and 5-phase build order.
+
+**Key deliverables:**
+
+- `MarketingNavbar`, `ThemeToggle`, `ThemeProvider`
+- `MasteryMapPreview` (static demo heatmap)
+- 6 feature cards, `ExaminationsSection` + board tabs, 3-step How it works
+- `TestimonialsSection`, `PricingSection`, `OfflineBanner`, `MarketingFooter`
+- Teal Forest tokens + dark mode on landing route
+
+**Content rules:** No fake student counts; no unverified named testimonials.
+
+**Spec:** `specs/03b-landing-marketing-refresh.md` · Prompt: `feature-prompts/unit-03b-landing-marketing-refresh.md`
+
 ---
 
 ### 04 KaTeX + MathQuill Integration
@@ -885,6 +910,7 @@ Each unit below is the **single source of truth** for what to build. Copy-paste 
 | 01  | Monorepo Scaffold             | 0     | —                  | 02–08            |
 | 02  | Design System + UI Tokens     | 0     | 01                 | 03, 15–16        |
 | 03  | Landing Page UI               | 0     | 02                 | 06               |
+| 03b | Landing Marketing Refresh     | 0     | 03                 | —                |
 | 04  | KaTeX + MathQuill             | 0     | 01, 02             | 16               |
 | 05  | Database Schema v1            | 0     | 01                 | 06, 09, 17, 19+  |
 | 06  | Auth Scaffold                 | 0     | 01, 02, 05         | 07, 15, 17       |
