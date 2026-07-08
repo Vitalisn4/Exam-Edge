@@ -64,10 +64,10 @@ After building any component — update this file with: component name, file pat
 
 ## Math Components
 
-| Component   | Path                              | Notes                         |
-| ----------- | --------------------------------- | ----------------------------- |
-| MathDisplay | `components/math/MathDisplay.tsx` | KaTeX wrapper, error boundary |
-| MathInput   | `components/math/MathInput.tsx`   | MathQuill, client-only        |
+| Component   | Path                              | Notes                                         |
+| ----------- | --------------------------------- | --------------------------------------------- |
+| MathDisplay | `components/math/MathDisplay.tsx` | KaTeX wrapper, error boundary, `trust: false` |
+| MathInput   | `components/math/MathInput.tsx`   | MathQuill WYSIWYG, client-only, `ssr: false`  |
 
 ---
 
@@ -129,6 +129,7 @@ Installed Unit 02 — themed with ExamEdge tokens from `globals.css`.
 | Page            | Path                                         | Key Components Used                                                             |
 | --------------- | -------------------------------------------- | ------------------------------------------------------------------------------- |
 | Landing         | `app/page.tsx`                               | LandingPage, Navbar, Hero, Features, HowItWorks, SocialProof, BottomCta, Footer |
+| Math Dev        | `app/dev/math/page.tsx`                      | MathPlayground, MathDisplay, MathInput                                          |
 | Dashboard       | `app/(student)/dashboard/page.tsx`           | _Stub — Unit 15_                                                                |
 | Study Session   | `app/(student)/study/[topicId]/page.tsx`     | _Not built_                                                                     |
 | Exam Simulation | `app/(student)/exam/[simulationId]/page.tsx` | _Not built_                                                                     |

@@ -171,4 +171,32 @@
     font-size: 16px;
     line-height: 1.5;
   }
+
+  .math-display {
+    font-family: var(--font-math), "Times New Roman", serif;
+    font-size: 1rem;
+    min-height: 1.5rem;
+  }
+
+  .math-display .katex {
+    font-size: 1.0625rem;
+  }
+
+  .math-display-error {
+    border: 1px solid var(--color-error);
+  }
+
+  .math-input .mq-editable-field {
+    min-height: 2.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+  }
+
+  .math-input .mq-editable-field.mq-focused {
+    border-color: var(--color-border-focus);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary-light) 25%, transparent);
+  }
 }

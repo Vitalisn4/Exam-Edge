@@ -2,6 +2,13 @@
 
 > **Copy this entire file into chat.** Post Context and Research Summary before writing any code.
 
+## Implementation status
+
+| Field      | Value                                                                                      |
+| ---------- | ------------------------------------------------------------------------------------------ |
+| **Status** | **IMPLEMENTED** — pending manual validation and merge on `feature/unit-04-katex-mathquill` |
+| **Tests**  | 19 passing (7 shared math + 12 web)                                                        |
+
 ## Feature overview
 
 | Field             | Value                             |
