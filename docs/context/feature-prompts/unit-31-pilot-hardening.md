@@ -4,13 +4,13 @@
 
 ## Feature overview
 
-| Field | Value |
-|-------|-------|
-| **Feature ID** | Unit 31 |
-| **Feature name** | Pilot Hardening + Demo Script |
-| **Release** | V1.0 MVP |
-| **Branch** | `feature/unit-31-pilot-hardening` |
-| **Prerequisites** | All Units 01–30 merged to main. |
+| Field             | Value                             |
+| ----------------- | --------------------------------- |
+| **Feature ID**    | Unit 31                           |
+| **Feature name**  | Pilot Hardening + Demo Script     |
+| **Release**       | V1.0 MVP                          |
+| **Branch**        | `feature/unit-31-pilot-hardening` |
+| **Prerequisites** | All Units 01–30 merged to main.   |
 
 ## Purpose and business objectives
 
@@ -36,6 +36,7 @@ Completing this unit advances ExamEdge toward a demo-ready MVP pilot — an AI-p
 - [ ] Load test: 50 concurrent marking — p95 < 3s
 - [ ] All 31 units marked complete in progress-tracker.md
 - [ ] `/dev/*` routes hidden in production
+- [ ] Teal Forest rebrand applied in `globals.css` and all web routes — landing (`/`), auth stubs (`/login`, `/register`), legal stubs (`/privacy`, `/contact`), student, teacher, and admin screens (migrate from legacy Exam Blue if present)
 
 ## Prerequisites and dependencies
 
@@ -46,6 +47,9 @@ All Units 01–30 merged to main.
 
 ## Internal documentation (read before coding)
 
+- [ ] docs/context/design-brand-identity.md
+- [ ] docs/context/ui-tokens.md
+- [ ] docs/context/ui-rules.md
 - [ ] docs/demo-script.md
 - [ ] docs/context/zero-budget-stack.md
 - [ ] docs/context/engineering-operations.md
@@ -93,6 +97,7 @@ Also consult `docs/context/library-docs.md` § Official External Documentation f
 - `docs/demo-script.md` walkthrough validated
 
 **Demo script steps:**
+
 1. Login demo student (30s)
 2. Dashboard — mastery, streak, readiness (1min)
 3. Pure Maths practice — live question (1min)
@@ -105,13 +110,13 @@ Also consult `docs/context/library-docs.md` § Official External Documentation f
 
 ## Non-functional requirements
 
-| Category | Requirement |
-|----------|-------------|
-| **Quality** | TypeScript strict mode; no `any` without documented exception |
-| **Testing** | Vitest unit tests for all new logic; integration tests for API routes |
-| **Accessibility** | 360px viewport; 44px minimum touch targets; 16px minimum body text |
-| **Security** | Zod validation at all boundaries; auth on protected routes |
-| **Performance** | No LLM calls during question delivery; Server Components default |
+| Category          | Requirement                                                           |
+| ----------------- | --------------------------------------------------------------------- |
+| **Quality**       | TypeScript strict mode; no `any` without documented exception         |
+| **Testing**       | Vitest unit tests for all new logic; integration tests for API routes |
+| **Accessibility** | 360px viewport; 44px minimum touch targets; 16px minimum body text    |
+| **Security**      | Zod validation at all boundaries; auth on protected routes            |
+| **Performance**   | No LLM calls during question delivery; Server Components default      |
 
 ## Database and schema changes
 
@@ -143,10 +148,10 @@ Follow existing Auth.js middleware for any protected routes added.
 
 ## Performance and scalability
 
-| Metric | Target |
-|--------|--------|
-| API p95 | < 3s for synchronous AI routes |
-| Build | `npm run typecheck` passes all packages |
+| Metric  | Target                                  |
+| ------- | --------------------------------------- |
+| API p95 | < 3s for synchronous AI routes          |
+| Build   | `npm run typecheck` passes all packages |
 
 ## Logging, analytics, and observability
 
@@ -191,6 +196,7 @@ Follow existing Auth.js middleware for any protected routes added.
 - [ ] docs/context/library-docs.md (if new integration pattern established)
 
 ---
+
 ## Mandatory implementation process
 
 **Do not write code until you post a Context and Research Summary.**

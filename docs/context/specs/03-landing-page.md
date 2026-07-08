@@ -10,7 +10,7 @@ Build the complete public landing page at `/` with mock content, mobile-first la
 
 ## Design
 
-Reference `ui-tokens.md` and `ui-rules.md`.
+Reference `design-brand-identity.md`, `ui-tokens.md`, and `ui-rules.md` (Teal Forest). Mockup target: `examedge-ui-mockup-prompt.md` Screen 1 (MVP scope — no pricing/testimonials yet).
 
 - Single column layout, 360px minimum width, no horizontal scroll
 - Navbar: ExamEdge logo (text OK for MVP), "Log in" link, "Start preparing" primary button
@@ -59,13 +59,13 @@ No new packages required (lucide-react if not already installed with shadcn).
 
 ## Verify when done
 
-- [ ] Landing renders on 360px without horizontal scroll
-- [ ] All CTAs use ui-tokens.md classes
-- [ ] Authenticated user visiting `/` redirects to `/dashboard`
-- [ ] "See how it works" scrolls to features section
-- [ ] `npm run typecheck` passes
-- [ ] `npm run lint` passes
-- [ ] `ui-registry.md` updated with Hero, Features, HowItWorks, Footer
+- [x] Landing renders on 360px without horizontal scroll
+- [x] All CTAs use ui-tokens.md classes
+- [x] Authenticated user visiting `/` redirects to `/dashboard`
+- [x] "See how it works" scrolls to features section
+- [x] `npm run typecheck` passes
+- [x] `npm run lint` passes
+- [x] `ui-registry.md` updated with Hero, Features, HowItWorks, Footer
 
 ---
 

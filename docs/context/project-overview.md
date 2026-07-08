@@ -9,7 +9,7 @@ ExamEdge is **an AI-powered examination preparation and personalized learning pl
 
 The platform is **curriculum-agnostic and extensible by design**. Examination boards, syllabi, languages, marking conventions, and country configurations are layered on a shared core — not baked into the architecture. We launch with one curriculum; we build for an entire continent.
 
-**Tagline:** *Learn deeply. Prepare confidently. Any exam. Any country.*
+**Tagline:** _Master Every Subject. Ace Every Examination._
 
 ---
 
@@ -29,15 +29,15 @@ The platform gives every student access to a personalised AI examiner, tutor, an
 
 The MVP is a **launch configuration**, not the platform's ceiling:
 
-| Dimension | Phase 1 (Now) | Platform capability |
-|-----------|---------------|---------------------|
-| Geography | Cameroon pilot | Nigeria, Ghana, Kenya, Francophone Africa, … |
-| Examination board | GCE Board Buea | WAEC, NECO, KCSE, OBC, BEPC, custom |
-| Level | O-Level and A-Level | All secondary levels per board |
-| Subjects | Pure Maths (0765), Physics (0710), Biology (0730) | Full catalog per board |
-| Language | English | English, French, local languages |
-| Marking | M1/A1/B1 (GCE convention) | Board-specific rubrics via templates |
-| Client | Web PWA | Web + native mobile (V1.1) |
+| Dimension         | Phase 1 (Now)                                     | Platform capability                          |
+| ----------------- | ------------------------------------------------- | -------------------------------------------- |
+| Geography         | Cameroon pilot                                    | Nigeria, Ghana, Kenya, Francophone Africa, … |
+| Examination board | GCE Board Buea                                    | WAEC, NECO, KCSE, OBC, BEPC, custom          |
+| Level             | O-Level and A-Level                               | All secondary levels per board               |
+| Subjects          | Pure Maths (0765), Physics (0710), Biology (0730) | Full catalog per board                       |
+| Language          | English                                           | English, French, local languages             |
+| Marking           | M1/A1/B1 (GCE convention)                         | Board-specific rubrics via templates         |
+| Client            | Web PWA                                           | Web + native mobile (V1.1)                   |
 
 See `roadmap.md` for V1.1 → V3.0 expansion plan.
 
@@ -243,6 +243,7 @@ Dashboard    Practice    Progress    Profile
 ## Features In Scope (MVP V1.0)
 
 ### Student
+
 - Email/password registration and login
 - Subject and topic selection (0765, 0710, 0730)
 - Mastery map dashboard (red/amber/green per topic)
@@ -265,10 +266,12 @@ Dashboard    Practice    Progress    Profile
 - Parental consent capture (under-16) and data export/deletion requests (MVP stubs)
 
 ### Admin
+
 - Question validation queue
 - Approve/reject generated questions with notes
 
 ### Infrastructure
+
 - Auth.js v5 with role-based access
 - Rate limiting (Upstash Redis)
 - Sentry error tracking
@@ -280,25 +283,25 @@ Dashboard    Practice    Progress    Profile
 
 ## Features Out of Scope (MVP)
 
-| Feature | Deferred To |
-|---------|-------------|
-| React Native mobile app | V1.1 |
-| Google/Facebook OAuth | V1.1 |
-| Teacher dashboard and class analytics | V1.1 |
-| Full 16-subject GCE coverage | V1.1 |
-| French language UI | V1.1 |
-| PostgreSQL RLS policies | V1.1 |
-| Automated self-service data export | V1.1 |
-| WAEC / NECO (Nigeria, Ghana) | V2.0 |
-| KCSE (Kenya) | V2.0 |
-| OBC / Francophone Cameroon curriculum | V2.0 |
-| Whisper oral assessment | V2.0 |
-| Advanced Cognitive Fingerprint clustering | V2.0 |
-| USSD/SMS delivery (Africa's Talking) | V2.0 |
-| Fine-tuned local marking models | V3.0 |
-| Payment/subscription system | Post-pilot |
-| Government analytics dashboard | V3.0 |
-| Developer API | V3.0 |
+| Feature                                   | Deferred To |
+| ----------------------------------------- | ----------- |
+| React Native mobile app                   | V1.1        |
+| Google/Facebook OAuth                     | V1.1        |
+| Teacher dashboard and class analytics     | V1.1        |
+| Full 16-subject GCE coverage              | V1.1        |
+| French language UI                        | V1.1        |
+| PostgreSQL RLS policies                   | V1.1        |
+| Automated self-service data export        | V1.1        |
+| WAEC / NECO (Nigeria, Ghana)              | V2.0        |
+| KCSE (Kenya)                              | V2.0        |
+| OBC / Francophone Cameroon curriculum     | V2.0        |
+| Whisper oral assessment                   | V2.0        |
+| Advanced Cognitive Fingerprint clustering | V2.0        |
+| USSD/SMS delivery (Africa's Talking)      | V2.0        |
+| Fine-tuned local marking models           | V3.0        |
+| Payment/subscription system               | Post-pilot  |
+| Government analytics dashboard            | V3.0        |
+| Developer API                             | V3.0        |
 
 Full release plan: `roadmap.md`
 
@@ -308,15 +311,15 @@ Full release plan: `roadmap.md`
 
 Custom events tracked via Plausible. Never invent new event names without updating this list first.
 
-| Event | When | Key Properties |
-|-------|------|----------------|
-| `session_started` | Student starts study or exam session | userId, mode, subjectId |
-| `answer_submitted` | Answer submitted for marking | userId, topicId, answerType |
-| `hint_requested` | Hint button clicked | userId, hintLevel, hintsRemaining |
-| `exam_completed` | Exam simulation submitted | userId, subjectId, totalMarks, focusBreaks |
-| `topic_mastered` | Mastery level crosses 0.70 threshold | userId, topicId |
-| `offline_sync` | Offline queue synced on reconnect | userId, queueSize |
-| `appeal_submitted` | Marking appeal filed | userId, responseId |
+| Event              | When                                 | Key Properties                             |
+| ------------------ | ------------------------------------ | ------------------------------------------ |
+| `session_started`  | Student starts study or exam session | userId, mode, subjectId                    |
+| `answer_submitted` | Answer submitted for marking         | userId, topicId, answerType                |
+| `hint_requested`   | Hint button clicked                  | userId, hintLevel, hintsRemaining          |
+| `exam_completed`   | Exam simulation submitted            | userId, subjectId, totalMarks, focusBreaks |
+| `topic_mastered`   | Mastery level crosses 0.70 threshold | userId, topicId                            |
+| `offline_sync`     | Offline queue synced on reconnect    | userId, queueSize                          |
+| `appeal_submitted` | Marking appeal filed                 | userId, responseId                         |
 
 ---
 

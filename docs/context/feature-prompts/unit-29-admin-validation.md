@@ -4,13 +4,13 @@
 
 ## Feature overview
 
-| Field | Value |
-|-------|-------|
-| **Feature ID** | Unit 29 |
-| **Feature name** | Admin Question Validation Queue |
-| **Release** | V1.0 MVP |
-| **Branch** | `feature/unit-29-admin-validation` |
-| **Prerequisites** | Units 12 and 06 merged to main. |
+| Field             | Value                              |
+| ----------------- | ---------------------------------- |
+| **Feature ID**    | Unit 29                            |
+| **Feature name**  | Admin Question Validation Queue    |
+| **Release**       | V1.0 MVP                           |
+| **Branch**        | `feature/unit-29-admin-validation` |
+| **Prerequisites** | Units 12 and 06 merged to main.    |
 
 ## Purpose and business objectives
 
@@ -43,6 +43,9 @@ Units 12 and 06 merged to main.
 
 ## Internal documentation (read before coding)
 
+- [ ] docs/context/design-brand-identity.md
+- [ ] docs/context/ui-tokens.md
+- [ ] docs/context/ui-rules.md
 - [ ] docs/context/content-architecture.md
 - [ ] docs/context/tech-stack-versions.md
 - [ ] AGENTS.md
@@ -80,11 +83,13 @@ Also consult `docs/context/library-docs.md` § Official External Documentation f
 ## Functional requirements
 
 **UI:** `(admin)/questions/page.tsx`
+
 - Table: pending questions with topic, difficulty, marks, cross-exam result
 - Detail: KaTeX rendered question + mark scheme + param schema
 - Approve / Reject + notes
 
 **API:**
+
 - `GET /api/admin/questions/review`
 - `PATCH /api/admin/questions/:id/validate`
 
@@ -92,13 +97,13 @@ Approve: validated=true, generate embedding, audit log.
 
 ## Non-functional requirements
 
-| Category | Requirement |
-|----------|-------------|
-| **Quality** | TypeScript strict mode; no `any` without documented exception |
-| **Testing** | Vitest unit tests for all new logic; integration tests for API routes |
-| **Accessibility** | 360px viewport; 44px minimum touch targets; 16px minimum body text |
-| **Security** | Zod validation at all boundaries; auth on protected routes |
-| **Performance** | No LLM calls during question delivery; Server Components default |
+| Category          | Requirement                                                           |
+| ----------------- | --------------------------------------------------------------------- |
+| **Quality**       | TypeScript strict mode; no `any` without documented exception         |
+| **Testing**       | Vitest unit tests for all new logic; integration tests for API routes |
+| **Accessibility** | 360px viewport; 44px minimum touch targets; 16px minimum body text    |
+| **Security**      | Zod validation at all boundaries; auth on protected routes            |
+| **Performance**   | No LLM calls during question delivery; Server Components default      |
 
 ## Database and schema changes
 
@@ -107,11 +112,13 @@ No schema changes in this unit. Use existing tables via repositories.
 ## Backend requirements and API contracts
 
 **UI:** `(admin)/questions/page.tsx`
+
 - Table: pending questions with topic, difficulty, marks, cross-exam result
 - Detail: KaTeX rendered question + mark scheme + param schema
 - Approve / Reject + notes
 
 **API:**
+
 - `GET /api/admin/questions/review`
 - `PATCH /api/admin/questions/:id/validate`
 
@@ -139,10 +146,10 @@ No LLM calls in this unit.
 
 ## Performance and scalability
 
-| Metric | Target |
-|--------|--------|
-| API p95 | < 3s for synchronous AI routes |
-| Build | `npm run typecheck` passes all packages |
+| Metric  | Target                                  |
+| ------- | --------------------------------------- |
+| API p95 | < 3s for synchronous AI routes          |
+| Build   | `npm run typecheck` passes all packages |
 
 ## Logging, analytics, and observability
 
@@ -188,6 +195,7 @@ No LLM calls in this unit.
 - [ ] docs/context/library-docs.md (if new integration pattern established)
 
 ---
+
 ## Mandatory implementation process
 
 **Do not write code until you post a Context and Research Summary.**

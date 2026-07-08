@@ -4,12 +4,12 @@
 
 ## Feature overview
 
-| Field | Value |
-|-------|-------|
-| **Feature ID** | Unit 15 |
-| **Feature name** | Student Dashboard UI (Mock Data) |
-| **Release** | V1.0 MVP |
-| **Branch** | `feature/unit-15-dashboard-ui-mock` |
+| Field             | Value                                |
+| ----------------- | ------------------------------------ |
+| **Feature ID**    | Unit 15                              |
+| **Feature name**  | Student Dashboard UI (Mock Data)     |
+| **Release**       | V1.0 MVP                             |
+| **Branch**        | `feature/unit-15-dashboard-ui-mock`  |
 | **Prerequisites** | Units 02, 04, and 06 merged to main. |
 
 ## Purpose and business objectives
@@ -32,7 +32,7 @@ Completing this unit advances ExamEdge toward a demo-ready MVP pilot — an AI-p
 ## Acceptance criteria
 
 - [ ] Renders on 360px without horizontal scroll
-- [ ] Mastery colors match ui-tokens.md
+- [ ] Mastery heatmap colours match `ui-tokens.md` `--mastery-*` scale
 - [ ] All sections visible with mock data only
 - [ ] No fetch calls
 
@@ -45,6 +45,9 @@ Units 02, 04, and 06 merged to main.
 
 ## Internal documentation (read before coding)
 
+- [ ] docs/context/design-brand-identity.md
+- [ ] docs/context/ui-tokens.md
+- [ ] docs/context/ui-rules.md
 - [ ] docs/context/ui-registry.md
 - [ ] docs/context/ui-context.md
 - [ ] docs/context/tech-stack-versions.md
@@ -83,24 +86,25 @@ Also consult `docs/context/library-docs.md` § Official External Documentation f
 ## Functional requirements
 
 **UI sections:**
+
 - Navbar: Dashboard (active), Practice, Progress, Profile
 - Welcome header with name
 - ReadinessScore ring (mock 62%)
 - StreakDisplay (mock 5-day)
-- MasteryMap grid (15 mock topics, red/amber/green)
+- MasteryHeatmap grid (15 mock topic cells — `--mastery-*` teal scale per `ui-tokens.md`, not red/amber/green)
 - "Continue studying" CTA
 - Focus preparation prompt (dismissible)
 - Recent sessions list (3 mock entries)
 
 ## Non-functional requirements
 
-| Category | Requirement |
-|----------|-------------|
-| **Quality** | TypeScript strict mode; no `any` without documented exception |
-| **Testing** | Vitest unit tests for all new logic; integration tests for API routes |
-| **Accessibility** | 360px viewport; 44px minimum touch targets; 16px minimum body text |
-| **Security** | Zod validation at all boundaries; auth on protected routes |
-| **Performance** | No LLM calls during question delivery; Server Components default |
+| Category          | Requirement                                                           |
+| ----------------- | --------------------------------------------------------------------- |
+| **Quality**       | TypeScript strict mode; no `any` without documented exception         |
+| **Testing**       | Vitest unit tests for all new logic; integration tests for API routes |
+| **Accessibility** | 360px viewport; 44px minimum touch targets; 16px minimum body text    |
+| **Security**      | Zod validation at all boundaries; auth on protected routes            |
+| **Performance**   | No LLM calls during question delivery; Server Components default      |
 
 ## Database and schema changes
 
@@ -134,10 +138,10 @@ Follow existing Auth.js middleware for any protected routes added.
 
 ## Performance and scalability
 
-| Metric | Target |
-|--------|--------|
-| API p95 | < 3s for synchronous AI routes |
-| Build | `npm run typecheck` passes all packages |
+| Metric  | Target                                  |
+| ------- | --------------------------------------- |
+| API p95 | < 3s for synchronous AI routes          |
+| Build   | `npm run typecheck` passes all packages |
 
 ## Logging, analytics, and observability
 
@@ -183,6 +187,7 @@ Follow existing Auth.js middleware for any protected routes added.
 - [ ] docs/context/library-docs.md (if new integration pattern established)
 
 ---
+
 ## Mandatory implementation process
 
 **Do not write code until you post a Context and Research Summary.**

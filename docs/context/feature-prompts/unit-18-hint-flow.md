@@ -4,12 +4,12 @@
 
 ## Feature overview
 
-| Field | Value |
-|-------|-------|
-| **Feature ID** | Unit 18 |
-| **Feature name** | Hint Flow |
-| **Release** | V1.0 MVP |
-| **Branch** | `feature/unit-18-hint-flow` |
+| Field             | Value                           |
+| ----------------- | ------------------------------- |
+| **Feature ID**    | Unit 18                         |
+| **Feature name**  | Hint Flow                       |
+| **Release**       | V1.0 MVP                        |
+| **Branch**        | `feature/unit-18-hint-flow`     |
 | **Prerequisites** | Units 11 and 17 merged to main. |
 
 ## Purpose and business objectives
@@ -44,6 +44,9 @@ Units 11 and 17 merged to main.
 
 ## Internal documentation (read before coding)
 
+- [ ] docs/context/design-brand-identity.md
+- [ ] docs/context/ui-tokens.md
+- [ ] docs/context/ui-rules.md
 - [ ] docs/context/security.md
 - [ ] docs/context/tech-stack-versions.md
 - [ ] AGENTS.md
@@ -86,6 +89,7 @@ Also consult `docs/context/library-docs.md` § Official External Documentation f
 - runGuidanceChain + anti-leakage check
 
 **UI:**
+
 - Hint button disabled until first submission with marks < 50%
 - "Hints remaining: N/3"
 - HintPanel slides in
@@ -93,13 +97,13 @@ Also consult `docs/context/library-docs.md` § Official External Documentation f
 
 ## Non-functional requirements
 
-| Category | Requirement |
-|----------|-------------|
-| **Quality** | TypeScript strict mode; no `any` without documented exception |
-| **Testing** | Vitest unit tests for all new logic; integration tests for API routes |
-| **Accessibility** | 360px viewport; 44px minimum touch targets; 16px minimum body text |
-| **Security** | Zod validation at all boundaries; auth on protected routes |
-| **Performance** | No LLM calls during question delivery; Server Components default |
+| Category          | Requirement                                                           |
+| ----------------- | --------------------------------------------------------------------- |
+| **Quality**       | TypeScript strict mode; no `any` without documented exception         |
+| **Testing**       | Vitest unit tests for all new logic; integration tests for API routes |
+| **Accessibility** | 360px viewport; 44px minimum touch targets; 16px minimum body text    |
+| **Security**      | Zod validation at all boundaries; auth on protected routes            |
+| **Performance**   | No LLM calls during question delivery; Server Components default      |
 
 ## Database and schema changes
 
@@ -113,6 +117,7 @@ No schema changes in this unit. Use existing tables via repositories.
 - runGuidanceChain + anti-leakage check
 
 **UI:**
+
 - Hint button disabled until first submission with marks < 50%
 - "Hints remaining: N/3"
 - HintPanel slides in
@@ -121,6 +126,7 @@ No schema changes in this unit. Use existing tables via repositories.
 ## Frontend requirements and user experience
 
 Wire Unit 16 HintPanel to real API:
+
 - Hint button disabled until first submission with marks < 50% of available
 - Display "Hints remaining: N/3" after each hint
 - HintPanel slides in with guiding question from API
@@ -144,10 +150,10 @@ Follow AGENTS.md chain specifications exactly. Use getModelConfig() from package
 
 ## Performance and scalability
 
-| Metric | Target |
-|--------|--------|
-| API p95 | < 3s for synchronous AI routes |
-| Build | `npm run typecheck` passes all packages |
+| Metric  | Target                                  |
+| ------- | --------------------------------------- |
+| API p95 | < 3s for synchronous AI routes          |
+| Build   | `npm run typecheck` passes all packages |
 
 ## Logging, analytics, and observability
 
@@ -189,6 +195,7 @@ Follow AGENTS.md chain specifications exactly. Use getModelConfig() from package
 - [ ] docs/context/library-docs.md (if new integration pattern established)
 
 ---
+
 ## Mandatory implementation process
 
 **Do not write code until you post a Context and Research Summary.**

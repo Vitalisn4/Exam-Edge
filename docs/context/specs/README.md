@@ -32,12 +32,13 @@ Implement exactly as specified. Follow merge gate before next feature.
 
 ## Index
 
-| Spec | Unit | Status |
-|------|------|--------|
-| [03-landing-page.md](03-landing-page.md) | 03 Landing Page UI | Ready |
-| [07-plausible-init.md](07-plausible-init.md) | 07 Plausible Analytics | Ready |
-| [20-curriculum-explain-ui.md](20-curriculum-explain-ui.md) | 20 Curriculum Explain UI | Ready |
-| [21-progress-page.md](21-progress-page.md) | 21 Progress Page | Ready |
-| [22-marking-appeals.md](22-marking-appeals.md) | 22 Marking Appeals | Ready |
-| [23-profile-privacy.md](23-profile-privacy.md) | 23 Profile + Privacy | Ready |
-| _(create when starting each remaining unit)_ | | |
+| Spec                                                       | Unit                         | Status            |
+| ---------------------------------------------------------- | ---------------------------- | ----------------- |
+| [02-design-system.md](02-design-system.md)                 | 02 Design System + UI Tokens | Complete (merged) |
+| [03-landing-page.md](03-landing-page.md)                   | 03 Landing Page UI           | Complete (merged) |
+| [07-plausible-init.md](07-plausible-init.md)               | 07 Plausible Analytics       | Ready             |
+| [20-curriculum-explain-ui.md](20-curriculum-explain-ui.md) | 20 Curriculum Explain UI     | Ready             |
+| [21-progress-page.md](21-progress-page.md)                 | 21 Progress Page             | Ready             |
+| [22-marking-appeals.md](22-marking-appeals.md)             | 22 Marking Appeals           | Ready             |
+| [23-profile-privacy.md](23-profile-privacy.md)             | 23 Profile + Privacy         | Ready             |
+| _(create when starting each remaining unit)_               |                              |                   |

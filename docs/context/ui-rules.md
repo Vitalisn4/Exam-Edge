@@ -1,45 +1,67 @@
 # UI Rules — ExamEdge
 
-Concise rules for building ExamEdge UI. Read ui-tokens.md for exact values. These rules cover patterns and constraints to keep the UI consistent.
+Concise rules for building ExamEdge UI. Read `ui-tokens.md` for exact values and `design-brand-identity.md` for brand personality. These rules cover patterns and constraints to keep the UI consistent.
 
 ---
 
-## Font
+## Fonts
 
-Always import Inter via `next/font/google` in root layout:
+**Inter** — primary UI and body via `next/font/google`:
 
 ```typescript
 import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 ```
 
-Apply to `<html className={inter.variable}>`. Never use system fonts as primary.
+**Clash Display** — hero/marketing headlines only (load locally or via CDN; fallback Inter).
 
-KaTeX math renders inside `.math-display` wrapper — do not override KaTeX font sizes below 16px.
+**JetBrains Mono** — exam reference numbers, step labels in working space.
+
+Apply Inter to `<html className={inter.variable}>`. KaTeX math inside `.math-display` — minimum **16px**, never override below.
 
 ---
 
 ## Layout
 
-- **Mobile-first:** Design for 360px width first, scale up
-- **Max content width:** `max-w-lg mx-auto` on desktop (student app is not a wide dashboard)
-- **Page padding:** `px-4 py-6` minimum on all student pages
-- **Section gap:** 24px (`gap-6`) between major sections
-- **Navbar height:** 56px, sticky top, white background, bottom border
-- **No sidebar** in MVP — top navbar only
-- **Exam mode:** No navbar, no footer, fullscreen — paper aesthetic only
+- **Mobile-first:** Design for 320–360px width first, scale up
+- **Student app max width:** `max-w-[1200px]` centred on desktop (not a cramped phone-only layout at xl)
+- **Marketing landing:** full-width sections, hero max-width ~680px for copy
+- **Page padding:** `px-4 py-6` mobile · `px-8` tablet · `px-12` desktop
+- **Section gap:** 48px mobile / 96px desktop between major sections
+- **Navigation (MVP web):**
+  - **Mobile (<1024px):** bottom tab bar (max 5 items), top bar 56px
+  - **Desktop (≥1024px):** left sidebar 256px (collapsible to 72px) + top bar 64px
+- **Exam mode:** No sidebar, no bottom nav, no footer — fullscreen paper aesthetic only
+
+> **Note:** Units 03–19 may ship with top navbar only during MVP sprint; migrate to sidebar + bottom nav per `examedge-ui-mockup-prompt.md` before Unit 31 polish.
 
 ---
 
-## Navbar
+## Navigation
 
-Four nav items: Dashboard, Practice, Progress, Profile.
+**Student primary nav:** Dashboard, Study/Practice, Progress, Profile (+ Exam when simulation live).
 
-- Active: `text-primary font-medium`
-- Inactive: `text-text-secondary font-medium`
-- No underline — color change only for active state
-- Logo left, nav items right (or hamburger below 640px)
-- Offline banner appears below navbar when disconnected
+- Active: `text-primary-700 font-medium` + primary-50 background (sidebar) or teal icon + dot (bottom nav)
+- Inactive: `text-text-secondary`
+- Logo height: 32px
+- Offline banner: sticky below top bar when disconnected
+- Exam countdown chip (amber pill) in top bar when exam date registered
+
+---
+
+## Signature element: Mastery Heatmap
+
+The visual centrepiece of ExamEdge. Grid of topic squares coloured by mastery state (teal gradient scale).
+
+- Appears on: dashboard, subject overview, progress/analytics
+- Cell: 32×32px, 3px gap, `--mastery-*` colours from `ui-tokens.md`
+- Hover/tap: tooltip with topic name, mastery %, days since last practice
+- Fill animation when mastery improves: **400ms ease-out**
+- Legend below grid with all state labels
+- Tap cell → `/study/[topicId]` or topic detail
+- Empty state: "Your journey starts here" + Start First Session CTA
+
+Do not replace heatmap with a list-only progress view on dashboard.
 
 ---
 
@@ -47,47 +69,46 @@ Four nav items: Dashboard, Practice, Progress, Profile.
 
 Every content section lives in a card except exam mode.
 
-```
+```css
 background: bg-surface
 border: 1px solid border
-border-radius: 12px
-padding: 16px (mobile) / 24px (desktop)
-shadow: subtle (see ui-tokens.md)
+border-radius: var(--radius-md) (12px)
+padding: 16px mobile / 24px desktop
+shadow: var(--shadow-sm)
 ```
 
-Never use colored card backgrounds — color goes inside via badges, mastery cells, mark types.
+Subject cards: 4px left border in subject colour. Hover: shadow-lg + translateY(-2px).
 
-Exam mode: no cards — flat paper layout with question number header only.
+Never use coloured card backgrounds — colour via badges, heatmap cells, mark types, subject accents.
+
+Exam mode: flat paper layout, no card shadows.
+
+---
+
+## AI-generated content
+
+All AI tutor, hint, marking feedback, and curriculum explanation panels:
+
+```css
+border-left: 3px solid var(--color-primary-500)
+optional: "ExamEdge AI" label with teal gradient top bar (3px)
+```
+
+Students must always distinguish AI content from static syllabus text.
 
 ---
 
 ## Typography Hierarchy
 
-**Page title**
-```
-text-2xl font-bold text-text-primary
-```
+**Page title:** `text-2xl font-bold text-text-primary` (mobile) · `text-3xl` desktop
 
-**Section heading (card title)**
-```
-text-lg font-semibold text-text-primary
-```
+**Section heading:** `text-lg font-semibold text-text-primary`
 
-**Body / question text**
-```
-text-base text-text-primary (16px minimum)
-```
+**Body / question:** `text-base` minimum (15–16px), line-height ≥ 1.5
 
-**Secondary / labels / timestamps**
-```
-text-sm text-text-muted
-```
+**Exam question:** 18px, line-height 1.8, **left-aligned never centred**
 
-**Exam question number**
-```
-text-sm font-medium text-text-secondary
-"Question 3 of 10"
-```
+**Secondary / labels:** `text-sm text-text-muted`
 
 ---
 
@@ -95,131 +116,114 @@ text-sm font-medium text-text-secondary
 
 Mobile viewport split:
 
-```
+```text
 ┌─────────────────────────┐
-│ Question 2/5    [Hint]  │  ← header row
+│ Question 2/5    [Hint]  │
 ├─────────────────────────┤
-│                         │
-│   Question (KaTeX)      │  ← 45% viewport, scrollable
-│                         │
+│   Question (KaTeX)      │  ← ~45% viewport, scrollable
 ├─────────────────────────┤
-│   MathInput / Photo     │  ← 35% viewport
+│   MathInput / Photo     │  ← ~35% viewport
 ├─────────────────────────┤
-│   [Submit Answer]       │  ← fixed bottom, full width
+│   [Submit Answer]       │  ← fixed bottom, full width, 44px min
 └─────────────────────────┘
 ```
 
-After submit: MarkingDisplay slides up below question, replacing MathInput.
+Desktop: two-panel optional — question left, context/hints right (50/50 at lg+).
+
+After submit: MarkingDisplay slides up; AI feedback with teal left border.
 
 ---
 
 ## Marking Display
 
-- Show total: "4 / 6 marks" prominently
-- Each step: mark type badge + awarded/denied + feedback text
-- Denied steps: line-through on mark badge
-- If confidence < 0.70: amber "Under review" badge above total
-- Never show full mark scheme — only steps with feedback
+- Total: "4 / 6 marks" prominently
+- Per step: mark type badge + awarded/denied + feedback
+- Denied: line-through on badge
+- confidence < 0.70: amber "Under review" badge
+- Never show full mark scheme — only awarded/denied steps with feedback
 
 ---
 
 ## Hint Panel
 
-- Appears below question when hint requested
-- Shows: lightbulb icon + hint text (guiding question only)
-- Footer: "Hints remaining: 2/3"
-- Never show hint before first wrong/partial submission
-- Hint text max 200 chars — truncate with ellipsis if needed in UI
-
----
-
-## Mastery Map
-
-- Grid of topic cells (see ui-tokens.md colors)
-- Each cell: topic name + mastery percentage
-- Tap cell → navigate to `/study/[topicId]`
-- Legend below grid: Red = Needs work, Amber = Developing, Green = Mastered
-- Empty state (all red): "Start with [recommended topic]" CTA
+- Background: `bg-[var(--color-info-light)]`
+- Border-left: 3px solid info colour
+- Lightbulb icon + guiding question only (max 200 chars)
+- Footer: "Hints remaining: N/3"
+- Disabled until first submission with marks < 50%
+- Never reveal answer or next correct step
 
 ---
 
 ## Exam Simulation
 
-- Request fullscreen on session start
-- Timer top-right, always visible, turns amber at 5 minutes remaining, red at 1 minute
-- Question navigation: Previous / Next at bottom (no jumping ahead unvisited in MVP)
-- No hint button in exam mode
-- Tab switch → pause overlay: "You left the exam environment. Return to continue."
-- Submit paper button on last question only
+- Pre-exam system check screen before Begin
+- Request fullscreen on start
+- Top bar: dark (`neutral-900`), subject + paper, centre timer HH:MM:SS
+- Timer: white → amber at 30 min → red + pulse at 10 min
+- Question navigator drawer: grid of question numbers with visited/answered/flagged states
+- No hints, no recommendations, no notifications
+- Tab switch / exit fullscreen → pause overlay, timer pauses, event logged
+- Submit paper: confirmation modal with answered/flagged/unattempted summary
+- **No animations** except timer pulse at critical thresholds
 
 ---
 
-## Focus Preparation Prompt
+## Gamification (calm, not aggressive)
 
-Shown once at session start (dismissible):
-
-```
-Before you start: For the next 30 minutes, consider putting your phone
-face-down, closing other tabs, and letting those around you know you are
-studying. ExamEdge works best when you give it your full attention.
-
-[I'm ready — Start studying]
-```
-
-Minimal design — no illustrations, text + single button only.
+- **Streak:** flame + count; celebrate 7/30/100 day milestones; no guilt-trip loss messaging
+- **Badges:** hexagonal tiles; locked = greyscale + padlock
+- **Daily goal ring:** fills on dashboard; celebrates at 100% without locking further study
+- **Mastery milestone:** subtle confetti (0.5s, respects `prefers-reduced-motion`)
 
 ---
 
-## Empty States
+## Empty, Loading, and Error States
 
-Every section that can be empty needs an empty state:
+See `examedge-ui-mockup-prompt.md` for copy. Every list/dashboard section needs empty state + CTA.
 
-- Short descriptive text in `text-text-muted`
-- Optional icon (lucide, 24px, muted)
-- CTA button if logical next action exists
-
-Examples:
-- No sessions yet: "Complete your first practice session to see progress here."
-- No appeals: "If you disagree with a mark, you can appeal from the marking screen."
+- **Loading:** skeleton shimmer matching content shape — not full-page spinner (except exam submit processing)
+- **AI loading:** teal pulsing dots — "ExamEdge AI is thinking..."
+- **Marking:** "Marking your response..." + teal progress bar
+- **Errors:** human message + action — never raw API errors or stack traces
 
 ---
 
-## Loading States
+## Accessibility
 
-- Dashboard: skeleton loaders for mastery map cells — not full-page spinner
-- Marking: inline spinner on Submit button + "Marking your answer..."
-- Hint: inline spinner on Hint button + "Getting a hint..."
-- Never block entire screen except initial auth check
-
----
-
-## Photo Upload
-
-- Camera icon button beside MathInput
-- After capture: thumbnail preview + "Confirm" / "Retake"
-- OCR processing: "Reading your working..." spinner
-- Show transcription for student review before marking
-- Low confidence OCR: warning text before submit
+- WCAG AA minimum (AAA preferred for body text)
+- Focus ring: 3px primary with 2px offset — never `outline: none` without replacement
+- Min touch target 44×44px
+- `prefers-reduced-motion: reduce` — disable celebratory animations
+- Profile accessibility tab (V1.1): text size, dyslexia font, high contrast, dark mode toggle
 
 ---
 
-## Admin Validation Queue
+## Dark Mode
 
-- Desktop-friendly layout (admin may use laptop)
-- Two-column: question preview left, cross-examination result right
-- Approve (green) / Reject (red) buttons with optional notes field
-- Show param_schema and mark_scheme JSON in collapsible panel
+Tokens defined in `ui-tokens.md`. Full dark mode implementation targeted **V1.1** (`roadmap.md`). When implemented: navy-to-teal surfaces, not inverted light mode.
 
 ---
 
 ## Do Nots
 
-- Never use Tailwind built-in color classes — project tokens only
-- Never show raw error messages or API stack traces to students
-- Never add social feeds, news, or entertainment to break screens
-- Never use guilt-trip streak notifications ("You lost your streak!")
-- Never show the correct answer in hint panel
-- Never use font size below 14px for interactive element labels
-- Never use `position: fixed` for navbar — use sticky
-- Never add gradients to card backgrounds (except readiness ring)
-- Never use more than 2 font weights in a single UI element
+- Never use Tailwind built-in colour classes — project tokens only
+- Never show raw error messages to students
+- Never add social feeds, news, or entertainment on study screens
+- Never use guilt-trip streak notifications
+- Never show correct answer in hint panel
+- Never use font size below 14px for interactive labels
+- Never animate distractingly during exam mode
+- Never use gradients on card backgrounds (except welcome bar, hero, results celebration)
+- Never hide offline state — always show OfflineBanner when disconnected
+
+---
+
+## References
+
+| Screen spec                      | Document                       |
+| -------------------------------- | ------------------------------ |
+| All 11 core screens + components | `examedge-ui-mockup-prompt.md` |
+| Tokens                           | `ui-tokens.md`                 |
+| Brand                            | `design-brand-identity.md`     |
+| Component inventory              | `ui-registry.md`               |

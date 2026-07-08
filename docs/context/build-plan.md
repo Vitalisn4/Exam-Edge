@@ -4,7 +4,7 @@
 
 Full page UI built with mock data first — verified visually on 360px viewport before any logic is written. Then functionality is built and wired to the UI step by step. Every feature must be visible and testable before moving to the next. No invisible backend phases.
 
-Read `AGENTS.md` before any unit involving AI chains. Read `ui-tokens.md` + `ui-rules.md` before any UI unit.
+Read `AGENTS.md` before any unit involving AI chains. Read `design-brand-identity.md`, `ui-tokens.md`, and `ui-rules.md` before any UI unit.
 
 ---
 
@@ -51,9 +51,11 @@ Implement design tokens and primitive components.
 
 **Verify:**
 
-- [ ] All ui-tokens.md colors render correctly on `/dev/ui`
+- [ ] All ui-tokens.md token groups render correctly on `/dev/ui`
 - [ ] Buttons meet 44px min height on mobile
 - [ ] No raw hex in component files
+
+**Spec:** `specs/02-design-system.md`
 
 ---
 
@@ -65,9 +67,10 @@ Build the complete public landing page — mock content first, auth-aware CTAs.
 
 - `app/page.tsx` — public landing (not behind auth)
 - Top navbar: ExamEdge logo, "Log in" link, "Start preparing" primary CTA
-- Hero section:
-  - Headline: "Master your exams — understand, don't memorise"
-  - Subheadline: one sentence on examiner-accurate marking + offline access — built for Africa, starting with GCE Board Buea
+- Hero section (MVP scope — extended marketing in Unit 31 / V1.1 per `examedge-ui-mockup-prompt.md`):
+  - Headline: "Master your exams — understand, don't memorise" (or brand line from `design-brand-identity.md`)
+  - Subheadline: examiner-accurate M1/A1/B1 marking + offline access — built for African students, starting with GCE Board Buea
+  - Visual: Teal Forest tokens (`ui-tokens.md`); hero may use navy + teal radial gradient on polish pass
   - Primary CTA: "Start preparing free" → `/register`
   - Secondary CTA: "See how it works" → scroll to features
 - Features section — three value props with icons (lucide):
@@ -371,7 +374,7 @@ Complete dashboard UI — no API calls.
 - Welcome header: "Good morning, [Name]"
 - ReadinessScore ring — mock 62%
 - StreakDisplay — mock 5-day streak
-- MasteryMap grid — 15 mock topics (mix of red/amber/green)
+- MasteryHeatmap grid — 15 mock topic cells (teal gradient states per `ui-tokens.md` `--mastery-*`)
 - "Continue studying" CTA → `/study/[topicId]`
 - Focus preparation prompt on first visit (dismissible)
 - Recent sessions list — 3 mock entries
@@ -384,7 +387,7 @@ Complete dashboard UI — no API calls.
 **Verify:**
 
 - [ ] Renders on 360px without horizontal scroll
-- [ ] Mastery colors match ui-tokens.md
+- [ ] Mastery heatmap colours match ui-tokens.md `--mastery-*` scale
 - [ ] All sections visible without API
 
 ---
@@ -873,6 +876,48 @@ Production readiness for 20-student pilot and 10-minute competition demo.
 
 ---
 
+## Unit Index & Dependencies
+
+Each unit below is the **single source of truth** for what to build. Copy-paste prompts live in `feature-prompts/unit-NN-*.md`. Track status in `progress-tracker.md`. Merge gate: `feature-development-prompts.md` §2d.
+
+| #   | Unit                          | Phase | Depends on         | Blocks (summary) |
+| --- | ----------------------------- | ----- | ------------------ | ---------------- |
+| 01  | Monorepo Scaffold             | 0     | —                  | 02–08            |
+| 02  | Design System + UI Tokens     | 0     | 01                 | 03, 15–16        |
+| 03  | Landing Page UI               | 0     | 02                 | 06               |
+| 04  | KaTeX + MathQuill             | 0     | 01, 02             | 16               |
+| 05  | Database Schema v1            | 0     | 01                 | 06, 09, 17, 19+  |
+| 06  | Auth Scaffold                 | 0     | 01, 02, 05         | 07, 15, 17       |
+| 07  | Plausible Analytics           | 0     | 01, 06             | 17+              |
+| 08  | Redis + Rate Limiting         | 0     | 01                 | 17               |
+| 09  | Model Router + Chains infra   | 1     | 01, 05             | 10–14            |
+| 10  | Examiner Marking Chain        | 1     | 09                 | 13, 17, 28       |
+| 11  | Socratic Guidance Chain       | 1     | 09                 | 18               |
+| 12  | Question Generation + RAG     | 1     | 05, 09             | 24, 29, 30       |
+| 13  | UVE Probe Chain               | 1     | 09, 10             | 17               |
+| 14  | Curriculum Intelligence Chain | 1     | 05, 09             | 20, 30           |
+| 15  | Dashboard UI (mock)           | 2     | 02, 06             | 19               |
+| 16  | Study Session UI (mock)       | 2     | 02, 04             | 17, 20, 25       |
+| 17  | Session API + Answers         | 2     | 05, 06, 08, 10, 16 | 18–22, 24–28     |
+| 18  | Hint Flow                     | 2     | 11, 17             | —                |
+| 19  | Dashboard Real Data           | 2     | 05, 15, 17         | —                |
+| 20  | Curriculum Explain UI         | 2     | 14, 16             | —                |
+| 21  | Progress Page                 | 2     | 05, 06, 02         | 22, 26           |
+| 22  | Marking Appeals               | 2     | 17, 21             | —                |
+| 23  | Profile + Privacy             | 2     | 06, 02             | 27               |
+| 24  | Question Pool                 | 3     | 05, 12, 17         | 25               |
+| 25  | Exam Simulation               | 3     | 16, 17, 24         | 31               |
+| 26  | Focus Sessions                | 3     | 17, 21             | —                |
+| 27  | PWA + Offline Queue           | 4     | 17, 23             | 31               |
+| 28  | Photo Upload + OCR            | 4     | 10, 17             | —                |
+| 29  | Admin Validation Queue        | 4     | 05, 06, 12         | 31               |
+| 30  | Background Jobs (Cron)        | 4     | 09, 12, 14         | 31               |
+| 31  | Pilot Hardening + Demo        | 4     | 01–30              | —                |
+
+**Optional GitHub Issues:** If your team uses a GitHub Project board, create **one issue per unit** by copying the body from `feature-prompts/unit-NN-*.md` — do not maintain a separate issue document. Labels, milestones, and board setup: `feature-development-prompts.md` §2e.
+
+---
+
 ## MVP Exclusions — Do Not Build
 
 React Native app · Google OAuth · Teacher dashboard · 16 subjects · French UI · OBC · WAEC · Whisper ASR · Fine-tuned models · Payment system
@@ -881,14 +926,14 @@ React Native app · Google OAuth · Teacher dashboard · 16 subjects · French U
 
 ## Feature Count
 
-| Phase | Units | Weeks |
-|-------|-------|-------|
-| Phase 0 — Foundation | 8 | 1–2 |
-| Phase 1 — AI Chains | 6 | 3–5 |
-| Phase 2 — Student Core | 9 | 6–7 |
-| Phase 3 — Assessment | 3 | 7–8 |
-| Phase 4 — Resilience | 5 | 8–10 |
-| **Total** | **31** | **10** |
+| Phase                  | Units  | Weeks  |
+| ---------------------- | ------ | ------ |
+| Phase 0 — Foundation   | 8      | 1–2    |
+| Phase 1 — AI Chains    | 6      | 3–5    |
+| Phase 2 — Student Core | 9      | 6–7    |
+| Phase 3 — Assessment   | 3      | 7–8    |
+| Phase 4 — Resilience   | 5      | 8–10   |
+| **Total**              | **31** | **10** |
 
 ---
 
