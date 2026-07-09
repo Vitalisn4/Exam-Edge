@@ -3,12 +3,6 @@ import Link from "next/link";
 import { ExamEdgeLogo } from "@/components/layout/ExamEdgeLogo";
 
 const FOOTER_LINKS = {
-  product: [
-    { href: "/dashboard", label: "Dashboard" },
-    { href: "/practice", label: "Practice" },
-    { href: "/progress", label: "Analytics" },
-    { href: "/design-system", label: "Design system" },
-  ],
   examinations: [
     { href: "#boards", label: "GCE A-Level" },
     { href: "#boards", label: "GCE O-Level" },
@@ -18,8 +12,6 @@ const FOOTER_LINKS = {
   company: [
     { href: "/contact", label: "Contact" },
     { href: "/privacy", label: "Privacy" },
-    { href: "/teacher", label: "Teacher portal" },
-    { href: "/login", label: "Log in" },
   ],
 } as const;
 
@@ -55,14 +47,13 @@ function FooterCol({
 export function MarketingFooter() {
   return (
     <footer className="border-t border-border bg-surface">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-14 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-14 sm:grid-cols-2 lg:grid-cols-3">
         <div>
           <ExamEdgeLogo />
           <p className="mt-3 max-w-xs text-sm text-text-secondary">
             Master every subject. Ace every examination.
           </p>
         </div>
-        <FooterCol title="Product" links={FOOTER_LINKS.product} />
         <FooterCol title="Examinations" links={FOOTER_LINKS.examinations} />
         <FooterCol title="Company" links={FOOTER_LINKS.company} />
       </div>

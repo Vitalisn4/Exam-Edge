@@ -2,7 +2,7 @@
 
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { RegisterCtaLink } from "@/components/landing/RegisterCtaLink";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
@@ -17,13 +17,48 @@ const NAV_LINKS = [
 
 export function MarketingNavbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
 
   const closeMobileMenu = (): void => {
     setMobileOpen(false);
   };
 
+  useEffect(() => {
+    if (!mobileOpen) {
+      return;
+    }
+
+    const onKeyDown = (event: KeyboardEvent): void => {
+      if (event.key === "Escape") {
+        setMobileOpen(false);
+      }
+    };
+
+    const onPointerDown = (event: MouseEvent): void => {
+      const target = event.target;
+      if (!(target instanceof Node)) {
+        return;
+      }
+      if (headerRef.current?.contains(target)) {
+        return;
+      }
+      setMobileOpen(false);
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("mousedown", onPointerDown);
+
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("mousedown", onPointerDown);
+    };
+  }, [mobileOpen]);
+
   return (
-    <header className="sticky top-0 z-30 border-b border-border bg-surface/80 backdrop-blur-lg">
+    <header
+      ref={headerRef}
+      className="sticky top-0 z-30 border-b border-border bg-surface/80 backdrop-blur-lg"
+    >
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:h-16">
         <ExamEdgeLogo />
 

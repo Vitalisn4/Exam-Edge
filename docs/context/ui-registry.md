@@ -23,7 +23,7 @@ After building any component — update this file with: component name, file pat
 | Component       | Path                                    | Notes                                                                                               |
 | --------------- | --------------------------------------- | --------------------------------------------------------------------------------------------------- |
 | MarketingNavbar | `components/layout/MarketingNavbar.tsx` | Sticky `top-0 z-30`, anchors `#features` `#boards` `#how` `#pricing`, theme toggle, `/register` CTA |
-| MarketingFooter | `components/layout/MarketingFooter.tsx` | 4-column footer: Product, Examinations, Company + © 2026                                            |
+| MarketingFooter | `components/layout/MarketingFooter.tsx` | 3-column footer: brand, Examinations, Company + © 2026                                              |
 | ExamEdgeLogo    | `components/layout/ExamEdgeLogo.tsx`    | BookOpen mark + Clash Display wordmark                                                              |
 | ThemeProvider   | `components/layout/ThemeProvider.tsx`   | Light/dark context, `localStorage` + `prefers-color-scheme`                                         |
 | ThemeToggle     | `components/layout/ThemeToggle.tsx`     | Sun/moon toggle, `aria-label`, 44px target                                                          |
