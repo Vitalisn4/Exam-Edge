@@ -6,13 +6,13 @@ Update this file after every meaningful implementation change.
 
 ## Current Phase
 
-**Phase 0 — Foundation** (Units 01–03b merged; Unit 04 ready on branch)
+**Phase 0 — Foundation** (Units 01–04 merged; Unit 05 on branch)
 
 ---
 
 ## Current Goal
 
-Merge `feature/unit-04-katex-mathquill` → `main`, then Unit 05 (Database schema v1)
+Merge `feature/unit-05-database-schema` → `main`, then Unit 06 (Auth scaffold)
 
 ---
 
@@ -30,20 +30,21 @@ Merge `feature/unit-04-katex-mathquill` → `main`, then Unit 05 (Database schem
 - [x] **Unit 03** — Landing page MVP (merged via PR #2)
 - [x] **Unit 03b** — Landing marketing refresh (merged via PR #4)
 - [x] **Marking conventions SSOT** — `marking-conventions.md` + `specs/10-marking-framework.md`
-- [x] **Unit 04** — KaTeX + MathQuill (`feature/unit-04-katex-mathquill`; merged with `main`, ready for PR)
+- [x] **Unit 04** — KaTeX + MathQuill (merged via PR #3)
+- [x] **Unit 05** — Database schema v1 (`feature/unit-05-database-schema`; ready for PR)
 
 ---
 
 ## In Progress
 
-- [ ] **Unit 04** — PR merge to `main`
+- [ ] **Unit 05** — PR merge to `main`
 
 ---
 
 ## Next Up
 
-1. Merge `feature/unit-04-katex-mathquill` → `main`
-2. Unit 05 — Database schema v1 (Neon required)
+1. Merge `feature/unit-05-database-schema` → `main`
+2. Unit 06 — Auth scaffold (requires Neon `DATABASE_URL` for registration)
 
 ---
 

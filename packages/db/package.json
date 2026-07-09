@@ -9,12 +9,20 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "lint": "eslint src/",
-    "test": "vitest run --passWithNoTests"
+    "test": "vitest run",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "tsx src/migrate.ts",
+    "db:seed": "tsx src/seed/index.ts"
   },
   "dependencies": {
-    "@examedge/shared": "*"
+    "@examedge/shared": "*",
+    "@neondatabase/serverless": "^1.1.0",
+    "drizzle-kit": "^0.31.10",
+    "drizzle-orm": "^0.45.2",
+    "tsx": "^4.23.0"
   },
   "devDependencies": {
-    "vitest": "^3.2.3"
+    "@types/node": "^22.20.0",
+    "vitest": "^3.2.7"
   }
 }

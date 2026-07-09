@@ -38,6 +38,7 @@ Implement exactly as specified. Follow merge gate before next feature.
 | [03-landing-page.md](03-landing-page.md)                             | 03 Landing Page UI (MVP)     | Complete (merged) |
 | [03b-landing-marketing-refresh.md](03b-landing-marketing-refresh.md) | 03b Lovable mockup refresh   | Complete (merged) |
 | [04-katex-mathquill.md](04-katex-mathquill.md)                       | 04 KaTeX + MathQuill         | Implemented       |
+| [05-database-schema.md](05-database-schema.md)                       | 05 Database schema v1        | Implemented       |
 | [07-plausible-init.md](07-plausible-init.md)                         | 07 Plausible Analytics       | Ready             |
 | [20-curriculum-explain-ui.md](20-curriculum-explain-ui.md)           | 20 Curriculum Explain UI     | Ready             |
 | [21-progress-page.md](21-progress-page.md)                           | 21 Progress Page             | Ready             |
