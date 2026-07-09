@@ -6,7 +6,7 @@
 export type LatexValidationResult =
   { valid: true; normalized: string } | { valid: false; error: string };
 
-const DISALLOWED_LATEX_PATTERN = /\\(?:html|href|url|includegraphics)\b|javascript:/i;
+const DISALLOWED_LATEX_PATTERN = /\\(?:html\w*|href|url|includegraphics)\b|javascript:/i;
 
 /** Standard LaTeX samples for African examination boards (GCE Board Buea, WAEC, KCSE, etc.). */
 export const EXAM_MATH_SAMPLES = [

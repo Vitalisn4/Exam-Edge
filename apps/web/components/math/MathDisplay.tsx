@@ -21,14 +21,13 @@ type RenderResult = {
   error: string | null;
 };
 
-function renderLatex(latex: string, displayMode: boolean): RenderResult {
+export function renderLatex(latex: string, displayMode: boolean): RenderResult {
   try {
     const html = katex.renderToString(latex, {
       displayMode,
       throwOnError: true,
       trust: false,
       strict: "warn",
-      output: "html",
     });
 
     return { html, error: null };
@@ -78,7 +77,7 @@ function MathDisplayInner({
 
 export function MathDisplay(props: MathDisplayProps) {
   return (
-    <MathErrorBoundary>
+    <MathErrorBoundary resetKey={props.latex}>
       <MathDisplayInner {...props} />
     </MathErrorBoundary>
   );

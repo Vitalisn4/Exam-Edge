@@ -27,6 +27,10 @@ describe("math validation helpers", () => {
 
   it("rejects disallowed commands", () => {
     expect(containsDisallowedLatex(String.raw`\href{https://evil.com}{x}`)).toBe(true);
+    expect(containsDisallowedLatex(String.raw`\htmlId{evil}{x}`)).toBe(true);
+    expect(containsDisallowedLatex(String.raw`\htmlClass{evil}{x}`)).toBe(true);
+    expect(containsDisallowedLatex(String.raw`\htmlData{foo=bar}{x}`)).toBe(true);
+    expect(containsDisallowedLatex(String.raw`\htmlStyle{color:red}{x}`)).toBe(true);
     expect(containsDisallowedLatex("x^2")).toBe(false);
   });
 

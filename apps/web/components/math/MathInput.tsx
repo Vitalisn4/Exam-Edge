@@ -69,14 +69,13 @@ export function MathInput({
   }
 
   return (
-    <div className={cn("math-input min-h-11", className)}>
+    <div className={cn("math-input min-h-11", className)} data-placeholder={placeholder}>
       <EditableMathField
         latex={controlledLatex}
         onChange={(mathField) => {
           onChange?.(mathField.latex());
         }}
         aria-label={ariaLabel}
-        data-placeholder={placeholder}
       />
     </div>
   );

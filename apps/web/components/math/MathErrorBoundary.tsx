@@ -5,6 +5,8 @@ import * as React from "react";
 type MathErrorBoundaryProps = {
   children: React.ReactNode;
   fallback?: React.ReactNode;
+  /** When this value changes, a prior render error is cleared so content can recover. */
+  resetKey?: string | number;
 };
 
 type MathErrorBoundaryState = {
@@ -19,6 +21,25 @@ export class MathErrorBoundary extends React.Component<
 
   static getDerivedStateFromError(): MathErrorBoundaryState {
     return { hasError: true };
+  }
+
+  componentDidUpdate(prevProps: MathErrorBoundaryProps) {
+    if (!this.state.hasError) {
+      return;
+    }
+
+    const resetKeyChanged =
+      prevProps.resetKey !== undefined &&
+      this.props.resetKey !== undefined &&
+      prevProps.resetKey !== this.props.resetKey;
+
+    if (resetKeyChanged || prevProps.children !== this.props.children) {
+      this.setState({ hasError: false });
+    }
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error("MathErrorBoundary caught render error:", error, errorInfo);
   }
 
   render() {

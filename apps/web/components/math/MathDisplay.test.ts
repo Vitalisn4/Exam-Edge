@@ -1,28 +1,21 @@
-import katex from "katex";
 import { describe, expect, it } from "vitest";
 
 import { EXAM_MATH_SAMPLES } from "@examedge/shared";
 
-describe("KaTeX rendering", () => {
+import { renderLatex } from "./MathDisplay";
+
+describe("renderLatex", () => {
   it("renders all board sample expressions with trust disabled", () => {
     for (const sample of EXAM_MATH_SAMPLES) {
-      expect(() =>
-        katex.renderToString(sample.latex, {
-          displayMode: true,
-          throwOnError: true,
-          trust: false,
-        }),
-      ).not.toThrow();
+      const result = renderLatex(sample.latex, true);
+      expect(result.error).toBeNull();
+      expect(result.html).toBeTruthy();
     }
   });
 
-  it("throws on malformed LaTeX instead of silently accepting", () => {
-    expect(() =>
-      katex.renderToString(String.raw`\frac{1}{`, {
-        displayMode: true,
-        throwOnError: true,
-        trust: false,
-      }),
-    ).toThrow();
+  it("returns an error for malformed LaTeX instead of throwing", () => {
+    const result = renderLatex(String.raw`\frac{1}{`, true);
+    expect(result.html).toBeNull();
+    expect(result.error).toBeTruthy();
   });
 });
