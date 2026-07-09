@@ -140,10 +140,10 @@
   --color-text-primary: #f1f5f9;
   --color-text-secondary: #94a3b8;
   --color-text-muted: #64748b;
-  --color-primary: #1da08c;
-  --color-primary-light: #46b09e;
-  --color-primary-dark: #97d2c6;
-  --color-primary-muted: #0a3d31;
+  --color-primary: var(--color-primary-500);
+  --color-primary-light: var(--color-primary-400);
+  --color-primary-dark: var(--color-primary-200);
+  --color-primary-muted: var(--color-primary-800);
   --color-primary-foreground: #ffffff;
   --secondary: var(--color-surface-secondary);
   --secondary-foreground: var(--color-text-primary);
@@ -273,6 +273,7 @@
 
   body {
     @apply bg-background text-text-primary antialiased;
+
     font-family: var(--font-sans), system-ui, sans-serif;
     font-size: 16px;
     line-height: 1.5;

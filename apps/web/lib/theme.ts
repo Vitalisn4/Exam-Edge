@@ -11,9 +11,13 @@ export function getPreferredTheme(): Theme {
     return "light";
   }
 
-  const stored = localStorage.getItem(THEME_STORAGE_KEY);
-  if (isTheme(stored)) {
-    return stored;
+  try {
+    const stored = localStorage.getItem(THEME_STORAGE_KEY);
+    if (isTheme(stored)) {
+      return stored;
+    }
+  } catch {
+    // localStorage may be unavailable (private mode, sandboxed context)
   }
 
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
@@ -29,7 +33,11 @@ export function applyTheme(theme: Theme): void {
 }
 
 export function persistTheme(theme: Theme): void {
-  localStorage.setItem(THEME_STORAGE_KEY, theme);
+  try {
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
+  } catch {
+    // ignore persistence failures
+  }
 }
 
 export const themeInitScript = `(function(){try{var k=${JSON.stringify(THEME_STORAGE_KEY)};var t=localStorage.getItem(k);var d=t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);document.documentElement.dataset.theme=d?'dark':'light';}catch(e){}})();`;

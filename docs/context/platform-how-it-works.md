@@ -51,7 +51,7 @@ When a student opens a topic for the first time or taps **"Learn this topic"**:
 2. Focus preparation prompt (Unit 26) — reduces distraction, not surveillance
 3. System selects **parameterised question** from validated pool — **no LLM at request time**
 4. Student works through question using MathInput, text, or photo upload
-5. Student submits → **Marking chain** returns profile-appropriate breakdown (M/A for CGCE maths; point credits for sciences)
+5. Student submits → **Marking chain** returns profile-appropriate breakdown (M/A for GCE maths; point credits for sciences)
 
 ### Step 3 — Productive Struggle (Socratic Guidance)
 

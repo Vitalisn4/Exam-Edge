@@ -61,7 +61,7 @@ Unit 03 delivered a **mobile-first MVP slice**. This unit delivers the **full ma
 
 **Layout:**
 
-- Mobile: single column (current `max-w-lg` OK)
+- Mobile: single column; use the full-width marketing container (`max-w-6xl` / `max-w-7xl`) instead of the old `max-w-lg` shell
 - Desktop (`lg+`): two-column — copy left, mastery card right
 - Background: dark navy + subtle teal radial gradient (dark mode); ivory/neutral-50 (light mode)
 

@@ -103,4 +103,10 @@ export const PREVIEW_SUBJECTS: PreviewSubject[] = [
   },
 ];
 
-export const PREVIEW_HEATMAP_TOPICS = PREVIEW_SUBJECTS.flatMap((s) => s.topics).slice(0, 56);
+/** Caps the hero heatmap grid — 8 columns × 7 rows at 22px cells. */
+export const MAX_HEATMAP_TOPICS = 56;
+
+export const PREVIEW_HEATMAP_TOPICS = PREVIEW_SUBJECTS.flatMap((s) => s.topics).slice(
+  0,
+  MAX_HEATMAP_TOPICS,
+);

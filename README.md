@@ -18,14 +18,14 @@ ExamEdge addresses both gaps: **examiner-accurate preparation at scale**, and **
 
 ## What ExamEdge does
 
-| Capability                           | Description                                                                       |
-| ------------------------------------ | --------------------------------------------------------------------------------- |
-| **Board-accurate marking**           | Partial credit per marking profile (M/A for CGCE maths)                           | National examination conventions |
-| **Socratic guidance**                | Hints that guide reasoning — never revealing the answer or next correct step      |
-| **Understanding verification (UVE)** | Follow-up probes that confirm a student truly understands, not just lucky guesses |
-| **Parameterised questions**          | Every student receives a different version of every question                      |
-| **Mastery tracking**                 | Long-term progress across topics, with adaptive difficulty                        |
-| **Offline-first design**             | Built for low-bandwidth environments and low-end Android devices                  |
+| Capability                           | Description                                                                              |
+| ------------------------------------ | ---------------------------------------------------------------------------------------- |
+| **Board-accurate marking**           | Partial credit per marking profile (M/A for GCE maths); national examination conventions |
+| **Socratic guidance**                | Hints that guide reasoning — never revealing the answer or next correct step             |
+| **Understanding verification (UVE)** | Follow-up probes that confirm a student truly understands, not just lucky guesses        |
+| **Parameterised questions**          | Every student receives a different version of every question                             |
+| **Mastery tracking**                 | Long-term progress across topics, with adaptive difficulty                               |
+| **Offline-first design**             | Built for low-bandwidth environments and low-end Android devices                         |
 
 ---
 

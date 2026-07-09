@@ -11,7 +11,7 @@ describe("trackEvent", () => {
   it("no-ops when window.plausible is missing", () => {
     vi.stubGlobal("window", {});
     expect(() => {
-      trackEvent("session_started", { mode: "practice" });
+      trackEvent("register_cta_clicked", { location: "hero" });
     }).not.toThrow();
   });
 

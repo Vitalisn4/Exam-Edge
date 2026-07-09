@@ -29,6 +29,12 @@ export function percentToLevel(percent: number): Level {
   return 4;
 }
 
+function topicToLevel(topic: PreviewTopic): Level {
+  if (topic.percent === 0) return 0;
+  if (topic.mastery === "red" && topic.percent < 40) return 5;
+  return percentToLevel(topic.percent);
+}
+
 type MasteryHeatmapProps = {
   topics: PreviewTopic[];
   cellSize?: number;
@@ -40,7 +46,7 @@ export function MasteryHeatmap({ topics, cellSize = 32, gap = 3, className }: Ma
   return (
     <div className={cn("flex flex-wrap", className)} style={{ gap }}>
       {topics.map((topic) => {
-        const level = percentToLevel(topic.percent);
+        const level = topicToLevel(topic);
         return (
           <div key={topic.id} className="group relative">
             <div

@@ -2,11 +2,12 @@ import { BookOpen, Brain, ClipboardCheck } from "lucide-react";
 
 import { HOW_IT_WORKS_STEPS } from "@/constants/landing-content";
 
-const STEPS_WITH_ICONS = [
-  { ...HOW_IT_WORKS_STEPS[0], icon: BookOpen },
-  { ...HOW_IT_WORKS_STEPS[1], icon: Brain },
-  { ...HOW_IT_WORKS_STEPS[2], icon: ClipboardCheck },
-] as const;
+const STEP_ICONS = [BookOpen, Brain, ClipboardCheck] as const;
+
+const STEPS_WITH_ICONS = HOW_IT_WORKS_STEPS.map((step, index) => ({
+  ...step,
+  icon: STEP_ICONS[index] ?? BookOpen,
+}));
 
 export function HowItWorks() {
   return (

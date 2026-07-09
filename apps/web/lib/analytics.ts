@@ -3,16 +3,7 @@
  * No-ops on SSR and when the script is not loaded.
  */
 
-export const ANALYTICS_EVENTS = [
-  "session_started",
-  "answer_submitted",
-  "hint_requested",
-  "exam_completed",
-  "topic_mastered",
-  "offline_sync",
-  "appeal_submitted",
-  "register_cta_clicked",
-] as const;
+export const ANALYTICS_EVENTS = ["register_cta_clicked"] as const;
 
 export type AnalyticsEventName = (typeof ANALYTICS_EVENTS)[number];
 

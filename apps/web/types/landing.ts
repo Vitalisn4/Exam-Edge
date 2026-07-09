@@ -1,5 +1,6 @@
 import type { PreviewTopic } from "@/constants/landing-fixtures";
 
+/** Total registered students — shown in the hero social-proof line. */
 export type LandingSocialProof = {
   studentCount: number | null;
 };
@@ -43,6 +44,7 @@ export type LandingCurriculum = {
 export type LandingPageData = {
   socialProof: LandingSocialProof;
   masteryPreview: MasteryMapPreviewData;
+  /** Students in active study sessions right now — distinct from total registered count. */
   activeStudentCount: number | null;
   testimonials: VerifiedTestimonial[];
   curriculum: LandingCurriculum;

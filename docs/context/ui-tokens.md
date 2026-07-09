@@ -259,7 +259,7 @@ className="bg-teal-500 text-gray-900"
 | ------------------- | ---------------------------------- | -------------------------------------------------------------------- |
 | M1 (Method)         | `bg-[var(--color-mark-m1-bg)]`     | `text-[var(--color-mark-m1)]` — **CGCE maths only**                  |
 | A1 (Accuracy)       | `bg-[var(--color-mark-a1-bg)]`     | `text-[var(--color-mark-a1)]` — **CGCE maths only**                  |
-| P1 (Point credit)   | `bg-primary-50`                    | `text-primary-700` — **sciences / humanities**                       |
+| P1 (Point credit)   | `bg-primary-50`                    | `text-primary-700` — **sciences**                                    |
 | B1 (Independent)    | `bg-[var(--color-mark-b1-bg)]`     | `text-[var(--color-mark-b1)]` — **future GCSE only; not CGCE maths** |
 | ft (Follow-through) | `bg-[var(--color-mark-ft-bg)]`     | `text-[var(--color-mark-ft)]`                                        |
 | Denied              | `bg-[var(--color-mark-denied-bg)]` | `text-[var(--color-mark-denied)] line-through`                       |
