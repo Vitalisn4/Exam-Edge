@@ -1,14 +1,8 @@
-/**
- * LaTeX validation helpers for student math input.
- * Rendering stays in apps/web — these run at validation boundaries only.
- */
-
 export type LatexValidationResult =
   { valid: true; normalized: string } | { valid: false; error: string };
 
 const DISALLOWED_LATEX_PATTERN = /\\(?:html\w*|href|url|includegraphics)\b|javascript:/i;
 
-/** Standard LaTeX samples for African examination boards (GCE Board Buea, WAEC, KCSE, etc.). */
 export const EXAM_MATH_SAMPLES = [
   {
     id: "differentiation",
@@ -81,7 +75,7 @@ export function normalizeLatex(latex: string): string {
 
 /**
  * Lightweight structural validation before API submission.
- * KaTeX parse/render in MathDisplay is the authoritative render check.
+ * KaTeX render in MathDisplay is the authoritative render check.
  */
 export function validateLatex(latex: string): LatexValidationResult {
   const normalized = normalizeLatex(latex);

@@ -338,13 +338,11 @@
     min-height: 0;
   }
 
-  /* Hero band — bottom CTA only; main hero uses bg-navy token */
   .landing-hero-band {
     background-color: var(--color-navy);
     color: #ffffff;
   }
 
-  /* Testimonials: forest gradient in light and dark (matches exam-edge-path mockup) */
   .landing-testimonials {
     background: linear-gradient(
       to bottom right,

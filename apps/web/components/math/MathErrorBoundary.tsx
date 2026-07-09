@@ -5,7 +5,6 @@ import * as React from "react";
 type MathErrorBoundaryProps = {
   children: React.ReactNode;
   fallback?: React.ReactNode;
-  /** When this value changes, a prior render error is cleared so content can recover. */
   resetKey?: string | number;
 };
 

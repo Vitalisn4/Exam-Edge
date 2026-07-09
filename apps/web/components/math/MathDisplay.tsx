@@ -69,7 +69,6 @@ function MathDisplayInner({
         className,
       )}
       aria-label={ariaLabel ?? `Mathematical expression: ${latex}`}
-      // KaTeX output is generated with trust:false — no arbitrary HTML
       dangerouslySetInnerHTML={{ __html: html ?? "" }}
     />
   );

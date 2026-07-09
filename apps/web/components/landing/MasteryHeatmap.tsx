@@ -21,7 +21,6 @@ const labelForLevel: Record<Level, string> = {
   5: "At risk",
 };
 
-/** Below this percent with red mastery, a topic is shown as at-risk (level 5). */
 const AT_RISK_PERCENT_MAX = 40;
 
 export function percentToLevel(percent: number): Level {
