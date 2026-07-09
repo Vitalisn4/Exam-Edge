@@ -16,6 +16,9 @@
     "typecheck": "turbo run typecheck",
     "lint": "turbo run lint",
     "test": "turbo run test",
+    "db:migrate": "npm run db:migrate --workspace=@examedge/db",
+    "db:seed": "npm run db:seed --workspace=@examedge/db",
+    "db:generate": "npm run db:generate --workspace=@examedge/db",
     "prepare": "husky"
   },
   "devDependencies": {
