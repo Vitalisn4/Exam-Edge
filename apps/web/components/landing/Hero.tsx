@@ -5,7 +5,6 @@ import { RegisterCtaLink } from "@/components/landing/RegisterCtaLink";
 import { HERO_BOARD_PILLS } from "@/constants/landing-content";
 import type { LandingSocialProof, MasteryMapPreviewData } from "@/types/landing";
 
-/** Corner glows only — matches exam-edge-path, kept subtle so the navy base stays visible. */
 const HERO_GLOW_STYLE = {
   background:
     "radial-gradient(55% 50% at 88% 5%, rgba(29,160,140,0.22), transparent 52%), radial-gradient(42% 40% at 6% 96%, rgba(6,182,212,0.1), transparent 52%)",

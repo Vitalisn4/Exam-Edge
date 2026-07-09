@@ -2,16 +2,7 @@ import { EXAM_BOARDS, SUBJECTS_BY_BOARD } from "@/constants/landing-curriculum";
 import { PREVIEW_HEATMAP_TOPICS } from "@/constants/landing-fixtures";
 import type { LandingPageData } from "@/types/landing";
 
-/**
- * Landing page data entry point for real-time wiring.
- * Replace TODOs with repository / analytics calls when those units ship.
- */
 export function getLandingPageData(): Promise<LandingPageData> {
-  // TODO(Unit 16+): replace SUBJECTS_BY_BOARD with curriculum repository
-  // TODO(post-pilot): socialProof.studentCount + activeStudentCount from analytics
-  // TODO(pilot): testimonials from verified pilot store (verified: true only)
-  // TODO(Unit 15): masteryPreview live stats from real mastery records when appropriate
-
   const subjectsByBoard = Object.fromEntries(
     EXAM_BOARDS.map((board) => [
       board.id,

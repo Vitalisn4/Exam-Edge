@@ -1,5 +1,3 @@
-/** Marketing preview fixtures — mirrors exam-edge-path until live data ships. */
-
 export type MasteryLevel = "red" | "amber" | "green";
 
 export type PreviewTopic = {
@@ -103,7 +101,6 @@ export const PREVIEW_SUBJECTS: PreviewSubject[] = [
   },
 ];
 
-/** Caps the hero heatmap grid — 8 columns × 7 rows at 22px cells. */
 export const MAX_HEATMAP_TOPICS = 56;
 
 export const PREVIEW_HEATMAP_TOPICS = PREVIEW_SUBJECTS.flatMap((s) => s.topics).slice(

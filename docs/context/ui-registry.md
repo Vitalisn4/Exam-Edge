@@ -91,10 +91,11 @@ After building any component — update this file with: component name, file pat
 
 ## Math Components
 
-| Component   | Path                              | Notes                                         |
-| ----------- | --------------------------------- | --------------------------------------------- |
-| MathDisplay | `components/math/MathDisplay.tsx` | KaTeX wrapper, error boundary, `trust: false` |
-| MathInput   | `components/math/MathInput.tsx`   | MathQuill WYSIWYG, client-only, `ssr: false`  |
+| Component         | Path                                    | Notes                                         |
+| ----------------- | --------------------------------------- | --------------------------------------------- |
+| MathDisplay       | `components/math/MathDisplay.tsx`       | KaTeX wrapper, error boundary, `trust: false` |
+| MathInput         | `components/math/MathInput.tsx`         | MathQuill WYSIWYG, client-only, `ssr: false`  |
+| MathErrorBoundary | `components/math/MathErrorBoundary.tsx` | Catches unexpected render failures            |
 
 ---
 

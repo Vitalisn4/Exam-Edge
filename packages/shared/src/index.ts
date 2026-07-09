@@ -4,3 +4,5 @@ export type HealthStatus = {
   status: "ok";
   version: typeof APP_VERSION;
 };
+
+export * from "./lib/math";

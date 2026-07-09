@@ -6,13 +6,13 @@ Update this file after every meaningful implementation change.
 
 ## Current Phase
 
-**Phase 0 — Foundation** (Units 01–03 merged; Unit 03b QA complete on branch)
+**Phase 0 — Foundation** (Units 01–03b merged; Unit 04 ready on branch)
 
 ---
 
 ## Current Goal
 
-Merge `feature/unit-03b-landing-marketing-refresh` → `main`, then continue Unit 04 / Unit 05
+Merge `feature/unit-04-katex-mathquill` → `main`, then Unit 05 (Database schema v1)
 
 ---
 
@@ -28,23 +28,22 @@ Merge `feature/unit-03b-landing-marketing-refresh` → `main`, then continue Uni
 - [x] **Unit 01** — Monorepo scaffold (merged to `main`)
 - [x] **Unit 02** — Design system + UI tokens (merged via PR #1)
 - [x] **Unit 03** — Landing page MVP (merged via PR #2)
-- [x] **Unit 03b** — Landing marketing refresh (`exam-edge-path` parity) — QA complete on `feature/unit-03b-landing-marketing-refresh`; pending merge
+- [x] **Unit 03b** — Landing marketing refresh (merged via PR #4)
 - [x] **Marking conventions SSOT** — `marking-conventions.md` + `specs/10-marking-framework.md`
+- [x] **Unit 04** — KaTeX + MathQuill (`feature/unit-04-katex-mathquill`; merged with `main`, ready for PR)
 
 ---
 
 ## In Progress
 
-- [ ] **Unit 03b** — PR merge to `main`
-- [ ] **Unit 04** — KaTeX + MathQuill (PR #3 if open)
+- [ ] **Unit 04** — PR merge to `main`
 
 ---
 
 ## Next Up
 
-1. Merge `feature/unit-03b-landing-marketing-refresh` → `main`
-2. Merge `feature/unit-04-katex-mathquill` → `main` (if not done)
-3. Unit 05 — Database schema v1 (Neon required)
+1. Merge `feature/unit-04-katex-mathquill` → `main`
+2. Unit 05 — Database schema v1 (Neon required)
 
 ---
 

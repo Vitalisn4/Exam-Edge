@@ -3,7 +3,6 @@ import { Sparkles } from "lucide-react";
 import { MasteryHeatmap } from "@/components/landing/MasteryHeatmap";
 import type { MasteryMapPreviewData } from "@/types/landing";
 
-/** 18 columns × 22px cells + 17 gaps × 4px — matches mockup grid width. */
 const HEATMAP_WIDTH_PX = 18 * 22 + 17 * 4;
 
 type MasteryMapPreviewProps = {

@@ -295,6 +295,10 @@
     border: 1px solid var(--color-error);
   }
 
+  .math-input {
+    position: relative;
+  }
+
   .math-input .mq-editable-field {
     min-height: 2.75rem;
     border: 1px solid var(--color-border);
@@ -302,6 +306,17 @@
     background: var(--color-surface);
     padding: 0.5rem 0.75rem;
     font-size: 1rem;
+  }
+
+  .math-input[data-placeholder]:has(.mq-editable-field.mq-empty:not(.mq-focused))::after {
+    content: attr(data-placeholder);
+    position: absolute;
+    inset-inline-start: 0.75rem;
+    inset-block-start: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    pointer-events: none;
   }
 
   .math-input .mq-editable-field.mq-focused {
@@ -323,23 +338,17 @@
     min-height: 0;
   }
 
-  /* Hero band — bottom CTA only; main hero uses bg-navy token */
   .landing-hero-band {
     background-color: var(--color-navy);
     color: #ffffff;
   }
 
-  /* Testimonials: solid forest in light, gradient in dark */
   .landing-testimonials {
-    background-color: var(--color-primary-800);
-    color: #ffffff;
-  }
-
-  .dark .landing-testimonials {
     background: linear-gradient(
       to bottom right,
       var(--color-primary-800),
       var(--color-primary-700)
     );
+    color: #ffffff;
   }
 }

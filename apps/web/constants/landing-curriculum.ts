@@ -16,7 +16,6 @@ export const EXAM_BOARDS: Array<{ id: ExamBoardId; label: string }> = [
   { id: "kcse", label: "KCSE" },
 ];
 
-/** Static pilot catalog. Replace via getLandingPageData() when curriculum repos ship. */
 export const SUBJECTS_BY_BOARD: Record<ExamBoardId, CurriculumSubject[]> = {
   "gce-a-level": [
     { id: "pure-maths", name: "Pure Mathematics", topicCount: 12, level: "A-Level" },
