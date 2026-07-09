@@ -21,7 +21,7 @@
 
 ExamEdge is an **Adaptive Examination Preparation and Intelligent Tutoring System (AEP-ITS)** — an AI-powered examination preparation and personalized learning platform for secondary school students **across Africa**, beginning with GCE Ordinary and Advanced Level examinations in Cameroon and expanding to support multiple curricula and national examination systems across the continent.
 
-It gives every student access to a personalised **AI examiner, tutor, and curriculum expert**: parameterised exam-standard questions, board-accurate partial-credit marking (M1/A1/B1), Socratic hints that never give answers away, understanding verification probes, and long-term mastery tracking.
+It gives every student access to a personalised **AI examiner, tutor, and curriculum expert**: parameterised exam-standard questions, board-accurate partial-credit marking (profile-driven: M/A for CGCE maths), Socratic hints that never give answers away, understanding verification probes, and long-term mastery tracking.
 
 **It does not answer questions on demand. It develops the capacity to answer them.**
 
@@ -170,7 +170,7 @@ Detail: `student-journey.md` · `content-architecture.md` §5 (learner modes)
 | Outcome                        | Mechanism                                            | Measurement                      |
 | ------------------------------ | ---------------------------------------------------- | -------------------------------- |
 | Improved examination readiness | Exam simulation + mastery tracking                   | Readiness score; mock exam delta |
-| Genuine understanding          | UVE probes + M1/A1/B1 marking                        | MVS; UVE pass rate               |
+| Genuine understanding          | UVE probes + board-faithful marking                  | MVS; UVE pass rate               |
 | Reduced tutoring inequality    | Affordable AI examiner at scale                      | Cost per student vs tutor fees   |
 | Metacognition & study habits   | Focus sessions, spaced repetition, honest reflection | Focus analytics; retention       |
 

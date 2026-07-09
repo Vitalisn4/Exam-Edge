@@ -2,7 +2,7 @@
 
 **Single source of truth index.** Every significant platform concern maps to exactly one primary document. When in doubt, read the primary doc first; secondary docs provide depth or historical detail.
 
-Last updated: June 2026 | MVP V1.0 (31 build units)
+Last updated: July 2026 | MVP V1.0 (31 build units)
 
 ---
 
@@ -26,6 +26,7 @@ Last updated: June 2026 | MVP V1.0 (31 build units)
 | Per-feature 18-section written spec             | `feature-implementation-prompt-template.md`                           |
 | Can we afford the stack?                        | `zero-budget-stack.md`                                                |
 | Student onboarding & journey                    | `student-journey.md`                                                  |
+| **Board/subject marking conventions (SSOT)**    | **`marking-conventions.md`**                                          |
 | How the tutor teaches & verifies understanding  | `platform-how-it-works.md`                                            |
 | Content model, knowledge graph, continent scale | `content-architecture.md`                                             |
 | AI cost, model routing, exam system             | `ai-cost-and-exam-system.md`                                          |
@@ -47,6 +48,7 @@ Tier 1 — Agent reads every session (docs/context/)
 ├── roadmap.md              V1.0 → V3.0 releases, expansion, ops
 ├── zero-budget-stack.md    Free tiers, MVP cost, upgrade paths
 ├── student-journey.md          Onboarding, privacy trust, focus, global vision
+├── marking-conventions.md  ★ Board/subject marking SSOT (M/A maths, point rubric sciences)
 ├── platform-how-it-works.md Learning loop, AI production, grounding
 ├── engineering-operations.md Testing, CI/CD, monitoring, DR, ops
 ├── documentation-completeness-audit.md  Formal SSOT verification

@@ -12,21 +12,21 @@ It helps students **learn, practice, and prepare for national examinations** thr
 
 The platform is **curriculum-agnostic and extensible by design**. Countries, examination boards, syllabi, languages, and marking conventions are configuration and content layers — not hardcoded assumptions. Phase 1 launches with one board; the architecture supports many.
 
-**Tagline (external):** *Learn deeply. Prepare confidently. Any exam. Any country.*
+**Tagline (external):** _Learn deeply. Prepare confidently. Any exam. Any country._
 
 ---
 
 ## Launch vs Long-Term Scope
 
-| Dimension | Phase 1 Launch (MVP V1.0) | Long-term platform |
-|-----------|---------------------------|-------------------|
-| Geography | Cameroon pilot | Nigeria, Ghana, Kenya, Francophone Africa, etc. |
-| Examination boards | GCE Board Buea | WAEC, NECO, KCSE, OBC, BEPC, custom boards |
-| Languages | English | English + French + local languages |
-| Subjects | 3 (Pure Maths, Physics, Biology) | Full secondary catalog per board |
-| Marking semantics | M1/A1/B1 (GCE Buea) | Board-specific rubrics via mark scheme templates |
-| Client | Web PWA | Web + React Native mobile |
-| AI models | Cloud (Haiku + Sonnet) | Hybrid cloud + on-device (Year 2+) |
+| Dimension          | Phase 1 Launch (MVP V1.0)                         | Long-term platform                                   |
+| ------------------ | ------------------------------------------------- | ---------------------------------------------------- |
+| Geography          | Cameroon pilot                                    | Nigeria, Ghana, Kenya, Francophone Africa, etc.      |
+| Examination boards | GCE Board Buea                                    | WAEC, NECO, KCSE, OBC, BEPC, custom boards           |
+| Languages          | English                                           | English + French + local languages                   |
+| Subjects           | 3 (Pure Maths, Physics, Biology)                  | Full secondary catalog per board                     |
+| Marking semantics  | Profile-driven (M/A maths; point rubric sciences) | Board-specific profiles per `marking-conventions.md` |
+| Client             | Web PWA                                           | Web + React Native mobile                            |
+| AI models          | Cloud (Haiku + Sonnet)                            | Hybrid cloud + on-device (Year 2+)                   |
 
 **Rule for all documentation and code:** Distinguish **platform capability** (extensible) from **launch configuration** (GCE Buea, Cameroon, English).
 
@@ -40,15 +40,15 @@ The platform is **curriculum-agnostic and extensible by design**. Countries, exa
 
 **Deliverables:** 31 build units in `build-plan.md`
 
-| Area | Included |
-|------|----------|
-| Student core | Auth, dashboard, practice, marking, hints, UVE L1-L2, exam simulation |
-| Content | GCE Buea seed (3 subjects), admin validation queue, question pool + RAG generation |
-| Student pages | Progress (history, focus analytics, appeals), profile (settings, privacy) |
-| Curriculum | Topic explain UI (syllabus-grounded, cached) |
-| Resilience | PWA offline queue, photo OCR, focus sessions |
-| Ops | Cron jobs, Sentry, Plausible, weekly reports, demo script |
-| Security | Application-layer RBAC, rate limits, idempotency, MVP consent/deletion (Unit 23) |
+| Area          | Included                                                                           |
+| ------------- | ---------------------------------------------------------------------------------- |
+| Student core  | Auth, dashboard, practice, marking, hints, UVE L1-L2, exam simulation              |
+| Content       | GCE Buea seed (3 subjects), admin validation queue, question pool + RAG generation |
+| Student pages | Progress (history, focus analytics, appeals), profile (settings, privacy)          |
+| Curriculum    | Topic explain UI (syllabus-grounded, cached)                                       |
+| Resilience    | PWA offline queue, photo OCR, focus sessions                                       |
+| Ops           | Cron jobs, Sentry, Plausible, weekly reports, demo script                          |
+| Security      | Application-layer RBAC, rate limits, idempotency, MVP consent/deletion (Unit 23)   |
 
 **Infrastructure budget:** **$0/month possible** for infra (Neon, Vercel, Upstash, R2, Resend, Sentry free tiers). AI requires ~$5 Anthropic starter credits for pilot; see `zero-budget-stack.md`.
 
@@ -58,37 +58,38 @@ The platform is **curriculum-agnostic and extensible by design**. Countries, exa
 
 ### V1.1 — Mobile + Teachers (Months 3–6 post-pilot)
 
-| Feature | Notes |
-|---------|-------|
-| React Native + Expo mobile app | Secure token storage, offline SQLite cache |
-| Google OAuth | Auth.js provider |
-| Teacher dashboard | Class roster, assignment, progress views |
-| PostgreSQL RLS policies | Row-level security per role |
-| JWT refresh rotation + token blocklist | Production auth hardening |
-| CSP headers + CSRF tokens | See `security.md` deferred items |
-| French UI (i18n framework) | next-intl or equivalent |
-| Expanded GCE subject coverage | Toward 16-subject GCE Buea catalog |
-| UVE L3-L4 | Conceptual + transfer probes (Sonnet) |
-| Automated data export | Self-service JSON/PDF download |
+| Feature                                | Notes                                      |
+| -------------------------------------- | ------------------------------------------ |
+| React Native + Expo mobile app         | Secure token storage, offline SQLite cache |
+| Google OAuth                           | Auth.js provider                           |
+| Teacher dashboard                      | Class roster, assignment, progress views   |
+| PostgreSQL RLS policies                | Row-level security per role                |
+| JWT refresh rotation + token blocklist | Production auth hardening                  |
+| CSP headers + CSRF tokens              | See `security.md` deferred items           |
+| French UI (i18n framework)             | next-intl or equivalent                    |
+| Expanded GCE subject coverage          | Toward 16-subject GCE Buea catalog         |
+| UVE L3-L4                              | Conceptual + transfer probes (Sonnet)      |
+| Automated data export                  | Self-service JSON/PDF download             |
 
 ---
 
 ### V2.0 — Multi-Country Expansion (Year 1–2)
 
-| Feature | Notes |
-|---------|-------|
-| WAEC / NECO (Nigeria, Ghana) | New board configs in `packages/shared/constants/boards.ts` |
-| KCSE (Kenya) | Syllabus ingestion pipeline |
-| OBC / Francophone Cameroon | French curriculum + marking conventions |
-| **Graduate Success hub** | University readiness, scholarships, global competitions — see `student-journey.md` §6 |
-| USSD/SMS (Africa's Talking) | Low-bandwidth access path |
-| Whisper.cpp oral assessment | On-device ASR for oral exams |
-| Advanced Cognitive Fingerprint | Error pattern clustering, learning style adaptation |
-| Alumni mentor network | Diaspora mentors for AL graduates — `student-journey.md` §6 |
-| Payment / subscription | Pilot monetisation after product-market fit |
-| Local model routing | Fine-tuned Haiku-class models for marking (cost reduction) |
+| Feature                        | Notes                                                                                 |
+| ------------------------------ | ------------------------------------------------------------------------------------- |
+| WAEC / NECO (Nigeria, Ghana)   | New board configs in `packages/shared/constants/boards.ts`                            |
+| KCSE (Kenya)                   | Syllabus ingestion pipeline                                                           |
+| OBC / Francophone Cameroon     | French curriculum + marking conventions                                               |
+| **Graduate Success hub**       | University readiness, scholarships, global competitions — see `student-journey.md` §6 |
+| USSD/SMS (Africa's Talking)    | Low-bandwidth access path                                                             |
+| Whisper.cpp oral assessment    | On-device ASR for oral exams                                                          |
+| Advanced Cognitive Fingerprint | Error pattern clustering, learning style adaptation                                   |
+| Alumni mentor network          | Diaspora mentors for AL graduates — `student-journey.md` §6                           |
+| Payment / subscription         | Pilot monetisation after product-market fit                                           |
+| Local model routing            | Fine-tuned Haiku-class models for marking (cost reduction)                            |
 
 **Curriculum onboarding process (V2.0):**
+
 1. Ingest syllabus PDF → chunk → embed
 2. Map topics to shared taxonomy where possible
 3. Seed mark scheme templates per board convention
@@ -99,14 +100,14 @@ The platform is **curriculum-agnostic and extensible by design**. Countries, exa
 
 ### V3.0 — Platform Scale (Year 2–3)
 
-| Feature | Notes |
-|---------|-------|
-| Fine-tuned local marking models | Router switches per `getModelConfig()` |
-| Government / ministry analytics dashboard | Aggregated anonymised outcomes |
-| Public developer API | Partner integrations |
-| Multi-tenant school deployments | Institution-level admin |
-| Advanced integrity analytics | Cohort-level, not surveillance |
-| Edge deployment options | Regional latency for West/East Africa |
+| Feature                                   | Notes                                  |
+| ----------------------------------------- | -------------------------------------- |
+| Fine-tuned local marking models           | Router switches per `getModelConfig()` |
+| Government / ministry analytics dashboard | Aggregated anonymised outcomes         |
+| Public developer API                      | Partner integrations                   |
+| Multi-tenant school deployments           | Institution-level admin                |
+| Advanced integrity analytics              | Cohort-level, not surveillance         |
+| Edge deployment options                   | Regional latency for West/East Africa  |
 
 ---
 
@@ -133,12 +134,12 @@ Adding a new country = seed data + validated question pool + syllabus chunks. No
 
 ## AI Roadmap
 
-| Phase | AI capability |
-|-------|---------------|
-| V1.0 | Five chains (marking, guidance, generation, UVE L1-L2, curriculum); Haiku + Sonnet router |
-| V1.1 | UVE L3-L4; improved cross-examination; bias benchmark suite per board |
-| V2.0 | Board-specific few-shot marking examples; syllabus auto-chunking; SMS-safe report summaries |
-| V3.0 | Local fine-tuned marking; on-device OCR/ASR fallback; shadow deployment automation |
+| Phase | AI capability                                                                               |
+| ----- | ------------------------------------------------------------------------------------------- |
+| V1.0  | Five chains (marking, guidance, generation, UVE L1-L2, curriculum); Haiku + Sonnet router   |
+| V1.1  | UVE L3-L4; improved cross-examination; bias benchmark suite per board                       |
+| V2.0  | Board-specific few-shot marking examples; syllabus auto-chunking; SMS-safe report summaries |
+| V3.0  | Local fine-tuned marking; on-device OCR/ASR fallback; shadow deployment automation          |
 
 Evaluation thresholds (marking ≥92%, zero hint leakage, generation cross-exam ≥95%) apply on every model or prompt change — see `AGENTS.md` Evaluation section.
 
@@ -146,12 +147,12 @@ Evaluation thresholds (marking ≥92%, zero hint leakage, generation cross-exam 
 
 ## Operational Roadmap
 
-| Phase | Operations |
-|-------|------------|
-| V1.0 | Vercel hosting, Neon Postgres, manual admin validation, Sentry + Plausible, weekly cron reports, R2 backups |
-| V1.1 | Staging environment, automated CI benchmark on model changes, incident runbook drills |
-| V2.0 | Multi-region Neon read replicas, status page, curriculum ops team workflow, cost dashboards per board |
-| V3.0 | SLA targets, dedicated support tier for schools, compliance audits (GDPR + local African data laws) |
+| Phase | Operations                                                                                                  |
+| ----- | ----------------------------------------------------------------------------------------------------------- |
+| V1.0  | Vercel hosting, Neon Postgres, manual admin validation, Sentry + Plausible, weekly cron reports, R2 backups |
+| V1.1  | Staging environment, automated CI benchmark on model changes, incident runbook drills                       |
+| V2.0  | Multi-region Neon read replicas, status page, curriculum ops team workflow, cost dashboards per board       |
+| V3.0  | SLA targets, dedicated support tier for schools, compliance audits (GDPR + local African data laws)         |
 
 ---
 
@@ -160,11 +161,11 @@ Evaluation thresholds (marking ≥92%, zero hint leakage, generation cross-exam 
 **Canonical:** `content-architecture.md` §8 (caching, indexing, AI orchestration, performance targets).  
 **Engineering depth:** `ExamEdge_Engineering_Document.md` §13. Summary:
 
-| Tier | Students | Key constraint | Mitigation |
-|------|----------|----------------|------------|
-| Pilot | 20–100 | AI cost | Haiku marking, pool cache, rate limits |
-| Regional | 1,000–10,000 | Marking latency | Redis warm pool, connection pooling, Vercel concurrency |
-| National | 100,000+ | DB + AI spend | Read replicas, batch reports, local models, CDN for static |
+| Tier     | Students     | Key constraint  | Mitigation                                                 |
+| -------- | ------------ | --------------- | ---------------------------------------------------------- |
+| Pilot    | 20–100       | AI cost         | Haiku marking, pool cache, rate limits                     |
+| Regional | 1,000–10,000 | Marking latency | Redis warm pool, connection pooling, Vercel concurrency    |
+| National | 100,000+     | DB + AI spend   | Read replicas, batch reports, local models, CDN for static |
 
 Marking is synchronous and AI-bound — horizontal scale adds concurrent Vercel functions; cost scales linearly until local models (V3.0).
 
@@ -172,17 +173,17 @@ Marking is synchronous and AI-bound — horizontal scale adds concurrent Vercel 
 
 ## Deployment Approach (MVP)
 
-| Component | Service | Notes |
-|-----------|---------|-------|
-| Web + API | Vercel | Production + preview branches |
-| Database | Neon PostgreSQL | pgvector enabled; branch per environment |
-| Cache | Upstash Redis | Serverless HTTP |
-| Storage | Cloudflare R2 | Photos, backups |
-| Email | Resend | Transactional only |
-| Analytics | Plausible | Self-hosted or cloud — privacy-first |
-| Errors | Sentry | Free tier |
-| CI | GitHub Actions | Lint, typecheck, test on PR |
-| Cron | Vercel Cron | CRON_SECRET protected |
+| Component | Service         | Notes                                    |
+| --------- | --------------- | ---------------------------------------- |
+| Web + API | Vercel          | Production + preview branches            |
+| Database  | Neon PostgreSQL | pgvector enabled; branch per environment |
+| Cache     | Upstash Redis   | Serverless HTTP                          |
+| Storage   | Cloudflare R2   | Photos, backups                          |
+| Email     | Resend          | Transactional only                       |
+| Analytics | Plausible       | Self-hosted or cloud — privacy-first     |
+| Errors    | Sentry          | Free tier                                |
+| CI        | GitHub Actions  | Lint, typecheck, test on PR              |
+| Cron      | Vercel Cron     | CRON_SECRET protected                    |
 
 Environment variables: see `architecture.md`. Secrets in Vercel dashboard only — never in git.
 

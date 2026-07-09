@@ -1,6 +1,6 @@
 "use client";
 
-import { GCE_MATH_SAMPLES, validateLatex } from "@examedge/shared";
+import { EXAM_MATH_SAMPLES, validateLatex } from "@examedge/shared";
 import * as React from "react";
 
 import { MathDisplay, MathInput } from "@/components/math";
@@ -30,17 +30,18 @@ export function MathPlayground() {
         <p className="text-sm font-medium text-primary">Unit 04 · Development</p>
         <h1 className="text-2xl font-bold text-text-primary">KaTeX + MathQuill</h1>
         <p className="text-base text-text-secondary">
-          GCE O/A Level mathematical notation — display via KaTeX, answer input via MathQuill. All
-          renderers use <code className="text-sm">trust: false</code>.
+          Standard LaTeX notation for GCE Board Buea, WAEC, KCSE, and other African examination
+          boards — display via KaTeX, answer input via MathQuill. All renderers use{" "}
+          <code className="text-sm">trust: false</code>.
         </p>
       </header>
 
       <section className="space-y-4" aria-labelledby="gce-samples-heading">
         <h2 id="gce-samples-heading" className="text-lg font-semibold text-text-primary">
-          GCE sample expressions
+          Board sample expressions
         </h2>
         <div className="flex flex-col gap-4">
-          {GCE_MATH_SAMPLES.map((sample) => (
+          {EXAM_MATH_SAMPLES.map((sample) => (
             <Card key={sample.id}>
               <CardHeader className="pb-2">
                 <div className="flex flex-wrap items-center gap-2">
@@ -67,8 +68,8 @@ export function MathPlayground() {
           <CardHeader>
             <CardTitle className="text-base">Type your working</CardTitle>
             <CardDescription>
-              Supports fractions, indices, integrals, vectors — notation used in GCE Pure Maths 0765
-              and O-Level 570.
+              Supports fractions, indices, integrals, vectors — notation used across GCE Board Buea
+              (0765 Pure Maths, 570 O-Level), WAEC, and KCSE syllabi.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">

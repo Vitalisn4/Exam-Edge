@@ -28,6 +28,7 @@ Before any UI unit, read:
 - [Unit 01 Monorepo Scaffold](./unit-01-monorepo-scaffold.md)
 - [Unit 02 Design System](./unit-02-design-system.md)
 - [Unit 03 Landing Page](./unit-03-landing-page.md)
+- [Unit 03b Landing Marketing Refresh](./unit-03b-landing-marketing-refresh.md) — Lovable mockup (after 03 merges)
 - [Unit 04 Katex Mathquill](./unit-04-katex-mathquill.md)
 - [Unit 05 Database Schema](./unit-05-database-schema.md)
 - [Unit 06 Auth Scaffold](./unit-06-auth-scaffold.md)

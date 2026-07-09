@@ -69,12 +69,12 @@ Build the complete public landing page — mock content first, auth-aware CTAs.
 - Top navbar: ExamEdge logo, "Log in" link, "Start preparing" primary CTA
 - Hero section (MVP scope — extended marketing in Unit 31 / V1.1 per `examedge-ui-mockup-prompt.md`):
   - Headline: "Master your exams — understand, don't memorise" (or brand line from `design-brand-identity.md`)
-  - Subheadline: examiner-accurate M1/A1/B1 marking + offline access — built for African students, starting with GCE Board Buea
+  - Subheadline: examiner-accurate board-faithful marking + offline access — built for African students, starting with GCE Board Buea
   - Visual: Teal Forest tokens (`ui-tokens.md`); hero may use navy + teal radial gradient on polish pass
   - Primary CTA: "Start preparing free" → `/register`
   - Secondary CTA: "See how it works" → scroll to features
 - Features section — three value props with icons (lucide):
-  1. Examiner-accurate M1/A1/B1 marking
+  1. Examiner-accurate board-faithful marking
   2. Socratic hints that never give answers away
   3. Understanding verification — not a chatbot
 - "How it works" section — 4 steps: Register → Practice → Get marked → Verify mastery
@@ -97,6 +97,31 @@ Build the complete public landing page — mock content first, auth-aware CTAs.
 - [ ] ui-registry.md updated with Hero, Features, Footer components
 
 **Spec:** Copy `specs/00-spec-template.md` → `specs/03-landing-page.md` before implementing
+
+**Follow-up:** Full Lovable mockup (dark/light, 6 features, pricing, etc.) → **Unit 03b** (`specs/03b-landing-marketing-refresh.md`)
+
+---
+
+### 03b Landing Page Marketing Refresh
+
+Upgrade Unit 03 MVP to **Lovable / Teal Forest mockup parity** — dark + light mode, sticky marketing nav, hero with mastery map preview, examinations grid, testimonials structure, pricing display, multi-column footer.
+
+**Depends on:** Unit 03 merged  
+**Does not block:** Units 04–06 (can run in parallel after 03 merges)
+
+**UI:** See `specs/03b-landing-marketing-refresh.md` for full mockup → component map and 5-phase build order.
+
+**Key deliverables:**
+
+- `MarketingNavbar`, `ThemeToggle`, `ThemeProvider`
+- `MasteryMapPreview` (static demo heatmap)
+- 6 feature cards, `ExaminationsSection` + board tabs, 3-step How it works
+- `TestimonialsSection`, `PricingSection`, `OfflineBanner`, `MarketingFooter`
+- Teal Forest tokens + dark mode on landing route
+
+**Content rules:** No fake student counts; no unverified named testimonials.
+
+**Spec:** `specs/03b-landing-marketing-refresh.md` · Prompt: `feature-prompts/unit-03b-landing-marketing-refresh.md`
 
 ---
 
@@ -257,13 +282,19 @@ Foundation for all five AI chains.
 
 ### 10 Examiner Marking Chain
 
-M1/A1/B1 partial credit marking.
+Board-faithful partial credit via **marking profiles** (`docs/context/marking-conventions.md`).
+
+- CGCE mathematics: **M/A marks only** (no B marks)
+- Sciences: **point rubric** (P1, P2, …) — not M1/A1
+- MCQ Paper 1: **binary** marking
 
 **Logic:**
 
+- `packages/shared/src/constants/marking-profiles.ts` — CGCE launch profiles
+- `packages/ai/lib/get-marking-profile.ts` — resolve profile from board + subject + paper
 - `packages/ai/chains/marking.ts`
-- `packages/ai/schemas/marking.schema.ts` — Zod output schema
-- `packages/ai/examples/marking/` — 3 few-shot examples (differentiation, integration, vectors)
+- `packages/ai/schemas/marking.schema.ts` — Zod output schema (profile-aware creditType)
+- `packages/ai/examples/marking/` — few-shot per family: method_accuracy, point_rubric
 - Claude Haiku 4.5, temperature 0.1, max 800 tokens
 - confidence < CONFIDENCE_THRESHOLD (0.70) → flagForReview: true
 - Zod failure → MarkingValidationError
@@ -271,8 +302,10 @@ M1/A1/B1 partial credit marking.
 
 **Verify:**
 
-- [ ] Full marks case passes
+- [ ] Full marks case passes (maths method_accuracy)
 - [ ] M1 awarded, A1 denied (wrong final answer) passes
+- [ ] A1 denied when M1 not awarded (dependency)
+- [ ] No B1 in maths profile output; no M1/A1 in physics profile output
 - [ ] Invalid LLM JSON → validation error, no partial result
 - [ ] marks_given never exceeds marks_available (schema enforced)
 
@@ -885,6 +918,7 @@ Each unit below is the **single source of truth** for what to build. Copy-paste 
 | 01  | Monorepo Scaffold             | 0     | —                  | 02–08            |
 | 02  | Design System + UI Tokens     | 0     | 01                 | 03, 15–16        |
 | 03  | Landing Page UI               | 0     | 02                 | 06               |
+| 03b | Landing Marketing Refresh     | 0     | 03                 | —                |
 | 04  | KaTeX + MathQuill             | 0     | 01, 02             | 16               |
 | 05  | Database Schema v1            | 0     | 01                 | 06, 09, 17, 19+  |
 | 06  | Auth Scaffold                 | 0     | 01, 02, 05         | 07, 15, 17       |

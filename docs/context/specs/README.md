@@ -32,14 +32,15 @@ Implement exactly as specified. Follow merge gate before next feature.
 
 ## Index
 
-| Spec                                                       | Unit                         | Status            |
-| ---------------------------------------------------------- | ---------------------------- | ----------------- |
-| [02-design-system.md](02-design-system.md)                 | 02 Design System + UI Tokens | Complete (merged) |
-| [03-landing-page.md](03-landing-page.md)                   | 03 Landing Page UI           | Complete (merged) |
-| [04-katex-mathquill.md](04-katex-mathquill.md)             | 04 KaTeX + MathQuill         | Implemented       |
-| [07-plausible-init.md](07-plausible-init.md)               | 07 Plausible Analytics       | Ready             |
-| [20-curriculum-explain-ui.md](20-curriculum-explain-ui.md) | 20 Curriculum Explain UI     | Ready             |
-| [21-progress-page.md](21-progress-page.md)                 | 21 Progress Page             | Ready             |
-| [22-marking-appeals.md](22-marking-appeals.md)             | 22 Marking Appeals           | Ready             |
-| [23-profile-privacy.md](23-profile-privacy.md)             | 23 Profile + Privacy         | Ready             |
-| _(create when starting each remaining unit)_               |                              |                   |
+| Spec                                                                 | Unit                         | Status            |
+| -------------------------------------------------------------------- | ---------------------------- | ----------------- |
+| [02-design-system.md](02-design-system.md)                           | 02 Design System + UI Tokens | Complete (merged) |
+| [03-landing-page.md](03-landing-page.md)                             | 03 Landing Page UI (MVP)     | Complete (merged) |
+| [03b-landing-marketing-refresh.md](03b-landing-marketing-refresh.md) | 03b Lovable mockup refresh   | Complete (merged) |
+| [04-katex-mathquill.md](04-katex-mathquill.md)                       | 04 KaTeX + MathQuill         | Implemented       |
+| [07-plausible-init.md](07-plausible-init.md)                         | 07 Plausible Analytics       | Ready             |
+| [20-curriculum-explain-ui.md](20-curriculum-explain-ui.md)           | 20 Curriculum Explain UI     | Ready             |
+| [21-progress-page.md](21-progress-page.md)                           | 21 Progress Page             | Ready             |
+| [22-marking-appeals.md](22-marking-appeals.md)                       | 22 Marking Appeals           | Ready             |
+| [23-profile-privacy.md](23-profile-privacy.md)                       | 23 Profile + Privacy         | Ready             |
+| _(create when starting each remaining unit)_                         |                              |                   |

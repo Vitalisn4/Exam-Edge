@@ -30,3 +30,6 @@ coverage/
 
 # Vercel
 .vercel
+
+# Local reference implementation (TanStack prototype — not part of monorepo)
+exam-edge-path/

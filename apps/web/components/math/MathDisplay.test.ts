@@ -1,11 +1,11 @@
 import katex from "katex";
 import { describe, expect, it } from "vitest";
 
-import { GCE_MATH_SAMPLES } from "@examedge/shared";
+import { EXAM_MATH_SAMPLES } from "@examedge/shared";
 
 describe("KaTeX rendering", () => {
-  it("renders all GCE sample expressions with trust disabled", () => {
-    for (const sample of GCE_MATH_SAMPLES) {
+  it("renders all board sample expressions with trust disabled", () => {
+    for (const sample of EXAM_MATH_SAMPLES) {
       expect(() =>
         katex.renderToString(sample.latex, {
           displayMode: true,

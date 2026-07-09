@@ -8,33 +8,47 @@ export type LatexValidationResult =
 
 const DISALLOWED_LATEX_PATTERN = /\\(?:html|href|url|includegraphics)\b|javascript:/i;
 
-/** GCE Pure Maths sample expressions used on /dev/math and in tests. */
-export const GCE_MATH_SAMPLES = [
+/** Standard LaTeX samples for African examination boards (GCE Board Buea, WAEC, KCSE, etc.). */
+export const EXAM_MATH_SAMPLES = [
   {
     id: "differentiation",
     label: "Differentiation (A-Level Pure Maths)",
     latex: String.raw`\frac{d}{dx}(3x^2 - 12x + 7)`,
     topic: "Calculus",
+    boards: ["GCE_BUEA", "WAEC", "KCSE"] as const,
   },
   {
     id: "integration",
     label: "Definite integral (A-Level Pure Maths)",
     latex: String.raw`\int_0^1 x^2 \, dx`,
     topic: "Calculus",
+    boards: ["GCE_BUEA", "WAEC", "KCSE"] as const,
   },
   {
     id: "vectors",
     label: "Newton's second law (Mechanics)",
     latex: String.raw`\vec{F} = m\vec{a}`,
     topic: "Vectors & Mechanics",
+    boards: ["GCE_BUEA", "WAEC", "KCSE"] as const,
   },
   {
     id: "magnitude",
     label: "Vector magnitude (O-Level)",
     latex: String.raw`\sqrt{x^2 + y^2}`,
     topic: "Vectors",
+    boards: ["GCE_BUEA", "WAEC", "KCSE"] as const,
+  },
+  {
+    id: "quadratic",
+    label: "Quadratic formula (O-Level / WAEC)",
+    latex: String.raw`x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}`,
+    topic: "Algebra",
+    boards: ["GCE_BUEA", "WAEC", "KCSE"] as const,
   },
 ] as const;
+
+/** @deprecated Use EXAM_MATH_SAMPLES — kept for existing imports */
+export const GCE_MATH_SAMPLES = EXAM_MATH_SAMPLES;
 
 export function isEmptyLatex(latex: string): boolean {
   return latex.trim().length === 0;

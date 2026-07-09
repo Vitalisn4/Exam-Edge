@@ -6,13 +6,13 @@ Update this file after every meaningful implementation change.
 
 ## Current Phase
 
-**Phase 0 — Foundation** (Units 01–02 merged; Unit 03 on branch)
+**Phase 0 — Foundation** (Units 01–03b merged; Unit 04 ready on branch)
 
 ---
 
 ## Current Goal
 
-Merge Unit 03 PR → begin Unit 04 (KaTeX + MathQuill)
+Merge `feature/unit-04-katex-mathquill` → `main`, then Unit 05 (Database schema v1)
 
 ---
 
@@ -27,21 +27,23 @@ Merge Unit 03 PR → begin Unit 04 (KaTeX + MathQuill)
 - [x] Teal Forest design system docs (ui-tokens.md, design-brand-identity.md, examedge-ui-mockup-prompt.md)
 - [x] **Unit 01** — Monorepo scaffold (merged to `main`)
 - [x] **Unit 02** — Design system + UI tokens (merged via PR #1)
-- [x] **Unit 03** — Landing page UI (branch `feature/unit-03-landing-page` — ready to merge)
+- [x] **Unit 03** — Landing page MVP (merged via PR #2)
+- [x] **Unit 03b** — Landing marketing refresh (merged via PR #4)
+- [x] **Marking conventions SSOT** — `marking-conventions.md` + `specs/10-marking-framework.md`
+- [x] **Unit 04** — KaTeX + MathQuill (`feature/unit-04-katex-mathquill`; merged with `main`, ready for PR)
 
 ---
 
 ## In Progress
 
-_None — merge Unit 03 PR, then start Unit 04._
+- [ ] **Unit 04** — PR merge to `main`
 
 ---
 
 ## Next Up
 
-1. Merge `feature/unit-03-landing-page` → `main`
-2. Unit 04 — KaTeX + MathQuill
-3. Unit 05 — Database schema v1 (Neon required)
+1. Merge `feature/unit-04-katex-mathquill` → `main`
+2. Unit 05 — Database schema v1 (Neon required)
 
 ---
 
@@ -57,25 +59,31 @@ _None — merge Unit 03 PR, then start Unit 04._
 
 ## Architecture Decisions
 
-| Date    | Decision                         | Rationale                                      |
-| ------- | -------------------------------- | ---------------------------------------------- |
-| 2026-06 | Monorepo npm workspaces          | Solo dev velocity; shared types                |
-| 2026-06 | MVP = web PWA only               | 10-week constraint                             |
-| 2026-06 | Auth.js over Clerk               | Avoid vendor lock-in                           |
-| 2026-06 | Haiku for all marking            | Cost + latency                                 |
-| 2026-06 | Curriculum-agnostic schema       | Pan-African expansion without rewrites         |
-| 2026-06 | Phase 1 = GCE Buea launch config | Pilot in Cameroon                              |
-| 2026-07 | Teal Forest rebrand in docs      | design-brand-identity.md; code rebrand Unit 31 |
+| Date    | Decision                          | Rationale                                                 |
+| ------- | --------------------------------- | --------------------------------------------------------- |
+| 2026-06 | Monorepo npm workspaces           | Solo dev velocity; shared types                           |
+| 2026-06 | MVP = web PWA only                | 10-week constraint                                        |
+| 2026-06 | Auth.js over Clerk                | Avoid vendor lock-in                                      |
+| 2026-06 | Haiku for all marking             | Cost + latency                                            |
+| 2026-06 | Curriculum-agnostic schema        | Pan-African expansion without rewrites                    |
+| 2026-06 | Phase 1 = GCE Buea launch config  | Pilot in Cameroon                                         |
+| 2026-07 | Unit 03b spec for Lovable landing | Full mockup map; dark/light; ports exam-edge-path         |
+| 2026-07 | Marking profiles per subject      | M/A maths; point rubric sciences — not universal M1/A1/B1 |
 
 ---
 
 ## Session Notes
 
+### 2026-07-09 — Unit 03b QA + pre-merge polish
+
+- Lighthouse mobile (prod build): Performance 88, Accessibility 92, Best Practices 96, SEO 100
+- Plausible foundation: `lib/analytics.ts`, `PlausibleScript`, `register_cta_clicked` on landing CTAs
+- Removed legacy `SocialProof.tsx`
+
 ### 2026-07-07 — Design system + doc consolidation
 
 - Integrated Teal Forest brand into ui-tokens, ui-rules, mockup prompt
-- Removed duplicate `github-issues-setup.md` — implementation SSOT remains build-plan + feature-prompts + progress-tracker
-- Unit 03 landing implemented on feature branch
+- Unit 03 landing merged to main
 
 ### 2026-06-27 — Documentation complete for V1.0 build
 
@@ -88,7 +96,7 @@ _None — merge Unit 03 PR, then start Unit 04._
 
 | Phase                  | Units | Status                                         |
 | ---------------------- | ----- | ---------------------------------------------- |
-| Phase 0 — Foundation   | 01–08 | 01–03 done (03 pending merge); 04+ not started |
+| Phase 0 — Foundation   | 01–08 | 01–03 merged; 03b QA complete; 04+ in progress |
 | Phase 1 — AI Chains    | 09–14 | Not started                                    |
 | Phase 2 — Student Core | 15–23 | Not started                                    |
 | Phase 3 — Assessment   | 24–26 | Not started                                    |

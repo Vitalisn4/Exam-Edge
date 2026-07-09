@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  GCE_MATH_SAMPLES,
+  EXAM_MATH_SAMPLES,
   containsDisallowedLatex,
   hasBalancedBraces,
   isEmptyLatex,
@@ -30,8 +30,8 @@ describe("math validation helpers", () => {
     expect(containsDisallowedLatex("x^2")).toBe(false);
   });
 
-  it("accepts valid GCE sample expressions", () => {
-    for (const sample of GCE_MATH_SAMPLES) {
+  it("accepts valid board sample expressions", () => {
+    for (const sample of EXAM_MATH_SAMPLES) {
       expect(validateLatex(sample.latex)).toEqual({
         valid: true,
         normalized: sample.latex,

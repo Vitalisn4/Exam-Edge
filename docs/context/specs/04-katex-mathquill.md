@@ -22,16 +22,19 @@ Mathematical notation for GCE O/A Level — question display (KaTeX) and answer 
 
 ## GCE sample expressions
 
-| Topic                      | LaTeX                          |
-| -------------------------- | ------------------------------ |
-| Differentiation (A-Level)  | `\frac{d}{dx}(3x^2 - 12x + 7)` |
-| Integration (A-Level)      | `\int_0^1 x^2 \, dx`           |
-| Vectors / Mechanics        | `\vec{F} = m\vec{a}`           |
-| Vector magnitude (O-Level) | `\sqrt{x^2 + y^2}`             |
+| Topic                      | LaTeX                                    |
+| -------------------------- | ---------------------------------------- |
+| Differentiation (A-Level)  | `\frac{d}{dx}(3x^2 - 12x + 7)`           |
+| Integration (A-Level)      | `\int_0^1 x^2 \, dx`                     |
+| Vectors / Mechanics        | `\vec{F} = m\vec{a}`                     |
+| Vector magnitude (O-Level) | `\sqrt{x^2 + y^2}`                       |
+| Quadratic formula          | `x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}` |
+
+Notation is board-agnostic — same LaTeX across GCE Board Buea, WAEC, KCSE, and future boards.
 
 ## Verification checklist
 
-- [x] All 4 sample expressions render on `/dev/math`
+- [x] All 5 board sample expressions render on `/dev/math`
 - [x] MathInput exports LaTeX string on change
 - [x] Bad LaTeX shows error message, page does not crash
 - [x] KaTeX `trust: false` in MathDisplay
