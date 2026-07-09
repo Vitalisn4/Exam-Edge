@@ -1,7 +1,10 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-sans: var(--font-sans-family), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Clash Display", var(--font-sans-family), "Inter", ui-sans-serif, sans-serif;
   --font-math: "KaTeX_Main", "Times New Roman", serif;
 
   --color-primary-50: #e6f4f1;
@@ -21,9 +24,22 @@
   --color-primary-foreground: #ffffff;
   --color-primary-muted: var(--color-primary-50);
 
+  --color-secondary-500: #e2c04a;
+  --color-secondary-600: #c4a13a;
+  --color-secondary-700: #9e7e28;
+  --color-secondary-foreground: #3d2f09;
+
+  --color-accent-cyan: #06b6d4;
+
+  --color-navy: #0f172a;
+  --color-navy-800: #1e293b;
+  --color-navy-700: #334155;
+
   --color-background: #f8fafc;
   --color-surface: #ffffff;
   --color-surface-secondary: #f1f5f9;
+  --color-surface-2: #f1f5f9;
+  --color-surface-3: #e2e8f0;
   --color-surface-tertiary: #e2e8f0;
 
   --color-exam-paper: #fffef7;
@@ -50,7 +66,7 @@
   --color-mastery-green: #16a34a;
   --color-mastery-red-bg: #fef2f2;
   --color-mastery-amber-bg: #fffbeb;
-  --color-mastery-green-bg: #f0fdf4;
+  --color-mastery-green-bg: #e6f4f1;
 
   --color-mark-m1: #1d4ed8;
   --color-mark-m1-bg: #dbeafe;
@@ -96,14 +112,16 @@
   --secondary-foreground: var(--color-text-primary);
   --muted: var(--color-surface-secondary);
   --muted-foreground: var(--color-text-muted);
-  --accent: var(--color-primary-muted);
-  --accent-foreground: var(--color-primary-dark);
+  --accent: var(--color-accent-cyan);
+  --accent-foreground: #ffffff;
   --destructive: var(--color-error);
   --destructive-foreground: var(--color-text-inverse);
   --border: var(--color-border);
   --input: var(--color-border);
   --ring: var(--color-border-focus);
   --radius: var(--radius-md);
+
+  --shadow-elevated: 0 4px 12px rgba(15, 23, 42, 0.08);
 }
 
 .dark,
@@ -111,9 +129,13 @@
   --color-background: #0f172a;
   --color-surface: #1e293b;
   --color-surface-secondary: #263448;
+  --color-surface-2: #263448;
+  --color-surface-3: #334155;
   --color-surface-tertiary: #080e1a;
-  --color-border: #334155;
+  --color-border: #263448;
   --color-border-light: #1e293b;
+  --color-exam-paper: #080e1a;
+  --color-exam-ink: #f1f5f9;
   --color-border-focus: var(--color-primary-400);
   --color-text-primary: #f1f5f9;
   --color-text-secondary: #94a3b8;
@@ -127,12 +149,15 @@
   --secondary-foreground: var(--color-text-primary);
   --muted: var(--color-surface-secondary);
   --muted-foreground: var(--color-text-muted);
-  --accent: var(--color-primary-muted);
-  --accent-foreground: var(--color-primary-light);
+  --accent: var(--color-accent-cyan);
+  --accent-foreground: #ffffff;
   --color-offline-bg: #1e293b;
-  --color-mastery-red-bg: #3f1d1d;
-  --color-mastery-amber-bg: #3f2e0a;
-  --color-mastery-green-bg: #0f2e1a;
+  --color-mastery-red-bg: #3b0d0d;
+  --color-mastery-amber-bg: #3b2a09;
+  --color-mastery-green-bg: #0a3d31;
+  --color-mastery-red: #f87171;
+  --color-mastery-amber: #fbbf24;
+  --color-mastery-green: #6bbfaf;
   --color-mark-m1-bg: #1e2a4a;
   --color-mark-a1-bg: #0f2e1a;
   --color-mark-b1-bg: #2e1a4a;
@@ -147,6 +172,7 @@
 
 @theme inline {
   --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
 
   --color-background: var(--color-background);
   --color-foreground: var(--color-text-primary);
@@ -155,12 +181,22 @@
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--color-primary);
+  --color-primary-50: var(--color-primary-50);
+  --color-primary-100: var(--color-primary-100);
+  --color-primary-200: var(--color-primary-200);
+  --color-primary-400: var(--color-primary-400);
+  --color-primary-500: var(--color-primary-500);
+  --color-primary-600: var(--color-primary-600);
+  --color-primary-700: var(--color-primary-700);
+  --color-primary-800: var(--color-primary-800);
+  --color-primary-900: var(--color-primary-900);
   --color-primary-light: var(--color-primary-light);
   --color-primary-dark: var(--color-primary-dark);
   --color-primary-foreground: var(--color-primary-foreground);
   --color-primary-muted: var(--color-primary-muted);
   --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary-500: var(--color-secondary-500);
+  --color-secondary-foreground: var(--color-secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
@@ -169,7 +205,12 @@
   --color-destructive-foreground: var(--destructive-foreground);
   --color-surface: var(--color-surface);
   --color-surface-secondary: var(--color-surface-secondary);
+  --color-surface-2: var(--color-surface-2);
+  --color-surface-3: var(--color-surface-3);
   --color-surface-tertiary: var(--color-surface-tertiary);
+  --color-navy: var(--color-navy);
+  --color-navy-800: var(--color-navy-800);
+  --color-navy-700: var(--color-navy-700);
   --color-exam-paper: var(--color-exam-paper);
   --color-exam-ink: var(--color-exam-ink);
   --color-border: var(--color-border);
@@ -215,6 +256,8 @@
   --radius-lg: var(--radius-lg);
   --radius-xl: var(--radius-xl);
   --radius-full: var(--radius-full);
+
+  --shadow-elevated: var(--shadow-elevated);
 }
 
 @layer base {
@@ -224,6 +267,8 @@
 
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
   body {
@@ -231,9 +276,8 @@
     font-family: var(--font-sans), system-ui, sans-serif;
     font-size: 16px;
     line-height: 1.5;
-    transition:
-      background-color 200ms ease-out,
-      color 200ms ease-out;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   .math-display {
@@ -262,5 +306,39 @@
   .math-input .mq-editable-field.mq-focused {
     border-color: var(--color-border-focus);
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary-light) 25%, transparent);
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  button,
+  [role="button"] {
+    min-height: 44px;
+  }
+
+  .btn-compact {
+    min-height: 0;
+  }
+
+  /* Hero band — bottom CTA only; main hero uses bg-navy token */
+  .landing-hero-band {
+    background-color: var(--color-navy);
+    color: #ffffff;
+  }
+
+  /* Testimonials: solid forest in light, gradient in dark */
+  .landing-testimonials {
+    background-color: var(--color-primary-800);
+    color: #ffffff;
+  }
+
+  .dark .landing-testimonials {
+    background: linear-gradient(
+      to bottom right,
+      var(--color-primary-800),
+      var(--color-primary-700)
+    );
   }
 }

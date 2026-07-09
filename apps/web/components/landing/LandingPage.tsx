@@ -1,25 +1,36 @@
 import { BottomCta } from "@/components/landing/BottomCta";
+import { ExaminationsSection } from "@/components/landing/ExaminationsSection";
 import { Features } from "@/components/landing/Features";
 import { Hero } from "@/components/landing/Hero";
 import { HowItWorks } from "@/components/landing/HowItWorks";
-import { SocialProof } from "@/components/landing/SocialProof";
-import { Footer } from "@/components/layout/Footer";
+import { OfflineBanner } from "@/components/landing/OfflineBanner";
+import { PricingSection } from "@/components/landing/PricingSection";
+import { TestimonialsSection } from "@/components/landing/TestimonialsSection";
+import { MarketingFooter } from "@/components/layout/MarketingFooter";
 import { MarketingNavbar } from "@/components/layout/MarketingNavbar";
+import { getLandingPageData } from "@/lib/landing/get-landing-data";
 
-export function LandingPage() {
+export async function LandingPage() {
+  const data = await getLandingPageData();
+
   return (
-    <div className="min-h-screen w-full bg-background">
+    <div className="min-h-screen bg-background">
       <MarketingNavbar />
-      <main className="mx-auto w-full max-w-7xl">
-        <Hero />
+      <main>
+        <Hero
+          socialProof={data.socialProof}
+          masteryPreview={data.masteryPreview}
+          activeStudentCount={data.activeStudentCount}
+        />
         <Features />
-        <div id="examinations" className="scroll-mt-16" tabIndex={-1} aria-hidden />
+        <ExaminationsSection curriculum={data.curriculum} />
         <HowItWorks />
-        <SocialProof />
-        <div id="pricing" className="scroll-mt-16" tabIndex={-1} aria-hidden />
+        <TestimonialsSection testimonials={data.testimonials} />
+        <PricingSection />
+        <OfflineBanner />
         <BottomCta />
       </main>
-      <Footer />
+      <MarketingFooter />
     </div>
   );
 }

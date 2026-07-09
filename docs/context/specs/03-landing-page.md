@@ -1,5 +1,7 @@
 # Unit 03: Landing Page UI
 
+> **Visual spec superseded by Unit 03b** (`specs/03b-landing-marketing-refresh.md`) for full `exam-edge-path` / Lovable mockup parity. Unit 03 MVP scope remains the auth redirect + static landing contract.
+
 ---
 
 ## Goal

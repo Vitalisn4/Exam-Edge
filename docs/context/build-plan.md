@@ -69,12 +69,12 @@ Build the complete public landing page — mock content first, auth-aware CTAs.
 - Top navbar: ExamEdge logo, "Log in" link, "Start preparing" primary CTA
 - Hero section (MVP scope — extended marketing in Unit 31 / V1.1 per `examedge-ui-mockup-prompt.md`):
   - Headline: "Master your exams — understand, don't memorise" (or brand line from `design-brand-identity.md`)
-  - Subheadline: examiner-accurate M1/A1/B1 marking + offline access — built for African students, starting with GCE Board Buea
+  - Subheadline: examiner-accurate board-faithful marking + offline access — built for African students, starting with GCE Board Buea
   - Visual: Teal Forest tokens (`ui-tokens.md`); hero may use navy + teal radial gradient on polish pass
   - Primary CTA: "Start preparing free" → `/register`
   - Secondary CTA: "See how it works" → scroll to features
 - Features section — three value props with icons (lucide):
-  1. Examiner-accurate M1/A1/B1 marking
+  1. Examiner-accurate board-faithful marking
   2. Socratic hints that never give answers away
   3. Understanding verification — not a chatbot
 - "How it works" section — 4 steps: Register → Practice → Get marked → Verify mastery
@@ -282,13 +282,19 @@ Foundation for all five AI chains.
 
 ### 10 Examiner Marking Chain
 
-M1/A1/B1 partial credit marking.
+Board-faithful partial credit via **marking profiles** (`docs/context/marking-conventions.md`).
+
+- CGCE mathematics: **M/A marks only** (no B marks)
+- Sciences: **point rubric** (P1, P2, …) — not M1/A1
+- MCQ Paper 1: **binary** marking
 
 **Logic:**
 
+- `packages/shared/src/constants/marking-profiles.ts` — CGCE launch profiles
+- `packages/ai/lib/get-marking-profile.ts` — resolve profile from board + subject + paper
 - `packages/ai/chains/marking.ts`
-- `packages/ai/schemas/marking.schema.ts` — Zod output schema
-- `packages/ai/examples/marking/` — 3 few-shot examples (differentiation, integration, vectors)
+- `packages/ai/schemas/marking.schema.ts` — Zod output schema (profile-aware creditType)
+- `packages/ai/examples/marking/` — few-shot per family: method_accuracy, point_rubric
 - Claude Haiku 4.5, temperature 0.1, max 800 tokens
 - confidence < CONFIDENCE_THRESHOLD (0.70) → flagForReview: true
 - Zod failure → MarkingValidationError
@@ -296,8 +302,10 @@ M1/A1/B1 partial credit marking.
 
 **Verify:**
 
-- [ ] Full marks case passes
+- [ ] Full marks case passes (maths method_accuracy)
 - [ ] M1 awarded, A1 denied (wrong final answer) passes
+- [ ] A1 denied when M1 not awarded (dependency)
+- [ ] No B1 in maths profile output; no M1/A1 in physics profile output
 - [ ] Invalid LLM JSON → validation error, no partial result
 - [ ] marks_given never exceeds marks_available (schema enforced)
 

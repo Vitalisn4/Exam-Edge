@@ -36,7 +36,7 @@ ExamEdge treats the student journey as a **progressive reveal** — not a featur
 | --------------------- | ------------------------------------------------------------------------------------------ | ---------------- |
 | Hero headline         | Exam preparation that **marks like your examiner** — not a homework solver                 | Sets expectation |
 | Subheadline           | Pan-African platform; launching with GCE Board Buea                                        | Honest scope     |
-| Three value props     | M1/A1/B1 marking · Socratic hints (never answers) · Works offline                          | Differentiation  |
+| Three value props     | Board-faithful marking · Socratic hints (never answers) · Works offline                    | Differentiation  |
 | Social proof (pilot+) | "Join students preparing for national exams across Africa — starting with GCE in Cameroon" | Belonging        |
 | Primary CTA           | **Start preparing free** → `/register`                                                     | Low friction     |
 | Secondary CTA         | Log in                                                                                     | Returning users  |
@@ -129,7 +129,7 @@ Link to privacy policy (required before public launch — `content-governance.md
    "Put your phone face-down. Close other tabs. Next 20 minutes — just you and the question."
 5. One parameterised question — KaTeX rendered
 6. Student attempts answer (MathInput or text)
-7. Submit → M1/A1/B1 marking (<3s)
+7. Submit → board-faithful marking breakdown (<3s)
 8. MarkingDisplay — step feedback in plain language
 9. If wrong: offer ONE hint (explain hints never give answers)
 10. UVE L1 probe (short) — "Same method, different numbers"

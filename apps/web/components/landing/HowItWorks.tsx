@@ -1,50 +1,48 @@
-import { BookOpen, CheckCircle, TrendingUp, UserPlus } from "lucide-react";
+import { BookOpen, Brain, ClipboardCheck } from "lucide-react";
 
-import { Card, CardContent } from "@/components/ui/card";
+import { HOW_IT_WORKS_STEPS } from "@/constants/landing-content";
 
-const STEPS = [
-  { icon: UserPlus, label: "Register", detail: "Create your free account in under two minutes." },
-  {
-    icon: BookOpen,
-    label: "Practice",
-    detail: "Work through GCE-standard questions at your pace.",
-  },
-  {
-    icon: CheckCircle,
-    label: "Get marked",
-    detail: "Receive M1/A1/B1 feedback on every submission.",
-  },
-  {
-    icon: TrendingUp,
-    label: "Verify mastery",
-    detail: "Prove understanding with follow-up probes, not guesswork.",
-  },
+const STEPS_WITH_ICONS = [
+  { ...HOW_IT_WORKS_STEPS[0], icon: BookOpen },
+  { ...HOW_IT_WORKS_STEPS[1], icon: Brain },
+  { ...HOW_IT_WORKS_STEPS[2], icon: ClipboardCheck },
 ] as const;
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="scroll-mt-16 flex flex-col gap-4 px-4 py-6 md:px-8">
-      <h2 className="text-lg font-semibold text-text-primary">How it works</h2>
-      <ol className="flex flex-col gap-3">
-        {STEPS.map((step, index) => (
-          <li key={step.label}>
-            <Card>
-              <CardContent className="flex items-start gap-3 p-4">
-                <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary-muted text-sm font-semibold text-primary">
-                  {index + 1}
-                </span>
-                <div className="flex flex-col gap-1">
-                  <div className="flex items-center gap-2">
-                    <step.icon className="size-5 text-primary" aria-hidden />
-                    <span className="font-semibold text-text-primary">{step.label}</span>
-                  </div>
-                  <p className="text-base text-text-secondary">{step.detail}</p>
+    <section id="how" className="scroll-mt-16 bg-background">
+      <div className="mx-auto max-w-6xl px-4 py-20">
+        <div className="text-center">
+          <h2 className="font-display text-2xl font-bold text-text-primary sm:text-3xl">
+            How it works
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-sm text-text-secondary">
+            Three steps to the confidence you need.
+          </p>
+        </div>
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {STEPS_WITH_ICONS.map((step) => {
+            const Icon = step.icon;
+            return (
+              <div
+                key={step.number}
+                className="relative rounded-2xl border border-border bg-surface p-6"
+              >
+                <div className="font-display text-5xl font-bold text-primary-100 dark:text-primary-900">
+                  {step.number}
                 </div>
-              </CardContent>
-            </Card>
-          </li>
-        ))}
-      </ol>
+                <div className="mt-2 flex h-11 w-11 items-center justify-center rounded-xl bg-primary-700 text-white">
+                  <Icon size={20} aria-hidden />
+                </div>
+                <h3 className="mt-4 font-display text-base font-bold text-text-primary">
+                  {step.title}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-text-secondary">{step.description}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </section>
   );
 }

@@ -1,43 +1,23 @@
-import { Brain, ClipboardCheck, Lightbulb } from "lucide-react";
-
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
-const FEATURES = [
-  {
-    icon: ClipboardCheck,
-    title: "Examiner-accurate M1/A1/B1 marking",
-    description:
-      "Partial credit on every answer — the same mark types your GCE examiner uses, not a homework solver.",
-  },
-  {
-    icon: Lightbulb,
-    title: "Socratic hints that never give answers away",
-    description:
-      "Guiding questions when you are stuck — never the answer, never the next step revealed.",
-  },
-  {
-    icon: Brain,
-    title: "Understanding verification — not a chatbot",
-    description: "Follow-up probes check you truly understand before moving on.",
-  },
-] as const;
+import { FeatureCard } from "@/components/landing/FeatureCard";
+import { LANDING_FEATURES } from "@/constants/landing-content";
 
 export function Features() {
   return (
-    <section id="features" className="scroll-mt-16 flex flex-col gap-4 px-4 py-6 md:px-8">
-      <h2 className="text-lg font-semibold text-text-primary">Why ExamEdge</h2>
-      <div className="flex flex-col gap-4">
-        {FEATURES.map((feature) => (
-          <Card key={feature.title}>
-            <CardHeader className="flex flex-row items-start gap-3 space-y-0">
-              <feature.icon className="size-6 shrink-0 text-primary" aria-hidden />
-              <CardTitle className="text-base">{feature.title}</CardTitle>
-            </CardHeader>
-            <CardContent className="pt-0">
-              <p className="text-base text-text-secondary">{feature.description}</p>
-            </CardContent>
-          </Card>
-        ))}
+    <section id="features" className="scroll-mt-16 bg-surface">
+      <div className="mx-auto max-w-6xl px-4 py-20">
+        <div className="max-w-2xl">
+          <p className="text-xs font-semibold uppercase tracking-wider text-primary-700 dark:text-primary-400 sm:text-sm">
+            Built for African students
+          </p>
+          <h2 className="mt-2 font-display text-2xl font-bold text-text-primary sm:text-3xl">
+            The tutor you deserve. In your pocket.
+          </h2>
+        </div>
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {LANDING_FEATURES.map((feature) => (
+            <FeatureCard key={feature.title} {...feature} />
+          ))}
+        </div>
       </div>
     </section>
   );

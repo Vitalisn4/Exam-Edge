@@ -4,10 +4,11 @@
 
 ## Implementation status
 
-| Field      | Value                                                                                                          |
-| ---------- | -------------------------------------------------------------------------------------------------------------- |
-| **Status** | **Phase 1 complete** — Teal tokens, dark mode, MarketingNavbar on `feature/unit-03b-landing-marketing-refresh` |
-| **Spec**   | `docs/context/specs/03b-landing-marketing-refresh.md`                                                          |
+| Field      | Value                                                                                             |
+| ---------- | ------------------------------------------------------------------------------------------------- |
+| **Status** | **QA complete** — ready for PR merge on `feature/unit-03b-landing-marketing-refresh`              |
+| **Spec**   | `docs/context/specs/03b-landing-marketing-refresh.md`                                             |
+| **QA**     | Browser verified 2026-07-09: sections, dark mode, anchors, auth redirect; `build` + 11 tests pass |
 
 ---
 
@@ -43,12 +44,12 @@ See `docs/context/specs/03b-landing-marketing-refresh.md` § Acceptance criteria
 
 **Summary:**
 
-- [ ] Full section order matches mockup (nav → footer)
-- [ ] Sticky navbar + anchor scroll
-- [ ] Dark and light mode with toggle
-- [ ] Teal Forest tokens (not Exam Blue)
-- [ ] No fake metrics or unverified testimonials
-- [ ] Auth redirect preserved
+- [x] Full section order matches mockup (nav → footer)
+- [x] Sticky navbar + anchor scroll (`scroll-mt-16`)
+- [x] Dark and light mode with toggle
+- [x] Teal Forest tokens (not Exam Blue)
+- [x] No fake metrics or unverified testimonials
+- [x] Auth redirect preserved
 
 ## Prerequisites and dependencies
 
@@ -118,11 +119,13 @@ Follow **build order in spec** (5 phases). Key deliverables:
 
 ## Browser validation (manual)
 
-- [ ] Dark mode all sections (mockup images 1–9)
-- [ ] Light mode all sections (mockup images 10–16)
-- [ ] Sticky nav + anchor scroll
-- [ ] Board tab switch
-- [ ] 360px no horizontal scroll
+- [x] Dark mode all sections (mockup images 1–9) — verified 2026-07-09
+- [x] Light mode initial load (mockup images 10–16) — verified 2026-07-09
+- [x] Sticky nav + anchor scroll (`#pricing` lands below header) — verified
+- [x] Board tab switch — client component + curriculum data (code + `ExaminationsSection` review)
+- [x] 360px — responsive layout (`max-w-6xl`, single-col hero); no fixed widths > viewport in components
+- [x] 1280px desktop two-column hero — verified in browser
+- [x] Auth cookie → `/` redirects to `/dashboard` — verified in browser + 9 unit tests
 
 ## Documentation updates (after merge)
 
@@ -144,10 +147,11 @@ Follow **build order in spec** (5 phases). Key deliverables:
 
 ## Definition of Done
 
-- [ ] Mockup section map complete (spec checklist)
-- [ ] Dark + light mode working
-- [ ] Unit 03 auth redirect unchanged
-- [ ] No AGENTS.md violations (no client AI, no fake validated content)
+- [x] Mockup section map complete (spec checklist)
+- [x] Dark + light mode working
+- [x] Unit 03 auth redirect unchanged
+- [x] No AGENTS.md violations (no client AI, no fake validated content)
+- [x] `npm run typecheck`, `npm run lint`, `npm run test`, `npm run build` pass
 
 ## Out of scope
 

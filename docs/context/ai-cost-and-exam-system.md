@@ -12,13 +12,13 @@
 
 ExamEdge achieves this through five interlocking strategies:
 
-| Strategy | Mechanism | Effect |
-|----------|-----------|--------|
-| **Generate once, serve forever** | Validated questions, topic explanations, embeddings stored permanently | Marginal cost → 0 per additional student |
-| **No AI at delivery time** | Question selection + parameter instantiation are algorithmic | Millions of concurrent "next question" calls cost $0 in LLM fees |
-| **Right model for each task** | Single router (`getModelConfig`) assigns Haiku vs Sonnet vs future local models | 10–20× cost reduction on high-frequency marking |
-| **Cache before compute** | Redis + Postgres permanent caches; idempotency prevents duplicate calls | Eliminates redundant inference |
-| **Async expensive work** | UVE, reports, generation run in background / batch | Peak load does not block synchronous paths |
+| Strategy                         | Mechanism                                                                       | Effect                                                           |
+| -------------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| **Generate once, serve forever** | Validated questions, topic explanations, embeddings stored permanently          | Marginal cost → 0 per additional student                         |
+| **No AI at delivery time**       | Question selection + parameter instantiation are algorithmic                    | Millions of concurrent "next question" calls cost $0 in LLM fees |
+| **Right model for each task**    | Single router (`getModelConfig`) assigns Haiku vs Sonnet vs future local models | 10–20× cost reduction on high-frequency marking                  |
+| **Cache before compute**         | Redis + Postgres permanent caches; idempotency prevents duplicate calls         | Eliminates redundant inference                                   |
+| **Async expensive work**         | UVE, reports, generation run in background / batch                              | Peak load does not block synchronous paths                       |
 
 At 500 students, ~85% of question serves are cache hits with zero new generation. At 50,000 students, pool hit rate targets ~98% — AI spend grows **sub-linearly** (O(log n)) while users grow linearly.
 
@@ -30,30 +30,30 @@ Every AI task maps to the **cheapest tier** that meets quality thresholds. The r
 
 ### 2.1 Tiers (Current → Future)
 
-| Tier | Model | Cost profile | When used |
-|------|-------|--------------|-----------|
-| **T0 — On-device** | Whisper.cpp, Google ML Kit, future quantized Llama | $0/call | Offline ASR, basic OCR, spell-check (V2.0+) |
-| **T1 — Self-hosted OSS** | Fine-tuned Mistral 7B / Llama 3 8B on Railway GPU (~$20/mo fixed) | ~$0.0001/call | Marking after 10K+ training examples (Year 2) |
-| **T2 — Claude Haiku 4.5** | $0.25/M input · $1.25/M output | ~$0.0003/call | Marking, hints L1-L2, UVE L1-L2, cross-exam, reports |
-| **T3 — Claude Sonnet 4.6** | $3/M input · $15/M output | ~$0.003/call | Hints L3, generation, curriculum (cache miss), UVE L3-L4, OCR fallback, essays |
+| Tier                       | Model                                                             | Cost profile  | When used                                                                      |
+| -------------------------- | ----------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------ |
+| **T0 — On-device**         | Whisper.cpp, Google ML Kit, future quantized Llama                | $0/call       | Offline ASR, basic OCR, spell-check (V2.0+)                                    |
+| **T1 — Self-hosted OSS**   | Fine-tuned Mistral 7B / Llama 3 8B on Railway GPU (~$20/mo fixed) | ~$0.0001/call | Marking after 10K+ training examples (Year 2)                                  |
+| **T2 — Claude Haiku 4.5**  | $0.25/M input · $1.25/M output                                    | ~$0.0003/call | Marking, hints L1-L2, UVE L1-L2, cross-exam, reports                           |
+| **T3 — Claude Sonnet 4.6** | $3/M input · $15/M output                                         | ~$0.003/call  | Hints L3, generation, curriculum (cache miss), UVE L3-L4, OCR fallback, essays |
 
 **Rule:** Sonnet is reserved for tasks requiring deep reasoning or one-time generation. Haiku handles everything structured and high-frequency.
 
 ### 2.2 Task-to-Model Matrix (Production)
 
-| Task | Model | Temp | Max tokens | Sync/Async | Blocks student? |
-|------|-------|------|------------|------------|---------------|
-| `marking_math`, `marking_science` | Haiku | 0.1 | 800 | Sync | Yes |
-| `marking_essay` | Sonnet | 0.2 | 1200 | Sync | Yes |
-| `hint_1`, `hint_2` | Haiku | 0.4 | 400 | Sync | Yes |
-| `hint_3` | Sonnet | 0.5 | 400 | Sync | Yes |
-| `uve_1`, `uve_2` | Haiku | 0.2 | 700 | Async | No |
-| `uve_3`, `uve_4` | Sonnet | 0.3 | 700 | Async | No |
-| `question_gen` | Sonnet | 0.7 | 1500 | Batch cron | No |
-| `curriculum_explain` | Sonnet | 0.6 | 2000 | Sync (cache miss only) | Yes |
-| `report_gen` | Haiku | 0.4 | 800 | Async deferred | No |
-| `ocr_fallback` | Sonnet | 0.1 | 1500 | Sync | Yes |
-| Cross-examination | Haiku | 0.1 | 800 | Batch | No |
+| Task                              | Model  | Temp | Max tokens | Sync/Async             | Blocks student? |
+| --------------------------------- | ------ | ---- | ---------- | ---------------------- | --------------- |
+| `marking_math`, `marking_science` | Haiku  | 0.1  | 800        | Sync                   | Yes             |
+| `marking_essay`                   | Sonnet | 0.2  | 1200       | Sync                   | Yes             |
+| `hint_1`, `hint_2`                | Haiku  | 0.4  | 400        | Sync                   | Yes             |
+| `hint_3`                          | Sonnet | 0.5  | 400        | Sync                   | Yes             |
+| `uve_1`, `uve_2`                  | Haiku  | 0.2  | 700        | Async                  | No              |
+| `uve_3`, `uve_4`                  | Sonnet | 0.3  | 700        | Async                  | No              |
+| `question_gen`                    | Sonnet | 0.7  | 1500       | Batch cron             | No              |
+| `curriculum_explain`              | Sonnet | 0.6  | 2000       | Sync (cache miss only) | Yes             |
+| `report_gen`                      | Haiku  | 0.4  | 800        | Async deferred         | No              |
+| `ocr_fallback`                    | Sonnet | 0.1  | 1500       | Sync                   | Yes             |
+| Cross-examination                 | Haiku  | 0.1  | 800        | Batch                  | No              |
 
 ### 2.3 Router Implementation
 
@@ -66,18 +66,19 @@ export function getModelConfig(task: TaskType): ModelConfig {
 ```
 
 **Invariants (never violated):**
+
 - Marking never uses Sonnet (except `marking_essay`)
 - Question generation never runs during live student sessions
 - Every call logged: model, input/output tokens, latency, estimated cost
 
 ### 2.4 When Open-Source Replaces Cloud (Progressive Offloading)
 
-| Milestone | Trigger | Migration |
-|-----------|---------|-----------|
-| Year 2 | 10,000+ marked responses with human agreement labels | Fine-tune 7B model for GCE Maths marking → router switches `marking_math` to T1 |
-| Year 2–3 | Science marking benchmark ≥92% on 500-question suite | Extend T1 to `marking_science` |
-| Year 3 | Hint L1-L2 quality score ≥7/10 on specialist review | Optional T1 for `hint_1`, `hint_2` |
-| Never (cloud) | Generation, curriculum, hint L3, UVE L3-L4 | Sonnet quality bar too high for small OSS models at launch |
+| Milestone     | Trigger                                              | Migration                                                                       |
+| ------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------- |
+| Year 2        | 10,000+ marked responses with human agreement labels | Fine-tune 7B model for GCE Maths marking → router switches `marking_math` to T1 |
+| Year 2–3      | Science marking benchmark ≥92% on 500-question suite | Extend T1 to `marking_science`                                                  |
+| Year 3        | Hint L1-L2 quality score ≥7/10 on specialist review  | Optional T1 for `hint_1`, `hint_2`                                              |
+| Never (cloud) | Generation, curriculum, hint L3, UVE L3-L4           | Sonnet quality bar too high for small OSS models at launch                      |
 
 Cloud Sonnet spend **decreases over time** as Haiku/local models absorb high-frequency tasks.
 
@@ -87,20 +88,20 @@ Cloud Sonnet spend **decreases over time** as Haiku/local models absorb high-fre
 
 ### 3.1 Activity → AI Cost Profile
 
-| Platform activity | LLM at runtime? | Model | Cost pattern |
-|-------------------|-----------------|-------|--------------|
-| Personalized tutoring (hints) | Yes, per hint | Haiku L1-L2; Sonnet L3 only | ~$0.0002–0.003 per hint |
-| Concept explanations | Once per topic/lang | Sonnet on cache miss only | ~$0.003 once → $0 forever |
-| Question generation | Batch only | Sonnet + Haiku cross-exam | ~$0.003 per new template |
-| Exam paper assembly | **No** | Algorithm | $0 |
-| Exam marking (per question) | Yes | Haiku | ~$0.0003 per response |
-| Practice marking | Same as exam | Haiku | Same |
-| Feedback (step marks) | Included in marking | Haiku | Same call |
-| Adaptive recommendations | **No** (MVP) | IRT + graph algorithm | $0 |
-| Learning analytics dashboard | **No** (MVP) | SQL aggregation | $0 |
-| Post-exam narrative report | Deferred async | Haiku `report_gen` | ~$0.0004 per exam (V1.0+) |
-| Weekly email report | Batch cron | Haiku | ~$0.0002 per student/week |
-| UVE probes | Async after mark | Haiku L1-L2 | ~$0.0002 per probe |
+| Platform activity             | LLM at runtime?     | Model                       | Cost pattern              |
+| ----------------------------- | ------------------- | --------------------------- | ------------------------- |
+| Personalized tutoring (hints) | Yes, per hint       | Haiku L1-L2; Sonnet L3 only | ~$0.0002–0.003 per hint   |
+| Concept explanations          | Once per topic/lang | Sonnet on cache miss only   | ~$0.003 once → $0 forever |
+| Question generation           | Batch only          | Sonnet + Haiku cross-exam   | ~$0.003 per new template  |
+| Exam paper assembly           | **No**              | Algorithm                   | $0                        |
+| Exam marking (per question)   | Yes                 | Haiku                       | ~$0.0003 per response     |
+| Practice marking              | Same as exam        | Haiku                       | Same                      |
+| Feedback (step marks)         | Included in marking | Haiku                       | Same call                 |
+| Adaptive recommendations      | **No** (MVP)        | IRT + graph algorithm       | $0                        |
+| Learning analytics dashboard  | **No** (MVP)        | SQL aggregation             | $0                        |
+| Post-exam narrative report    | Deferred async      | Haiku `report_gen`          | ~$0.0004 per exam (V1.0+) |
+| Weekly email report           | Batch cron          | Haiku                       | ~$0.0002 per student/week |
+| UVE probes                    | Async after mark    | Haiku L1-L2                 | ~$0.0002 per probe        |
 
 **Key insight:** Exam simulation paper creation is **100% algorithmic**. AI cost for an exam = marking N answers (Haiku × N) + optional deferred report (Haiku × 1).
 
@@ -118,39 +119,39 @@ Cloud Sonnet spend **decreases over time** as Haiku/local models absorb high-fre
 
 ### 4.1 Cache Layers
 
-| Asset | Location | TTL | Regenerate? |
-|-------|----------|-----|-------------|
-| Question templates + embeddings | PostgreSQL pgvector | Permanent | Only if template edited |
-| Topic explanations | PostgreSQL `topic_explanations` | Permanent | Admin trigger only |
-| Syllabus chunks | PostgreSQL | Permanent | Syllabus version bump |
-| Instantiated mark scheme | Redis | 1h | Per session instance |
-| Warm question pool (topic/difficulty) | Redis | 1h (6h at exam peak) | Rolling refresh |
-| Curriculum tree | Redis | 24h | Syllabus update |
-| Dashboard mastery summary | Redis | 15min | Session complete invalidates |
-| Idempotency / marking duplicate | Redis | 5min | N/A |
-| Report narrative (exam) | PostgreSQL JSONB | Permanent | Once per simulation |
+| Asset                                 | Location                        | TTL                  | Regenerate?                  |
+| ------------------------------------- | ------------------------------- | -------------------- | ---------------------------- |
+| Question templates + embeddings       | PostgreSQL pgvector             | Permanent            | Only if template edited      |
+| Topic explanations                    | PostgreSQL `topic_explanations` | Permanent            | Admin trigger only           |
+| Syllabus chunks                       | PostgreSQL                      | Permanent            | Syllabus version bump        |
+| Instantiated mark scheme              | Redis                           | 1h                   | Per session instance         |
+| Warm question pool (topic/difficulty) | Redis                           | 1h (6h at exam peak) | Rolling refresh              |
+| Curriculum tree                       | Redis                           | 24h                  | Syllabus update              |
+| Dashboard mastery summary             | Redis                           | 15min                | Session complete invalidates |
+| Idempotency / marking duplicate       | Redis                           | 5min                 | N/A                          |
+| Report narrative (exam)               | PostgreSQL JSONB                | Permanent            | Once per simulation          |
 
 ### 4.2 Three Retrieval Patterns (Not All RAG)
 
-| Pattern | When | LLM? | Purpose |
-|---------|------|------|---------|
-| **Pool selection** | Every `next-question` | No | IRT match + 30-day exclusion + local params |
-| **Generation RAG** | Nightly pool refresh | Yes (Sonnet) | Ground new templates in 5 similar validated questions |
+| Pattern             | When                          | LLM?         | Purpose                                                  |
+| ------------------- | ----------------------------- | ------------ | -------------------------------------------------------- |
+| **Pool selection**  | Every `next-question`         | No           | IRT match + 30-day exclusion + local params              |
+| **Generation RAG**  | Nightly pool refresh          | Yes (Sonnet) | Ground new templates in 5 similar validated questions    |
 | **Syllabus lookup** | Curriculum explain cache miss | Yes (Sonnet) | Direct DB fetch of `syllabus_chunks` — not vector search |
 
 ### 4.3 Token Minimization (Without Quality Loss)
 
-| Technique | Where | Savings |
-|-----------|-------|---------|
-| Mark scheme JSON minification | Marking chain | Caps context at 4,000 tokens; split sequential calls if exceeded |
-| Immutable system prompts | All chains | No dynamic prompt bloat |
-| Structured output (Zod + tool_use) | All chains | Fewer retry tokens |
-| Few-shot examples loaded at build time | Marking only | 3 examples per subject — not per call |
-| `max_tokens` per chain | Router config | Prevents runaway generation |
-| Sanitize user input before prompt | `sanitize.ts` | Strips injection patterns; truncates extreme length |
-| No PII in prompts | All chains | session_id only — smaller, safer context |
-| Curriculum cache | Permanent | Second student = 0 tokens |
-| Parameter instantiation local | Question delivery | 0 tokens per serve |
+| Technique                              | Where             | Savings                                                          |
+| -------------------------------------- | ----------------- | ---------------------------------------------------------------- |
+| Mark scheme JSON minification          | Marking chain     | Caps context at 4,000 tokens; split sequential calls if exceeded |
+| Immutable system prompts               | All chains        | No dynamic prompt bloat                                          |
+| Structured output (Zod + tool_use)     | All chains        | Fewer retry tokens                                               |
+| Few-shot examples loaded at build time | Marking only      | 3 examples per subject — not per call                            |
+| `max_tokens` per chain                 | Router config     | Prevents runaway generation                                      |
+| Sanitize user input before prompt      | `sanitize.ts`     | Strips injection patterns; truncates extreme length              |
+| No PII in prompts                      | All chains        | session_id only — smaller, safer context                         |
+| Curriculum cache                       | Permanent         | Second student = 0 tokens                                        |
+| Parameter instantiation local          | Question delivery | 0 tokens per serve                                               |
 
 ---
 
@@ -181,23 +182,23 @@ Incoming request
 
 ### 5.4 Rate Limiting & Circuit Breakers
 
-| Limit | Value | Purpose |
-|-------|-------|---------|
-| Auth endpoints | 5/min per IP | Brute-force prevention |
-| AI operations | 60/hour per user | Normal intensive study cap |
-| AI circuit breaker | 100/hour per user | Abuse / budget protection |
-| Idempotency | 5min TTL | Duplicate submit = 0 extra AI cost |
+| Limit              | Value             | Purpose                            |
+| ------------------ | ----------------- | ---------------------------------- |
+| Auth endpoints     | 5/min per IP      | Brute-force prevention             |
+| AI operations      | 60/hour per user  | Normal intensive study cap         |
+| AI circuit breaker | 100/hour per user | Abuse / budget protection          |
+| Idempotency        | 5min TTL          | Duplicate submit = 0 extra AI cost |
 
 During peak, limits are **maintained** (not raised) — prevents resource monopolisation while allowing ~8 full practice sessions/hour per student.
 
 ### 5.5 Queue Strategy (V1.1+ at 10K+ concurrent)
 
-| Queue | Work | Processor |
-|-------|------|-----------|
-| `marking-priority` | Live session submits | Sync — Vercel concurrent functions |
-| `uve-deferred` | Post-response probes | Async worker / `waitUntil` |
-| `report-deferred` | Post-exam narrative | Async — 30s after submit |
-| `generation-batch` | Pool refresh | Cron + Anthropic Batch API (50% discount) |
+| Queue              | Work                 | Processor                                 |
+| ------------------ | -------------------- | ----------------------------------------- |
+| `marking-priority` | Live session submits | Sync — Vercel concurrent functions        |
+| `uve-deferred`     | Post-response probes | Async worker / `waitUntil`                |
+| `report-deferred`  | Post-exam narrative  | Async — 30s after submit                  |
+| `generation-batch` | Pool refresh         | Cron + Anthropic Batch API (50% discount) |
 
 MVP (V1.0): async via Vercel `waitUntil` or return marking first, poll for UVE/report. No separate queue infrastructure required until regional scale.
 
@@ -215,12 +216,12 @@ For non-latency-sensitive work:
 
 ## 6. Cost Projections by Scale
 
-| Scale | Students | Est. AI/month | Primary drivers | Mitigation |
-|-------|----------|---------------|-----------------|------------|
-| Pilot | 20 | $1–5 | Marking, hints | Starter credits, caching |
-| Regional | 1,000 | $50–150 | Marking volume | 85% pool hit, Haiku-only marking |
-| National | 10,000 | $300–800 | Peak season spikes | Pre-peak pool, Batch API, rate limits |
-| Continental | 100,000 | $2,000–5,000 | Marking at scale | T1 fine-tuned marking, 98% pool hit |
+| Scale       | Students  | Est. AI/month | Primary drivers      | Mitigation                                   |
+| ----------- | --------- | ------------- | -------------------- | -------------------------------------------- |
+| Pilot       | 20        | $1–5          | Marking, hints       | Starter credits, caching                     |
+| Regional    | 1,000     | $50–150       | Marking volume       | 85% pool hit, Haiku-only marking             |
+| National    | 10,000    | $300–800      | Peak season spikes   | Pre-peak pool, Batch API, rate limits        |
+| Continental | 100,000   | $2,000–5,000  | Marking at scale     | T1 fine-tuned marking, 98% pool hit          |
 | Continental | 1,000,000 | $8,000–20,000 | Inference throughput | Dedicated AI service, local models, sharding |
 
 **Revenue anchor:** Sustainable at $3–5/student/month from Month 12 — AI cost target <$0.10/student/month at 2,000+ users.
@@ -284,13 +285,13 @@ Adding WAEC/KCSE = new `board_config` JSON — not new assembly code.
 
 ### 7.3 Fairness: Unique Papers, Equivalent Difficulty
 
-| Requirement | Implementation |
-|-------------|----------------|
-| No two papers identical | Parameter instantiation + different template selection per student |
-| Equivalent difficulty | IRT theta targeting ±0.5; section topic weights from `board_config` |
-| No repeat fatigue | Exclude templates seen in last 14 days (exam) / 30 days (practice) |
-| Syllabus coverage | Weighted selection by `exam_weight` per topic |
-| Mark allocation match | Section `marksEach` × `questionCount` = section total |
+| Requirement             | Implementation                                                      |
+| ----------------------- | ------------------------------------------------------------------- |
+| No two papers identical | Parameter instantiation + different template selection per student  |
+| Equivalent difficulty   | IRT theta targeting ±0.5; section topic weights from `board_config` |
+| No repeat fatigue       | Exclude templates seen in last 14 days (exam) / 30 days (practice)  |
+| Syllabus coverage       | Weighted selection by `exam_weight` per topic                       |
+| Mark allocation match   | Section `marksEach` × `questionCount` = section total               |
 
 ---
 
@@ -338,14 +339,14 @@ POST /api/simulations
 
 ### 8.3 Academic Integrity Features (Web-Realistic)
 
-| Feature | Implementation | Honest limit |
-|---------|----------------|--------------|
-| Fullscreen mode | Fullscreen API on start | Cannot force on all browsers; student can exit |
-| Tab-switch logging | Page Visibility API → `focus_breaks` counter | Detects distraction; does not prevent phone use |
-| Timer pause on switch | Exam paused until student confirms return | Mirrors invigilator attention |
-| No hints | UI omits HintPanel in exam mode | Enforced server-side |
-| Answer lock after submit | Session status = `completed`; no PATCH on responses | Immutable exam attempt |
-| Post-exam integrity note | Report shows focus_breaks count | Transparent, not punitive |
+| Feature                  | Implementation                                      | Honest limit                                    |
+| ------------------------ | --------------------------------------------------- | ----------------------------------------------- |
+| Fullscreen mode          | Fullscreen API on start                             | Cannot force on all browsers; student can exit  |
+| Tab-switch logging       | Page Visibility API → `focus_breaks` counter        | Detects distraction; does not prevent phone use |
+| Timer pause on switch    | Exam paused until student confirms return           | Mirrors invigilator attention                   |
+| No hints                 | UI omits HintPanel in exam mode                     | Enforced server-side                            |
+| Answer lock after submit | Session status = `completed`; no PATCH on responses | Immutable exam attempt                          |
+| Post-exam integrity note | Report shows focus_breaks count                     | Transparent, not punitive                       |
 
 **Documented in UI:** ExamEdge does not claim to prevent screenshots, second devices, or cheating. It trains readiness and logs focus patterns for self-awareness.
 
@@ -354,7 +355,7 @@ POST /api/simulations
 Each answer uses **identical Pattern 1** as practice:
 
 - Haiku marking chain
-- M1/A1/B1 step breakdown
+- M1/A1 step breakdown
 - Confidence scoring
 - Idempotency on submit
 - **No UVE during exam** (deferred to post-exam review mode — V1.1)
@@ -371,30 +372,30 @@ The post-exam report is the **highest-value learning moment** — transforming m
 
 ### 9.2 Report Components
 
-| Component | Source | LLM? |
-|-----------|--------|------|
-| Total marks / percentage | SQL aggregate | No |
-| Grade boundary (board-specific) | `board_config.gradeBoundaries` | No |
-| Per-question M1/A1/B1 breakdown | Stored `marks_awarded` JSONB | No |
-| Unanswered questions list | Session manifest vs responses | No |
-| Topic performance profile | Group marks by topic_id | No |
-| Time per question vs recommended | `time_taken_s` vs marks ratio | No |
-| Error pattern classification | Marking step `markType` + awarded flags | No |
-| Priority revision list (top 3 topics) | Lowest topic scores weighted by exam_weight | No |
-| Readiness score delta | IRT aggregate before/after | No |
-| **Personalized narrative** | Structured prompt from above data | **Haiku async** |
-| **Examiner-friendly model answers** | Per lost-mark question (V1.1) | Sonnet batch, cached |
+| Component                             | Source                                      | LLM?                 |
+| ------------------------------------- | ------------------------------------------- | -------------------- |
+| Total marks / percentage              | SQL aggregate                               | No                   |
+| Grade boundary (board-specific)       | `board_config.gradeBoundaries`              | No                   |
+| Per-question mark breakdown           | Stored `marks_awarded` JSONB                | No                   |
+| Unanswered questions list             | Session manifest vs responses               | No                   |
+| Topic performance profile             | Group marks by topic_id                     | No                   |
+| Time per question vs recommended      | `time_taken_s` vs marks ratio               | No                   |
+| Error pattern classification          | Marking step `markType` + awarded flags     | No                   |
+| Priority revision list (top 3 topics) | Lowest topic scores weighted by exam_weight | No                   |
+| Readiness score delta                 | IRT aggregate before/after                  | No                   |
+| **Personalized narrative**            | Structured prompt from above data           | **Haiku async**      |
+| **Examiner-friendly model answers**   | Per lost-mark question (V1.1)               | Sonnet batch, cached |
 
 ### 9.3 MVP vs V1.1 Report Depth
 
-| Capability | V1.0 MVP | V1.1+ |
-|------------|----------|-------|
-| Numeric breakdown + topic profile | ✓ Template aggregation | ✓ |
-| Priority revision list | ✓ Algorithm | ✓ |
-| Personalized guidance narrative | ✓ Haiku `report_gen` deferred 30s | ✓ |
-| Error type classification | Basic (from mark types) | ML clustering on cognitive_fp |
-| Model examiner answers | Deferred | Sonnet per question template, cached |
-| Predicted grade trend | Simple linear | Historical regression |
+| Capability                        | V1.0 MVP                          | V1.1+                                |
+| --------------------------------- | --------------------------------- | ------------------------------------ |
+| Numeric breakdown + topic profile | ✓ Template aggregation            | ✓                                    |
+| Priority revision list            | ✓ Algorithm                       | ✓                                    |
+| Personalized guidance narrative   | ✓ Haiku `report_gen` deferred 30s | ✓                                    |
+| Error type classification         | Basic (from mark types)           | ML clustering on cognitive_fp        |
+| Model examiner answers            | Deferred                          | Sonnet per question template, cached |
+| Predicted grade trend             | Simple linear                     | Historical regression                |
 
 ### 9.4 Post-Exam Report Pipeline
 
@@ -437,14 +438,14 @@ Student leaves exam simulation with **specific next actions**, not just a score.
 
 Dashboard analytics are **SQL-computed**, not LLM-generated:
 
-| Metric | Computation | Update trigger |
-|--------|-------------|----------------|
-| Mastery map colours | `mastery_records.mastery_level` thresholds | Every response |
-| Readiness score | Weighted sum of topic thetas × exam_weight | Session complete |
-| Streak | Consecutive study days (1 grace day/week) | Daily cron |
-| Focus analytics | `focus_breaks`, active time ratio | Session metadata |
-| Spaced repetition due | SM-2 `next_review` | Nightly cron |
-| Pathway recommendations | Graph + IRT algorithm | Dashboard load (Redis 15min cache) |
+| Metric                  | Computation                                | Update trigger                     |
+| ----------------------- | ------------------------------------------ | ---------------------------------- |
+| Mastery map colours     | `mastery_records.mastery_level` thresholds | Every response                     |
+| Readiness score         | Weighted sum of topic thetas × exam_weight | Session complete                   |
+| Streak                  | Consecutive study days (1 grace day/week)  | Daily cron                         |
+| Focus analytics         | `focus_breaks`, active time ratio          | Session metadata                   |
+| Spaced repetition due   | SM-2 `next_review`                         | Nightly cron                       |
+| Pathway recommendations | Graph + IRT algorithm                      | Dashboard load (Redis 15min cache) |
 
 Weekly email narrative uses Haiku **once per student per week** in batch — not per page view.
 
@@ -474,12 +475,12 @@ Dashboards (V1.1): cost per chain, cost per student, pool hit rate, cache hit ra
 
 ### 11.2 Quality Gates (Never Sacrifice for Cost)
 
-| Chain | Minimum quality bar | If below threshold |
-|-------|---------------------|-------------------|
-| Marking | ≥92% agreement with human markers | Block model upgrade; escalate to Sonnet for low-confidence only |
-| Hints | Zero answer-leakage violations | Anti-leakage retry; never downgrade L3 to Haiku |
-| Generation | ≥95% cross-examination pass | Human validation gate regardless |
-| Curriculum | Syllabus-grounded only | No generation without chunk — cache permanent |
+| Chain      | Minimum quality bar               | If below threshold                                              |
+| ---------- | --------------------------------- | --------------------------------------------------------------- |
+| Marking    | ≥92% agreement with human markers | Block model upgrade; escalate to Sonnet for low-confidence only |
+| Hints      | Zero answer-leakage violations    | Anti-leakage retry; never downgrade L3 to Haiku                 |
+| Generation | ≥95% cross-examination pass       | Human validation gate regardless                                |
+| Curriculum | Syllabus-grounded only            | No generation without chunk — cache permanent                   |
 
 **Cost optimization never removes:** Zod validation, human validation gate, anti-leakage checks, appeal pathway, confidence scoring.
 
@@ -489,51 +490,51 @@ Dashboards (V1.1): cost per chain, cost per student, pool hit rate, cache hit ra
 
 ### Previously documented
 
-| Concern | Location |
-|---------|----------|
-| Model router & five chains | `AGENTS.md` |
-| Pilot cost estimates | `zero-budget-stack.md` |
-| Tier 0–3 economics | `ExamEdge_Cost_Optimisation_Economics.md` |
-| Exam simulation UI (Unit 25) | `build-plan.md` |
-| Exam workflow summary | `platform-how-it-works.md` §2, §4 |
-| Pool selection (no LLM) | `AGENTS.md` Pattern 3 |
-| Scalability tiers | `content-architecture.md` §8, `roadmap.md` |
-| Post-exam report vision | `ExamEdge_Volume_II_Framework.md` §20.2.3 |
-| Peak load strategies | `ExamEdge_Cost_Optimisation_Economics.md` §8.2 |
+| Concern                      | Location                                       |
+| ---------------------------- | ---------------------------------------------- |
+| Model router & five chains   | `AGENTS.md`                                    |
+| Pilot cost estimates         | `zero-budget-stack.md`                         |
+| Tier 0–3 economics           | `ExamEdge_Cost_Optimisation_Economics.md`      |
+| Exam simulation UI (Unit 25) | `build-plan.md`                                |
+| Exam workflow summary        | `platform-how-it-works.md` §2, §4              |
+| Pool selection (no LLM)      | `AGENTS.md` Pattern 3                          |
+| Scalability tiers            | `content-architecture.md` §8, `roadmap.md`     |
+| Post-exam report vision      | `ExamEdge_Volume_II_Framework.md` §20.2.3      |
+| Peak load strategies         | `ExamEdge_Cost_Optimisation_Economics.md` §8.2 |
 
 ### Consolidated in this document
 
-| Gap | Section |
-|-----|---------|
-| Full task-to-model matrix with sync/async | §2.2 |
-| Activity-level AI cost profile | §3.1 |
-| Open-source migration triggers | §2.4 |
-| Peak load queuing strategy | §5 |
-| Anthropic Batch API | §5.6 |
-| Exam paper assembly (PaperBuilder, board_config) | §7–8 |
-| Post-exam report pipeline (MVP vs V1.1) | §9 |
-| Integrity features + honest limits | §8.3 |
-| Analytics without LLM | §10 |
-| Cost projections by scale | §6 |
+| Gap                                              | Section |
+| ------------------------------------------------ | ------- |
+| Full task-to-model matrix with sync/async        | §2.2    |
+| Activity-level AI cost profile                   | §3.1    |
+| Open-source migration triggers                   | §2.4    |
+| Peak load queuing strategy                       | §5      |
+| Anthropic Batch API                              | §5.6    |
+| Exam paper assembly (PaperBuilder, board_config) | §7–8    |
+| Post-exam report pipeline (MVP vs V1.1)          | §9      |
+| Integrity features + honest limits               | §8.3    |
+| Analytics without LLM                            | §10     |
+| Cost projections by scale                        | §6      |
 
 ---
 
 ## 13. Implementation Phasing
 
-| Capability | Version | Build unit |
-|------------|---------|------------|
-| Router + Haiku marking | V1.0 | Units 09, 10 |
-| Pool assembly (no LLM) | V1.0 | Unit 24 |
-| Exam simulation + timer + focus | V1.0 | Unit 25 |
-| Template post-exam report | V1.0 | Unit 25 |
-| Haiku deferred report narrative | V1.0 | Unit 25 (async) |
-| Pre-peak pool expansion cron | V1.1 | Unit 30 extension |
-| Anthropic Batch API for generation | V1.1 | Unit 30 |
-| Model examiner answers (cached) | V1.1 | roadmap |
-| Post-exam UVE on weak questions | V1.1 | roadmap |
-| Fine-tuned local marking router | V3.0 | roadmap |
-| Dedicated AI inference service | V3.0 | Engineering doc §13 |
+| Capability                         | Version | Build unit          |
+| ---------------------------------- | ------- | ------------------- |
+| Router + Haiku marking             | V1.0    | Units 09, 10        |
+| Pool assembly (no LLM)             | V1.0    | Unit 24             |
+| Exam simulation + timer + focus    | V1.0    | Unit 25             |
+| Template post-exam report          | V1.0    | Unit 25             |
+| Haiku deferred report narrative    | V1.0    | Unit 25 (async)     |
+| Pre-peak pool expansion cron       | V1.1    | Unit 30 extension   |
+| Anthropic Batch API for generation | V1.1    | Unit 30             |
+| Model examiner answers (cached)    | V1.1    | roadmap             |
+| Post-exam UVE on weak questions    | V1.1    | roadmap             |
+| Fine-tuned local marking router    | V3.0    | roadmap             |
+| Dedicated AI inference service     | V3.0    | Engineering doc §13 |
 
 ---
 
-*This document is Tier 1 canonical. Update when router assignments, exam report pipeline, or scale strategy changes.*
+_This document is Tier 1 canonical. Update when router assignments, exam report pipeline, or scale strategy changes._
