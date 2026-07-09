@@ -1,5 +1,7 @@
 # AGENTS.md — ExamEdge
+
 # AI Agent Architecture, Responsibilities & Interaction Specification
+
 # Version 2.0 | June 2026 | Ngam Vitalis Yuh
 
 Read this file before every feature, every prompt, every AI interaction.
@@ -22,19 +24,21 @@ Before implementing or making architectural decisions, read in order:
 4. `docs/context/platform-how-it-works.md` — learning loop, AI production, grounding
 5. `docs/context/architecture.md` — stack, DB schema, API routes, invariants
 6. `docs/context/security.md` — auth, RBAC, rate limits, privacy MVP requirements
-5. `docs/context/ui-tokens.md` — colors, typography, spacing tokens
-6. `docs/context/ui-rules.md` — layout patterns, page structure
-7. `docs/context/ui-registry.md` — existing components (check before building new)
-8. `docs/context/code-standards.md` — TypeScript, Next.js, API routes, testing
-9. `docs/context/library-docs.md` — Drizzle, Auth.js, LangChain, KaTeX, R2 patterns
-10. `docs/context/ai-workflow-rules.md` — scoping, UI-first, verification
-11. `docs/context/build-plan.md` — current unit UI + Logic specification (31 units)
-12. `docs/context/tech-stack-versions.md` — pinned versions, official doc links, deprecation list
-13. `docs/context/progress-tracker.md` — current phase, completed work, next steps
-14. `docs/context/specs/` — per-unit spec files (`00-spec-template.md`)
-15. `docs/context/documentation-map.md` — single source of truth index
+7. `docs/context/ui-tokens.md` — colors, typography, spacing tokens
+8. `docs/context/ui-rules.md` — layout patterns, page structure
+9. `docs/context/ui-registry.md` — existing components (check before building new)
+10. `docs/context/code-standards.md` — TypeScript, Next.js, API routes, testing
+11. `docs/context/library-docs.md` — Drizzle, Auth.js, LangChain, KaTeX, R2 patterns
+12. `docs/context/ai-workflow-rules.md` — scoping, UI-first, verification
+13. `docs/context/marking-conventions.md` — board/subject marking SSOT (M/A maths, point rubric sciences)
+14. `docs/context/build-plan.md` — current unit UI + Logic specification (31 units)
+15. `docs/context/tech-stack-versions.md` — pinned versions, official doc links, deprecation list
+16. `docs/context/progress-tracker.md` — current phase, completed work, next steps
+17. `docs/context/specs/` — per-unit spec files (`00-spec-template.md`)
+18. `docs/context/documentation-map.md` — single source of truth index
 
 Also reference when needed:
+
 - `docs/demo-script.md` — 10-minute competition demo walkthrough
 - `docs/ExamEdge_AI_Driven_Build_Playbook.md` — methodology and extended unit notes
 - `docs/ExamEdge_Engineering_Document.md` — master technical design
@@ -55,6 +59,7 @@ agnostic by design, beginning with GCE Ordinary and Advanced Level examinations
 in Cameroon and expanding to multiple curricula and national examination systems.
 
 You think like a senior engineer who cares deeply about:
+
 - Code clarity over cleverness
 - Security (especially for data about minors)
 - Educational effectiveness (not just technical correctness)
@@ -67,7 +72,7 @@ You think like a senior engineer who cares deeply about:
 
 ExamEdge gives every student access to a personalised AI examiner, tutor,
 and curriculum expert. It generates board-standard parameterised questions,
-marks with accurate partial credit (M1/A1/B1 for GCE launch), guides through
+marks with accurate partial credit per board marking profile (M/A for CGCE mathematics; point rubrics for sciences), guides through
 wrong answers without giving them away, and tracks mastery over time.
 
 **Mission:** Make quality, examiner-accurate preparation accessible to every
@@ -88,6 +93,7 @@ conventions are configuration layers. See `docs/context/roadmap.md`.
 ## TECH STACK
 
 ### Mobile Application
+
 - Framework: React Native + Expo (**SDK 56** — see `tech-stack-versions.md`)
 - Router: Expo Router (file-based, deep linking)
 - Language: TypeScript strict mode
@@ -100,6 +106,7 @@ conventions are configuration layers. See `docs/context/roadmap.md`.
 - Offline: expo-sqlite (local question cache), react-native-mmkv for key-value cache
 
 ### Web Application (Teacher Dashboard + Admin + API)
+
 - Framework: **Next.js 16** App Router (Node.js 22 LTS)
 - Language: TypeScript strict mode
 - Styling: **Tailwind CSS v4** (CSS-first `@theme` tokens — see `ui-tokens.md`)
@@ -107,11 +114,13 @@ conventions are configuration layers. See `docs/context/roadmap.md`.
 - Graphs: Recharts (progress analytics)
 
 ### API Layer
+
 - Next.js Route Handlers (server-side only)
 - Zod **4.x** for all input validation
 - All AI calls proxied through API routes — never called from client directly
 
 ### Database
+
 - Primary: Neon PostgreSQL (serverless, pgvector extension)
 - ORM: Drizzle ORM (type-safe, already in developer stack)
 - Cache: Upstash Redis (serverless HTTP client)
@@ -119,11 +128,13 @@ conventions are configuration layers. See `docs/context/roadmap.md`.
 - Local: SQLite via expo-sqlite (offline question cache on mobile)
 
 ### Authentication
+
 - Auth.js v5 (JWT, HTTP-only cookies, SameSite=Lax)
 - Strategies: email/password (bcrypt factor 12), Google OAuth
 - Mobile: JWT from web API stored in secure expo-secure-store
 
 ### AI Infrastructure
+
 - Primary LLM: Claude claude-sonnet-4-6 (Anthropic) — reasoning-intensive tasks
 - Fast LLM: Claude Haiku 4.5 (Anthropic) — high-frequency marking
 - Orchestration: LangChain.js (@langchain/anthropic)
@@ -133,6 +144,7 @@ conventions are configuration layers. See `docs/context/roadmap.md`.
 - On-device OCR: Google ML Kit (handwriting recognition)
 
 ### Infrastructure
+
 - Hosting: Vercel (Next.js web + API)
 - Mobile builds: EAS Build (Expo Application Services)
 - Email: Resend
@@ -256,25 +268,25 @@ ExamEdge deploys **five runtime AI agents** (chains). Each is a single-purpose,
 stateless executor with fixed constraints. They do not share memory, call each
 other, or adapt their own prompts.
 
-| Agent | Primary Responsibility | Must Never |
-|-------|------------------------|------------|
-| **Examiner (Marking)** | Award M1/A1/B1 marks from explicit rubric | Infer unstated steps; exceed marks_available |
-| **Socratic Tutor (Guidance)** | Ask one guiding question per hint | Reveal answers, next steps, or mark scheme values |
-| **Question Author (Generation)** | Create parameterised GCE questions + mark schemes | Generate without RAG context; skip human validation |
-| **Verifier (UVE)** | Probe genuine understanding post-submission | Block marking response; run synchronously on hot path |
-| **Curriculum Expert** | Explain topics from syllabus text only | Invent curriculum facts; regenerate cached content |
+| Agent                            | Primary Responsibility                                                                | Must Never                                                                   |
+| -------------------------------- | ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| **Examiner (Marking)**           | Award marks per board marking profile (M/A for CGCE maths; point rubric for sciences) | Infer unstated steps; exceed marks_available; use B marks on GCE mathematics |
+| **Socratic Tutor (Guidance)**    | Ask one guiding question per hint                                                     | Reveal answers, next steps, or mark scheme values                            |
+| **Question Author (Generation)** | Create parameterised GCE questions + mark schemes                                     | Generate without RAG context; skip human validation                          |
+| **Verifier (UVE)**               | Probe genuine understanding post-submission                                           | Block marking response; run synchronously on hot path                        |
+| **Curriculum Expert**            | Explain topics from syllabus text only                                                | Invent curriculum facts; regenerate cached content                           |
 
 ### Runtime Agent Capabilities
 
-| Capability | Marking | Guidance | Generation | UVE | Curriculum |
-|------------|---------|----------|------------|-----|------------|
-| Award partial credit | ✓ | — | — | — | — |
-| Socratic questioning | — | ✓ | — | partial | — |
-| Parameterised templates | — | — | ✓ | ✓ | — |
-| RAG retrieval | — | — | ✓ | — | ✓ |
-| Confidence scoring | ✓ | — | — | ✓ | — |
-| Permanent caching | — | — | ✓ (validated pool) | — | ✓ |
-| Async execution | — | — | ✓ | ✓ | — |
+| Capability              | Marking | Guidance | Generation         | UVE     | Curriculum |
+| ----------------------- | ------- | -------- | ------------------ | ------- | ---------- |
+| Award partial credit    | ✓       | —        | —                  | —       | —          |
+| Socratic questioning    | —       | ✓        | —                  | partial | —          |
+| Parameterised templates | —       | —        | ✓                  | ✓       | —          |
+| RAG retrieval           | —       | —        | ✓                  | —       | ✓          |
+| Confidence scoring      | ✓       | —        | —                  | ✓       | —          |
+| Permanent caching       | —       | —        | ✓ (validated pool) | —       | ✓          |
+| Async execution         | —       | —        | ✓                  | ✓       | —          |
 
 ### Development AI Agent Responsibilities
 
@@ -299,28 +311,40 @@ defined model, temperature, input schema, output schema, and failure mode.
 
 #### 1. Examiner Marking Chain (`packages/ai/chains/marking.ts`)
 
-**Purpose:** Award M1/A1/B1 marks for a student's submitted answer.
+**Purpose:** Award marks for a student's submitted answer using the **marking profile** for that board × subject × paper. See `docs/context/marking-conventions.md` (SSOT).
 
-**Model:** Claude Haiku 4.5
+**Marking families (profile-driven — not one notation for all subjects):**
+
+| Family            | CGCE subjects                                                   | Credit types in output                   |
+| ----------------- | --------------------------------------------------------------- | ---------------------------------------- |
+| `method_accuracy` | Mathematics, Additional Maths, Pure (Mech/Stats), Further Maths | M1, M2, A1, A2, ft, bod — **no B marks** |
+| `point_rubric`    | Physics, Biology, Chemistry, Economics, Geography, CS, ICT      | P1, P2, …, ecf — **not M1/A1**           |
+| `binary_mcq`      | Paper 1 MCQ across subjects                                     | mcq (0 or full marks)                    |
+
+**Model:** Claude Haiku 4.5 (`marking_math`, `marking_science`, `marking_mcq`); Sonnet for `marking_essay` only
 **Temperature:** 0.1 (near-deterministic — consistent marks required)
 **Max tokens:** 800
 **Trigger:** Every answer submission via POST /api/sessions/:id/responses
 
 **Input:**
+
 ```typescript
 {
   questionText: string,        // Rendered question with applied parameters
-  markScheme: MarkScheme,      // JSON rubric: steps, mark types, acceptable answers
+  markScheme: MarkScheme,      // JSON rubric: markingProfileId, steps, dependsOn, creditType
   studentAnswer: string,       // Student's submitted working and answer
+  markingProfile: MarkingProfile, // Resolved from board + subject + paper
 }
 ```
 
 **Output (Zod-validated):**
+
 ```typescript
 {
+  markingProfileId: string,
   steps: Array<{
     stepNumber: number,
-    markType: 'M1' | 'A1' | 'B1' | 'ft' | 'bod',
+    creditType: string,        // Profile-allowed only: M1/A1 (maths) or P1/P2 (sciences) or mcq
     awarded: boolean,
     marksAvailable: number,
     marksGiven: number,
@@ -334,13 +358,16 @@ defined model, temperature, input schema, output schema, and failure mode.
 ```
 
 **System prompt principles:**
+
+- Load prompt variant from `markingProfile.family` — never mix M/A rules into science subjects
 - Mark only what is explicitly present in the student's work
 - Do not infer intent or award marks for absent steps
-- Follow GCE Board Buea marking conventions exactly
-- Award M marks for correct method even if final answer is wrong
-- Award ft marks when error propagates correctly through subsequent steps
+- **CGCE mathematics:** Award M for valid method even if final answer wrong; never award A without required M; **never award B marks**
+- **Sciences:** Tick each rubric point; enforce units where `requiresUnit`; use ecf on annotated steps
+- Award ft marks when error propagates correctly through subsequent steps (maths profiles)
 
 **Failure behaviour:**
+
 - If Zod validation fails: throw MarkingValidationError, queue for manual review
 - Never return undefined or partial results
 - Log: model, input tokens, output tokens, latency, confidence, schema_valid
@@ -361,6 +388,7 @@ Never reveal the answer or the next correct step.
 **Trigger:** When a student submits an incorrect answer with hints remaining.
 
 **Input:**
+
 ```typescript
 {
   questionText: string,
@@ -372,6 +400,7 @@ Never reveal the answer or the next correct step.
 ```
 
 **Output:**
+
 ```typescript
 {
   hint: string,               // A single guiding question, max 200 chars
@@ -381,6 +410,7 @@ Never reveal the answer or the next correct step.
 ```
 
 **CRITICAL system prompt constraint (hardcoded, never overridden):**
+
 ```
 You MUST NOT state the correct answer.
 You MUST NOT state the next correct step.
@@ -391,11 +421,13 @@ the next step themselves.
 ```
 
 **Anti-leakage check:** After generation, parse output for:
+
 - Specific numerical results that appear in the mark scheme
 - Phrases: "the answer is", "you should get", "the next step is", "differentiate to get"
 - If detected: regenerate with explicit leakage flag. Max 2 retries, then escalate to Sonnet.
 
 **Failure behaviour:**
+
 - If anti-leakage check fails twice: return a generic conceptual pointer, log for review
 - Never block the student — always return something useful
 
@@ -409,9 +441,10 @@ the next step themselves.
 **Temperature:** 0.7
 **Max tokens:** 1500
 **Trigger:** Question pool monitor detects topic/difficulty bucket below threshold.
-  Runs as nightly batch job, NOT in real-time student sessions.
+Runs as nightly batch job, NOT in real-time student sessions.
 
 **Input:**
+
 ```typescript
 {
   topicId: string,
@@ -424,6 +457,7 @@ the next step themselves.
 ```
 
 **Output (Zod-validated):**
+
 ```typescript
 {
   templateText: string,        // Question with {param} placeholders
@@ -458,12 +492,14 @@ cached question. Questions are reused across all students.
 Runs asynchronously — does not block marking response.
 
 **Probe levels:**
+
 - L1: Variable substitution — same question, different parameters (Haiku)
 - L2: Method transparency — explain your working step by step (Haiku)
 - L3: Conceptual explanation — explain why the method works (Sonnet)
 - L4: Transfer challenge — apply same principle in different context (Sonnet)
 
 **Input:**
+
 ```typescript
 {
   questionText: string,
@@ -475,6 +511,7 @@ Runs asynchronously — does not block marking response.
 ```
 
 **Output:**
+
 ```typescript
 {
   probeQuestion: string,
@@ -485,6 +522,7 @@ Runs asynchronously — does not block marking response.
 ```
 
 **Evaluation sub-chain:** After student responds to probe:
+
 - Model: Claude Haiku 4.5, temperature 0.1
 - Returns: `{ understandingLevel: 0-4, misconceptionDetected: boolean, mvsDelta: number }`
 - MVS delta updates the student's Mastery Validation Score for this topic
@@ -503,6 +541,7 @@ Runs asynchronously — does not block marking response.
 Output is cached permanently per topic per language. NEVER regenerate a cached explanation.
 
 **Input:**
+
 ```typescript
 {
   topicId: string,
@@ -513,6 +552,7 @@ Output is cached permanently per topic per language. NEVER regenerate a cached e
 ```
 
 **Output format:** Structured explanation in four parts:
+
 1. Definition (1-2 sentences)
 2. Worked example (relevant to Cameroonian context)
 3. Common mistakes (top 3)
@@ -532,11 +572,20 @@ becomes available (Year 2), only the router changes.
 
 ```typescript
 type TaskType =
-  | 'marking_math' | 'marking_science' | 'marking_essay'
-  | 'hint_1' | 'hint_2' | 'hint_3'
-  | 'uve_1' | 'uve_2' | 'uve_3' | 'uve_4'
-  | 'question_gen' | 'curriculum_explain'
-  | 'report_gen' | 'ocr_fallback';
+  | "marking_math"
+  | "marking_science"
+  | "marking_essay"
+  | "hint_1"
+  | "hint_2"
+  | "hint_3"
+  | "uve_1"
+  | "uve_2"
+  | "uve_3"
+  | "uve_4"
+  | "question_gen"
+  | "curriculum_explain"
+  | "report_gen"
+  | "ocr_fallback";
 
 export function getModelConfig(task: TaskType): ModelConfig {
   // Future hook: check localModelRegistry.supports(task) first
@@ -545,18 +594,19 @@ export function getModelConfig(task: TaskType): ModelConfig {
 ```
 
 Model assignments (current):
-| Task | Model | Temperature | Rationale |
-|------|-------|-------------|-----------|
-| marking_math, marking_science | Haiku | 0.1 | Rubric application, not reasoning |
-| marking_essay | Sonnet | 0.2 | Holistic judgment required |
-| hint_1, hint_2 | Haiku | 0.4 | Simple conceptual reformulation |
-| hint_3 | Sonnet | 0.5 | Nuanced guidance, prevent leakage |
-| uve_1, uve_2 | Haiku | 0.2 | Template-based probe generation |
-| uve_3, uve_4 | Sonnet | 0.3 | Complex conceptual assessment |
-| question_gen | Sonnet | 0.7 | Creativity within constraints |
-| curriculum_explain | Sonnet | 0.6 | Factual accuracy critical |
-| report_gen | Haiku | 0.4 | Structured narrative from data |
-| ocr_fallback | Sonnet | 0.1 | Visual analysis, deterministic |
+
+| Task                          | Model  | Temperature | Rationale                         |
+| ----------------------------- | ------ | ----------- | --------------------------------- |
+| marking_math, marking_science | Haiku  | 0.1         | Rubric application, not reasoning |
+| marking_essay                 | Sonnet | 0.2         | Holistic judgment required        |
+| hint_1, hint_2                | Haiku  | 0.4         | Simple conceptual reformulation   |
+| hint_3                        | Sonnet | 0.5         | Nuanced guidance, prevent leakage |
+| uve_1, uve_2                  | Haiku  | 0.2         | Template-based probe generation   |
+| uve_3, uve_4                  | Sonnet | 0.3         | Complex conceptual assessment     |
+| question_gen                  | Sonnet | 0.7         | Creativity within constraints     |
+| curriculum_explain            | Sonnet | 0.6         | Factual accuracy critical         |
+| report_gen                    | Haiku  | 0.4         | Structured narrative from data    |
+| ocr_fallback                  | Sonnet | 0.1         | Visual analysis, deterministic    |
 
 ---
 
@@ -570,16 +620,15 @@ async function retrieve(query: string, topicId: string, k = 5): Promise<string[]
   const embedding = await voyageAI.embed(query);
 
   // 2. pgvector cosine similarity search
-  const results = await db.select().from(questions)
-    .where(and(
-      eq(questions.topicId, topicId),
-      eq(questions.validated, true)
-    ))
+  const results = await db
+    .select()
+    .from(questions)
+    .where(and(eq(questions.topicId, topicId), eq(questions.validated, true)))
     .orderBy(sql`embedding <=> ${embedding}`)
     .limit(k);
 
   // 3. Instantiate parameters for context representation
-  return results.map(q => renderTemplate(q.templateText, sampleParams(q.paramSchema)));
+  return results.map((q) => renderTemplate(q.templateText, sampleParams(q.paramSchema)));
 }
 ```
 
@@ -616,22 +665,23 @@ ExamEdge uses three distinct retrieval patterns. Do not conflate them.
 **When:** Real-time student session — `POST /api/sessions/:id/next-question`
 **Source:** Validated question pool — no LLM involved
 **Filters:**
+
 - Exclude templates seen by student in last 30 days
 - Match difficulty to student IRT theta (±0.5)
 - Minimum 50 templates per topic/difficulty bucket
-**Instantiation:** Parameters sampled locally from paramSchema
-**Mark scheme:** Generated deterministically from markSchemeTemplate + params
-**Cache:** Warm pool in Redis, TTL 1 hour
+  **Instantiation:** Parameters sampled locally from paramSchema
+  **Mark scheme:** Generated deterministically from markSchemeTemplate + params
+  **Cache:** Warm pool in Redis, TTL 1 hour
 
 ### Retrieval Caching Rules
 
-| Asset | Cache Location | TTL | Regenerate? |
-|-------|---------------|-----|-------------|
-| Question embeddings | PostgreSQL pgvector | Permanent | Only if template text changes |
-| Topic explanations | PostgreSQL | Permanent | Never — human corrects if wrong |
-| Mark schemes (instantiated) | Redis | 1 hour | Per session instance |
-| Validated question pool | PostgreSQL | Permanent | Never regenerate same template |
-| Idempotency results | Redis | 5 minutes | N/A |
+| Asset                       | Cache Location      | TTL       | Regenerate?                     |
+| --------------------------- | ------------------- | --------- | ------------------------------- |
+| Question embeddings         | PostgreSQL pgvector | Permanent | Only if template text changes   |
+| Topic explanations          | PostgreSQL          | Permanent | Never — human corrects if wrong |
+| Mark schemes (instantiated) | Redis               | 1 hour    | Per session instance            |
+| Validated question pool     | PostgreSQL          | Permanent | Never regenerate same template  |
+| Idempotency results         | Redis               | 5 minutes | N/A                             |
 
 ---
 
@@ -745,7 +795,7 @@ Register → Select subject/topic → Start session
   → Display question (KaTeX) + MathInput
   → [Optional] Request hint (max 3, Pattern 2)
   → Submit answer (Pattern 1)
-  → Display M1/A1/B1 feedback + confidence
+  → Display profile-appropriate mark breakdown (M/A for maths, P-points for sciences) + confidence
   → [Async] UVE probe presented
   → Student responds to probe → UVE evaluation → MVS update
   → Mastery map updates → next question OR end session
@@ -903,6 +953,7 @@ by a background Vercel Cron job (not in real-time).
 ### Context Window Management
 
 For long questions with extensive mark schemes:
+
 - Mark scheme JSON is minified before inclusion
 - Maximum context per marking call: 4,000 tokens
 - If mark scheme exceeds limit: split into steps, mark in sequential calls
@@ -912,50 +963,60 @@ For long questions with extensive mark schemes:
 ## HALLUCINATION MITIGATION
 
 ### For the Marking Chain
+
 - Schema-constrained output: marks_given cannot exceed marks_available
 - Temperature 0.1: near-deterministic, minimal creativity
 - Mark scheme is explicit rubric, not a question for the AI to interpret
 - Zod validation rejects non-conforming outputs
 
 ### For the Generation Chain
+
 - RAG grounding: 5 similar validated questions in context
 - Cross-examination: secondary model solves and checks
 - Human validation gate: no question enters live pool unreviewed
 - Parameter schemas constrain what can be generated
 
 ### For the Curriculum Chain
+
 - Syllabus text retrieved and passed as context
 - System prompt: "Only state what is in the provided context"
 - Cached permanently: human can review and correct cached explanations
 
 ### Hallucination Registry
+
 Any confirmed hallucination is logged to the Hallucination Registry table:
+
 - chain_type, model_version, prompt_template_version
 - nature_of_error, resolution, date
-Reviewed monthly. Drives prompt template and temperature adjustments.
+  Reviewed monthly. Drives prompt template and temperature adjustments.
 
 ---
 
 ## EVALUATION AND MONITORING
 
 ### Marking Chain Evaluation
+
 - Benchmark suite: 500 questions with known correct marks across all subjects
 - Run on every model version upgrade
 - Acceptance threshold: ≥92% agreement with human-marked ground truth
-- Zero mark_type errors (M1 never awarded without method, etc.)
+- Zero profile violations (A without M on maths; M1/A1 on science subjects; B marks on CGCE maths)
 
 ### Socratic Chain Evaluation
+
 - 100 hint scenarios evaluated by curriculum specialists
 - Acceptance threshold: 0 answer-leakage violations
 - Pedagogical quality score ≥7/10 from specialists
 
 ### Generation Chain Evaluation
+
 - 50 questions per subject reviewed by domain experts
 - Cross-examination pass rate ≥95% required for production
 - Board-style conformance checked by curriculum specialists
 
 ### Shadow Deployment Protocol
+
 Before any model upgrade:
+
 1. Benchmark evaluation (existing suite)
 2. Bias regression test (African English vs Standard British English)
 3. 2-week shadow deployment on 10% of real traffic (results not shown to students)
@@ -966,32 +1027,38 @@ Before any model upgrade:
 ## PROMPT ENGINEERING PRINCIPLES
 
 ### 1. System prompts are immutable constants
+
 System prompts are defined as TypeScript constants in the chain file.
 They are never constructed from user input.
 They include: role, constraints, output format, and examples.
 
 ### 2. User content is separated from instructions
+
 User-provided content (student answers, question text) is always in
 the human message, never in the system message.
 Structural instructions are never in the human message.
 
 ### 3. Output schemas are explicit
+
 Every chain specifies its output format in the system prompt AND
 validates the output with Zod before returning.
 If the AI returns non-conforming output: retry once, then throw.
 
 ### 4. Temperature is intentional
+
 Temperature is set per chain based on the task's creativity/determinism
 requirement. It is documented with the rationale. It is never defaulted.
 
 ### 5. Token budgets are managed
+
 Max tokens is set per chain to prevent runaway costs.
 Prompts are designed to fit within the budget with room for output.
 Token usage is logged for every call.
 
 ### 6. Few-shot examples are included for marking
+
 The marking chain system prompt includes 3 worked examples showing
-correct M1/A1/B1 award decisions for the relevant subject.
+correct award decisions per marking profile (M/A for maths; point rubric for sciences).
 Examples are maintained in packages/ai/examples/ and loaded at build time.
 
 ---
@@ -999,17 +1066,20 @@ Examples are maintained in packages/ai/examples/ and loaded at build time.
 ## ORCHESTRATION STRATEGY
 
 ### Synchronous chains (block response)
+
 - Marking Chain: student waits for mark
 - Guidance Chain: student waits for hint
 - OCR fallback: student waits for transcription
 
 ### Asynchronous chains (background, non-blocking)
+
 - UVE Probe Chain: probe generated after marking response sent
 - Report Generation Chain: nightly batch via Vercel Cron
 - Question Pool Refresh: nightly batch when pool below threshold
 - Cognitive Fingerprint update: post-session batch
 
 ### No chain calls another chain directly
+
 Chains are independent. Orchestration logic lives in the Route Handler
 or the Vercel Cron job, not within a chain. This makes each chain
 independently testable, debuggable, and swappable.
@@ -1019,12 +1089,14 @@ independently testable, debuggable, and swappable.
 ## TOOL USAGE
 
 ### Tools the AI development agent may use
+
 - Create and edit files in the repository
 - Run `npm run typecheck` and `npm run lint` to verify output
 - Run `npm run test` to verify unit tests pass
 - Query the Drizzle schema to understand database structure
 
 ### Tools the AI development agent must NOT use
+
 - Make direct API calls to Anthropic (all AI calls go through the chain layer)
 - Modify the database schema without documenting the migration
 - Install new npm packages without asking first
@@ -1037,12 +1109,14 @@ independently testable, debuggable, and swappable.
 The AI agent must stay within these boundaries:
 
 **In scope:**
+
 - Building features described in the feature backlog
 - Fixing bugs in existing features
 - Writing tests for existing code
 - Refactoring only when explicitly requested
 
 **Out of scope (ask first):**
+
 - Changing the database schema
 - Adding new npm dependencies
 - Modifying AGENTS.md itself
@@ -1051,6 +1125,7 @@ The AI agent must stay within these boundaries:
 - Changing the examination marking rubric logic
 
 **Out of scope (refuse and explain why):**
+
 - Removing input validation
 - Disabling rate limiting
 - Exposing API keys in client code
@@ -1080,12 +1155,14 @@ Every PR — even solo development — must verify:
 ## COMMUNICATION STYLE
 
 When explaining code changes:
+
 - State what changed and why (not just what)
 - Flag any deviation from this document and justify it
 - Note any assumptions made about ambiguous requirements
 - State how to test the change end to end
 
 When something is unclear:
+
 - Ask before implementing
 - Do not guess and produce a large diff
 - One clarifying question is better than a wrong implementation
@@ -1095,6 +1172,7 @@ When something is unclear:
 ## FILE MAINTENANCE
 
 This file is a living document. Update it when:
+
 - A new library is added to the stack
 - A new architectural pattern is established
 - A new AI chain is created

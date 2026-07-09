@@ -132,7 +132,8 @@ className="bg-teal-500 text-gray-900"
   --color-mastery-amber-bg: #fffbeb;
   --color-mastery-green-bg: #f0fdf4;
 
-  /* Mark types (GCE M1/A1/B1 — unchanged pedagogically) */
+  /* Mark types — profile-driven display (see marking-conventions.md) */
+  /* M/A: CGCE mathematics only. P: point rubric (sciences). B1: future GCSE boards — not CGCE maths */
   --color-mark-m1: #1d4ed8;
   --color-mark-m1-bg: #dbeafe;
   --color-mark-a1: #15803d;
@@ -254,13 +255,14 @@ className="bg-teal-500 text-gray-900"
 
 ### Mark Type Badges
 
-| Mark                | Background                         | Text                                           |
-| ------------------- | ---------------------------------- | ---------------------------------------------- |
-| M1 (Method)         | `bg-[var(--color-mark-m1-bg)]`     | `text-[var(--color-mark-m1)]`                  |
-| A1 (Accuracy)       | `bg-[var(--color-mark-a1-bg)]`     | `text-[var(--color-mark-a1)]`                  |
-| B1 (Independent)    | `bg-[var(--color-mark-b1-bg)]`     | `text-[var(--color-mark-b1)]`                  |
-| ft (Follow-through) | `bg-[var(--color-mark-ft-bg)]`     | `text-[var(--color-mark-ft)]`                  |
-| Denied              | `bg-[var(--color-mark-denied-bg)]` | `text-[var(--color-mark-denied)] line-through` |
+| Mark                | Background                         | Text                                                                 |
+| ------------------- | ---------------------------------- | -------------------------------------------------------------------- |
+| M1 (Method)         | `bg-[var(--color-mark-m1-bg)]`     | `text-[var(--color-mark-m1)]` — **CGCE maths only**                  |
+| A1 (Accuracy)       | `bg-[var(--color-mark-a1-bg)]`     | `text-[var(--color-mark-a1)]` — **CGCE maths only**                  |
+| P1 (Point credit)   | `bg-primary-50`                    | `text-primary-700` — **sciences**                                    |
+| B1 (Independent)    | `bg-[var(--color-mark-b1-bg)]`     | `text-[var(--color-mark-b1)]` — **future GCSE only; not CGCE maths** |
+| ft (Follow-through) | `bg-[var(--color-mark-ft-bg)]`     | `text-[var(--color-mark-ft)]`                                        |
+| Denied              | `bg-[var(--color-mark-denied-bg)]` | `text-[var(--color-mark-denied)] line-through`                       |
 
 ### AI-Generated Content
 

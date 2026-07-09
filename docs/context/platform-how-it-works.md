@@ -16,11 +16,13 @@ Learn concept → Practice with examiner-accurate questions → Receive partial-
 ```
 
 **ExamEdge is not:**
+
 - A ChatGPT wrapper that gives instant answers
 - A question bank with static PDF downloads
 - A surveillance system claiming to prevent cheating
 
 **ExamEdge is:**
+
 - A pedagogically constrained AI system with five independent chains, each with immutable rules
 - A curriculum-grounded platform where AI-generated content passes human validation before students see it
 - An understanding verification engine (UVE) that detects copied answers insufficient for mastery credit
@@ -49,7 +51,7 @@ When a student opens a topic for the first time or taps **"Learn this topic"**:
 2. Focus preparation prompt (Unit 26) — reduces distraction, not surveillance
 3. System selects **parameterised question** from validated pool — **no LLM at request time**
 4. Student works through question using MathInput, text, or photo upload
-5. Student submits → **Marking chain** returns M1/A1/B1 (or board-equivalent) step breakdown
+5. Student submits → **Marking chain** returns profile-appropriate breakdown (M/A for GCE maths; point credits for sciences)
 
 ### Step 3 — Productive Struggle (Socratic Guidance)
 
@@ -64,12 +66,12 @@ If marks < 50% of available:
 
 After every submission (correct or incorrect), **async**:
 
-| Level | Name | What it tests | Model |
-|-------|------|---------------|-------|
-| L1 | Variable substitution | Same method, different numbers | Haiku |
-| L2 | Method transparency | Explain steps in own words | Haiku |
-| L3 | Conceptual (V1.1+) | Why the method works | Sonnet |
-| L4 | Transfer (V1.1+) | Apply principle in new context | Sonnet |
+| Level | Name                  | What it tests                  | Model  |
+| ----- | --------------------- | ------------------------------ | ------ |
+| L1    | Variable substitution | Same method, different numbers | Haiku  |
+| L2    | Method transparency   | Explain steps in own words     | Haiku  |
+| L3    | Conceptual (V1.1+)    | Why the method works           | Sonnet |
+| L4    | Transfer (V1.1+)      | Apply principle in new context | Sonnet |
 
 **MVP:** L1 + L2 only. A student who copied an answer from ChatGPT will often fail L1 (different parameters) or L2 (cannot explain method).
 
@@ -97,15 +99,15 @@ When ready, student enters timed exam mode:
 
 ExamEdge uses **multiple independent signals** — no single check is foolproof; combined they are strong:
 
-| Signal | Mechanism | Catches |
-|--------|-----------|---------|
-| **Parameterised questions** | Each student gets different numerical values from same template | Pasted ChatGPT answers with wrong numbers |
-| **M1/A1/B1 marking** | Awards method marks even when final answer wrong | Students who guess final answer without working |
-| **Socratic hints** | Never gives answer; requires next reasoning step | Dependency on external AI for steps |
-| **UVE L1** | Same question, different parameters immediately after | Copy-paste without understanding |
-| **UVE L2** | "Explain your method step by step" | Cannot articulate copied working |
-| **Time + focus analytics** | Unusually fast correct answers + high tab-switch | Suspicious patterns (flag, not punish) |
-| **Low marking confidence** | confidence < 0.70 → human review queue | OCR errors, ambiguous handwriting |
+| Signal                      | Mechanism                                                               | Catches                                         |
+| --------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------- |
+| **Parameterised questions** | Each student gets different numerical values from same template         | Pasted ChatGPT answers with wrong numbers       |
+| **Board-faithful marking**  | M/A for maths; point rubric for sciences — per `marking-conventions.md` | Students who guess final answer without working |
+| **Socratic hints**          | Never gives answer; requires next reasoning step                        | Dependency on external AI for steps             |
+| **UVE L1**                  | Same question, different parameters immediately after                   | Copy-paste without understanding                |
+| **UVE L2**                  | "Explain your method step by step"                                      | Cannot articulate copied working                |
+| **Time + focus analytics**  | Unusually fast correct answers + high tab-switch                        | Suspicious patterns (flag, not punish)          |
+| **Low marking confidence**  | confidence < 0.70 → human review queue                                  | OCR errors, ambiguous handwriting               |
 
 **Honest limitation (documented in UI):** ExamEdge does not claim to prevent screenshots or phone cameras. It makes copying **insufficient for mastery credit** and **detectable through verification probes**.
 
@@ -200,11 +202,11 @@ Adding Nigeria/WAEC = new `curricula` row + seed data — not a platform rewrite
 
 ### Mathematics & Physics (Calculation-Heavy)
 
-| Input method | Processing | Marking |
-|--------------|------------|---------|
-| **MathInput (MathQuill)** | LaTeX string exported | Marking chain evaluates LaTeX working + final answer |
-| **Plain text** | Sanitized string | Marking chain parses steps from text |
-| **Photo (handwritten)** | R2 upload → Claude vision OCR (Sonnet, temp 0.1) → student confirms transcription | Marking chain marks confirmed text; low OCR confidence → review flag |
+| Input method              | Processing                                                                        | Marking                                                              |
+| ------------------------- | --------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| **MathInput (MathQuill)** | LaTeX string exported                                                             | Marking chain evaluates LaTeX working + final answer                 |
+| **Plain text**            | Sanitized string                                                                  | Marking chain parses steps from text                                 |
+| **Photo (handwritten)**   | R2 upload → Claude vision OCR (Sonnet, temp 0.1) → student confirms transcription | Marking chain marks confirmed text; low OCR confidence → review flag |
 
 **Diagrams/graphs (MVP):** Text description of graph features accepted; full graph plotting deferred V1.1. Mark scheme templates include "accept equivalent descriptions" rubric steps.
 
@@ -212,11 +214,11 @@ Adding Nigeria/WAEC = new `curricula` row + seed data — not a platform rewrite
 
 ### Biology (Mixed: Facts, Diagrams, Short Answers)
 
-| Question type | Submission | Marking |
-|---------------|------------|---------|
-| Short answer (1–3 marks) | Text | Keyword + concept rubric in mark scheme JSON |
-| Labelled diagram | Text labels or photo | OCR + rubric matching label terms |
-| Extended response (MVP limited) | Text | Haiku marking with structured rubric steps |
+| Question type                   | Submission           | Marking                                      |
+| ------------------------------- | -------------------- | -------------------------------------------- |
+| Short answer (1–3 marks)        | Text                 | Keyword + concept rubric in mark scheme JSON |
+| Labelled diagram                | Text labels or photo | OCR + rubric matching label terms            |
+| Extended response (MVP limited) | Text                 | Haiku marking with structured rubric steps   |
 
 **Mark scheme format:** JSON rubric with `steps[]`, each with `markType`, `acceptableAnswers[]`, `marksAvailable` — chain applies rubric, does not invent criteria.
 
@@ -233,13 +235,13 @@ Adding Nigeria/WAEC = new `curricula` row + seed data — not a platform rewrite
 
 ### The Five Chains (Independent — Never Call Each Other)
 
-| Chain | Trigger | Model | Sync/Async | Blocks student? |
-|-------|---------|-------|------------|-----------------|
-| Marking | Every answer submit | Haiku 4.5 | Sync | Yes |
-| Guidance | Hint request | Haiku L1-L2, Sonnet L3 | Sync | Yes |
-| Generation | Nightly pool refresh | Sonnet + Haiku cross-exam | Async batch | No |
-| UVE | After marking | Haiku L1-L2 | Async | No |
-| Curriculum | Topic explain (cache miss) | Sonnet 4.6 | Sync | Yes |
+| Chain      | Trigger                    | Model                     | Sync/Async  | Blocks student? |
+| ---------- | -------------------------- | ------------------------- | ----------- | --------------- |
+| Marking    | Every answer submit        | Haiku 4.5                 | Sync        | Yes             |
+| Guidance   | Hint request               | Haiku L1-L2, Sonnet L3    | Sync        | Yes             |
+| Generation | Nightly pool refresh       | Sonnet + Haiku cross-exam | Async batch | No              |
+| UVE        | After marking              | Haiku L1-L2               | Async       | No              |
+| Curriculum | Topic explain (cache miss) | Sonnet 4.6                | Sync        | Yes             |
 
 Orchestration lives in **route handlers and cron jobs only** — chains do not invoke chains.
 
@@ -249,37 +251,46 @@ Every LLM call goes through the router:
 
 ```typescript
 type TaskType =
-  | 'marking_math' | 'marking_science' | 'marking_essay'
-  | 'hint_1' | 'hint_2' | 'hint_3'
-  | 'uve_1' | 'uve_2' | 'uve_3' | 'uve_4'
-  | 'question_gen' | 'curriculum_explain'
-  | 'report_gen' | 'ocr_fallback';
+  | "marking_math"
+  | "marking_science"
+  | "marking_essay"
+  | "hint_1"
+  | "hint_2"
+  | "hint_3"
+  | "uve_1"
+  | "uve_2"
+  | "uve_3"
+  | "uve_4"
+  | "question_gen"
+  | "curriculum_explain"
+  | "report_gen"
+  | "ocr_fallback";
 ```
 
 **Future:** Router checks `localModelRegistry.supports(task)` first — local fine-tuned model for marking at V3.0. Only the router changes.
 
 ### Token Consumption
 
-| Chain | Typical input tokens | Typical output tokens | Cost tier |
-|-------|---------------------|----------------------|-----------|
-| Marking | 800–2,500 (mark scheme minified) | 200–600 | ~$0.0003/call (Haiku) |
-| Hint L1-L2 | 400–800 | 50–150 | ~$0.0001 |
-| Hint L3 | 600–1,200 | 50–200 | ~$0.003 |
-| UVE L1-L2 | 500–1,000 | 150–400 | ~$0.0002 |
-| Curriculum | 1,500–3,000 (syllabus chunk) | 400–800 | ~$0.01 (cached after first) |
-| Generation | 3,000–6,000 (RAG context) | 800–1,500 | ~$0.02–0.05 |
-| OCR | 1,000 (image) + prompt | 200–800 | ~$0.005 |
+| Chain      | Typical input tokens             | Typical output tokens | Cost tier                   |
+| ---------- | -------------------------------- | --------------------- | --------------------------- |
+| Marking    | 800–2,500 (mark scheme minified) | 200–600               | ~$0.0003/call (Haiku)       |
+| Hint L1-L2 | 400–800                          | 50–150                | ~$0.0001                    |
+| Hint L3    | 600–1,200                        | 50–200                | ~$0.003                     |
+| UVE L1-L2  | 500–1,000                        | 150–400               | ~$0.0002                    |
+| Curriculum | 1,500–3,000 (syllabus chunk)     | 400–800               | ~$0.01 (cached after first) |
+| Generation | 3,000–6,000 (RAG context)        | 800–1,500             | ~$0.02–0.05                 |
+| OCR        | 1,000 (image) + prompt           | 200–800               | ~$0.005                     |
 
 **Logging (required every call):** `chain_type`, `model`, `input_tokens`, `output_tokens`, `latency_ms`, `confidence`, `schema_valid`
 
 ### Concurrent Users
 
-| Scale | Architecture behaviour |
-|-------|------------------------|
-| **Pilot (20 students)** | Vercel auto-scales serverless functions; Neon free tier sufficient |
-| **1,000 concurrent** | Vercel 30K concurrency limit; Anthropic rate limit (~1K RPM standard) becomes bottleneck — request queue + retry with backoff |
-| **10,000+ concurrent** | Neon Launch + connection pooling; Upstash paid tier; Anthropic tier upgrade; consider marking queue (Redis list + worker) for peak exam periods |
-| **1M+ students** | Read replicas; regional edge; local marking models via router; archive cold data to R2 |
+| Scale                   | Architecture behaviour                                                                                                                          |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Pilot (20 students)** | Vercel auto-scales serverless functions; Neon free tier sufficient                                                                              |
+| **1,000 concurrent**    | Vercel 30K concurrency limit; Anthropic rate limit (~1K RPM standard) becomes bottleneck — request queue + retry with backoff                   |
+| **10,000+ concurrent**  | Neon Launch + connection pooling; Upstash paid tier; Anthropic tier upgrade; consider marking queue (Redis list + worker) for peak exam periods |
+| **1M+ students**        | Read replicas; regional edge; local marking models via router; archive cold data to R2                                                          |
 
 **MVP strategy:** Synchronous marking with Haiku (< 3s p95). At scale, **marking queue** defers non-exam practice marking by seconds — exam mode stays synchronous.
 
@@ -315,13 +326,13 @@ Layer 4 — At scale (V2+)
 
 ### Principle: AI May Only Claim What Sources Support
 
-| Chain | Grounding source | Block if missing |
-|-------|------------------|------------------|
-| Marking | Mark scheme JSON (human-validated template) | N/A — rubric is authoritative |
-| Guidance | Mark scheme + question text | Anti-leakage check |
-| Generation | RAG: 5 similar validated questions + syllabus | **Abort if k < 5** |
-| Curriculum | Syllabus chunk from DB | **Abort if no chunk** — return "content unavailable" |
-| UVE | Original question + mark scheme | Template-based probes |
+| Chain      | Grounding source                              | Block if missing                                     |
+| ---------- | --------------------------------------------- | ---------------------------------------------------- |
+| Marking    | Mark scheme JSON (human-validated template)   | N/A — rubric is authoritative                        |
+| Guidance   | Mark scheme + question text                   | Anti-leakage check                                   |
+| Generation | RAG: 5 similar validated questions + syllabus | **Abort if k < 5**                                   |
+| Curriculum | Syllabus chunk from DB                        | **Abort if no chunk** — return "content unavailable" |
+| UVE        | Original question + mark scheme               | Template-based probes                                |
 
 ### RAG Pipeline (Question Generation)
 
@@ -352,18 +363,18 @@ Confirmed errors logged to `hallucination_registry` table — reviewed monthly; 
 
 See `security.md` for implementation detail. Summary:
 
-| Control | MVP implementation |
-|---------|-------------------|
-| **Encryption in transit** | TLS 1.3 (Vercel, Neon, R2, Anthropic) |
-| **Encryption at rest** | Neon AES-256, R2 AES-256 (provider-managed) |
-| **Authentication** | Auth.js JWT, HTTP-only cookie, bcrypt factor 12 |
-| **Authorization** | RBAC + resource ownership in every route |
-| **Secrets** | Environment variables only — never client-exposed |
-| **PII in AI prompts** | session_id only — no names or emails |
-| **Anthropic data retention** | Zero-data-retention option enabled |
-| **Minors** | Parental consent (Unit 23); export/deletion requests |
-| **Audit trail** | Admin actions, appeals, deletions logged append-only |
-| **Rate limiting** | Prevents abuse and runaway AI cost |
+| Control                      | MVP implementation                                   |
+| ---------------------------- | ---------------------------------------------------- |
+| **Encryption in transit**    | TLS 1.3 (Vercel, Neon, R2, Anthropic)                |
+| **Encryption at rest**       | Neon AES-256, R2 AES-256 (provider-managed)          |
+| **Authentication**           | Auth.js JWT, HTTP-only cookie, bcrypt factor 12      |
+| **Authorization**            | RBAC + resource ownership in every route             |
+| **Secrets**                  | Environment variables only — never client-exposed    |
+| **PII in AI prompts**        | session_id only — no names or emails                 |
+| **Anthropic data retention** | Zero-data-retention option enabled                   |
+| **Minors**                   | Parental consent (Unit 23); export/deletion requests |
+| **Audit trail**              | Admin actions, appeals, deletions logged append-only |
+| **Rate limiting**            | Prevents abuse and runaway AI cost                   |
 
 **Upgrade path (V1.1):** PostgreSQL RLS, JWT refresh rotation, CSP headers — same schema, additive policies.
 
@@ -373,12 +384,12 @@ See `security.md` for implementation detail. Summary:
 
 ExamEdge uses **Plausible** (or Postgres event logging on zero budget) — not PostHog.
 
-| Tool | Purpose | Free tier |
-|------|---------|-----------|
-| Plausible / DB events | Product analytics (7 custom events) | See zero-budget-stack.md |
-| Sentry | Error tracking | 5K errors/mo |
-| Structured AI logs | Cost + quality monitoring | Postgres or stdout → Vercel logs |
-| `/api/health` | Uptime checks | Free |
+| Tool                  | Purpose                             | Free tier                        |
+| --------------------- | ----------------------------------- | -------------------------------- |
+| Plausible / DB events | Product analytics (7 custom events) | See zero-budget-stack.md         |
+| Sentry                | Error tracking                      | 5K errors/mo                     |
+| Structured AI logs    | Cost + quality monitoring           | Postgres or stdout → Vercel logs |
+| `/api/health`         | Uptime checks                       | Free                             |
 
 ---
 
@@ -390,7 +401,7 @@ Register (Cameroon, GCE Buea, 3 subjects)
   → Learn topic (curriculum chain, cached)
   → Practice session (parameterised question)
   → Submit wrong answer → Hint (Socratic)
-  → Submit correct answer → M1/A1/B1 feedback
+  → Submit correct answer → profile-appropriate mark feedback
   → UVE L1 probe (different numbers) → MVS update
   → Mastery map turns amber
   → Repeat until green (theta ≥ 0.70)
@@ -406,17 +417,17 @@ Register (Cameroon, GCE Buea, 3 subjects)
 
 ## 11. Documentation Map for This Topic
 
-| Question | Read |
-|----------|------|
-| Can I build for $0? | `zero-budget-stack.md` |
-| Chain input/output specs | `AGENTS.md` |
-| API routes and schema | `architecture.md` |
-| Auth and privacy | `security.md` |
-| What to build when | `build-plan.md` (31 units) |
-| V2/V3 expansion | `roadmap.md` |
-| Cost economics at scale | `ExamEdge_Cost_Optimisation_Economics.md` |
-| Responsible AI governance | `ExamEdge_Responsible_AI_Framework.md` |
-| Find any document | `documentation-map.md` |
+| Question                  | Read                                      |
+| ------------------------- | ----------------------------------------- |
+| Can I build for $0?       | `zero-budget-stack.md`                    |
+| Chain input/output specs  | `AGENTS.md`                               |
+| API routes and schema     | `architecture.md`                         |
+| Auth and privacy          | `security.md`                             |
+| What to build when        | `build-plan.md` (31 units)                |
+| V2/V3 expansion           | `roadmap.md`                              |
+| Cost economics at scale   | `ExamEdge_Cost_Optimisation_Economics.md` |
+| Responsible AI governance | `ExamEdge_Responsible_AI_Framework.md`    |
+| Find any document         | `documentation-map.md`                    |
 
 ---
 
@@ -427,7 +438,7 @@ Free infrastructure does not mean inferior education. ExamEdge quality comes fro
 1. **Pedagogical constraints** hardcoded in chain system prompts — not from model size
 2. **Human validation gate** — no AI question reaches students unreviewed
 3. **Understanding verification** — mastery requires probes, not single correct answers
-4. **Board-accurate rubrics** — M1/A1/B1 semantics from real mark schemes
+4. **Board-accurate rubrics** — marking profiles from real mark schemes (`marking-conventions.md`)
 5. **Offline resilience** — learning continues without connectivity
 6. **Honest UX** — confidence badges, appeal mechanism, no false anti-cheating claims
 

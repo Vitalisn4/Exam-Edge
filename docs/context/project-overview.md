@@ -29,15 +29,15 @@ The platform gives every student access to a personalised AI examiner, tutor, an
 
 The MVP is a **launch configuration**, not the platform's ceiling:
 
-| Dimension         | Phase 1 (Now)                                     | Platform capability                          |
-| ----------------- | ------------------------------------------------- | -------------------------------------------- |
-| Geography         | Cameroon pilot                                    | Nigeria, Ghana, Kenya, Francophone Africa, … |
-| Examination board | GCE Board Buea                                    | WAEC, NECO, KCSE, OBC, BEPC, custom          |
-| Level             | O-Level and A-Level                               | All secondary levels per board               |
-| Subjects          | Pure Maths (0765), Physics (0710), Biology (0730) | Full catalog per board                       |
-| Language          | English                                           | English, French, local languages             |
-| Marking           | M1/A1/B1 (GCE convention)                         | Board-specific rubrics via templates         |
-| Client            | Web PWA                                           | Web + native mobile (V1.1)                   |
+| Dimension         | Phase 1 (Now)                                             | Platform capability                                  |
+| ----------------- | --------------------------------------------------------- | ---------------------------------------------------- |
+| Geography         | Cameroon pilot                                            | Nigeria, Ghana, Kenya, Francophone Africa, …         |
+| Examination board | GCE Board Buea                                            | WAEC, NECO, KCSE, OBC, BEPC, custom                  |
+| Level             | O-Level and A-Level                                       | All secondary levels per board                       |
+| Subjects          | Pure Maths (0765), Physics (0710), Biology (0730)         | Full catalog per board                               |
+| Language          | English                                                   | English, French, local languages                     |
+| Marking           | Profile-driven: M/A (CGCE maths); point rubric (sciences) | Board-specific profiles via `marking-conventions.md` |
+| Client            | Web PWA                                                   | Web + native mobile (V1.1)                           |
 
 See `roadmap.md` for V1.1 → V3.0 expansion plan.
 
@@ -130,7 +130,7 @@ Dashboard    Practice    Progress    Profile
 ### Study Session (Practice Mode)
 
 1. Question rendered with KaTeX; student answers via MathInput or photo upload
-2. Student submits → marking chain returns M1/A1/B1 breakdown (< 3s target)
+2. Student submits → marking chain returns profile-appropriate breakdown (< 3s target)
 3. If marks < 50% of available: "Get a hint" button active (max 3 hints)
 4. Each hint is a Socratic question — never the answer
 5. After marking response: UVE L1 probe presented (variable substitution)
@@ -155,7 +155,7 @@ Dashboard    Practice    Progress    Profile
 4. No hints available during exam
 5. Tab switch → timer pauses, event logged, confirmation prompt shown
 6. Submit paper → full marking run per question
-7. Post-exam examiner report: per-question M1/A1/B1, total marks, readiness delta
+7. Post-exam examiner report: per-question mark breakdown, total marks, readiness delta
 
 ### Photo Answer Flow
 
@@ -250,7 +250,7 @@ Dashboard    Practice    Progress    Profile
 - Study streak with grace day (one miss per week allowed)
 - Exam readiness score
 - Practice mode with KaTeX + MathQuill
-- M1/A1/B1 marking with per-step feedback
+- Board-faithful marking with per-step feedback (see `marking-conventions.md`)
 - 3-level Socratic hint chain
 - Basic UVE (L1 variable substitution, L2 method transparency)
 - Topic concept explanations (curriculum chain, cached)
@@ -311,15 +311,16 @@ Full release plan: `roadmap.md`
 
 Custom events tracked via Plausible. Never invent new event names without updating this list first.
 
-| Event              | When                                 | Key Properties                             |
-| ------------------ | ------------------------------------ | ------------------------------------------ |
-| `session_started`  | Student starts study or exam session | userId, mode, subjectId                    |
-| `answer_submitted` | Answer submitted for marking         | userId, topicId, answerType                |
-| `hint_requested`   | Hint button clicked                  | userId, hintLevel, hintsRemaining          |
-| `exam_completed`   | Exam simulation submitted            | userId, subjectId, totalMarks, focusBreaks |
-| `topic_mastered`   | Mastery level crosses 0.70 threshold | userId, topicId                            |
-| `offline_sync`     | Offline queue synced on reconnect    | userId, queueSize                          |
-| `appeal_submitted` | Marking appeal filed                 | userId, responseId                         |
+| Event                  | When                                  | Key Properties                                 |
+| ---------------------- | ------------------------------------- | ---------------------------------------------- |
+| `session_started`      | Student starts study or exam session  | userId, mode, subjectId                        |
+| `answer_submitted`     | Answer submitted for marking          | userId, topicId, answerType                    |
+| `hint_requested`       | Hint button clicked                   | userId, hintLevel, hintsRemaining              |
+| `exam_completed`       | Exam simulation submitted             | userId, subjectId, totalMarks, focusBreaks     |
+| `topic_mastered`       | Mastery level crosses 0.70 threshold  | userId, topicId                                |
+| `offline_sync`         | Offline queue synced on reconnect     | userId, queueSize                              |
+| `appeal_submitted`     | Marking appeal filed                  | userId, responseId                             |
+| `register_cta_clicked` | Register / Get started CTA on landing | location (navbar, hero, pricing_*, bottom_cta) |
 
 ---
 

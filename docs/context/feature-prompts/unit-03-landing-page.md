@@ -4,11 +4,11 @@
 
 ## Implementation status
 
-| Field       | Value                                                                                   |
-| ----------- | --------------------------------------------------------------------------------------- |
-| **Status**  | **IMPLEMENTED** — pending manual validation and merge on `feature/unit-03-landing-page` |
-| **Commits** | `45a29b8` (landing UI), `8671d51` (spec alignment)                                      |
-| **Tests**   | 10 passing (`session.test.ts`, `health/route.test.ts`)                                  |
+| Field       | Value                                                             |
+| ----------- | ----------------------------------------------------------------- |
+| **Status**  | **MERGED** to `main` (PR #2). Visual refresh tracked as Unit 03b. |
+| **Commits** | `45a29b8` (landing UI), `8671d51` (spec alignment)                |
+| **Tests**   | 10 passing (`session.test.ts`, `health/route.test.ts`)            |
 
 ---
 
@@ -83,16 +83,16 @@ Renders `<LandingPage />` — public, not behind auth layout.
 
 ### Components
 
-| Component   | Path                                 | Notes                           |
-| ----------- | ------------------------------------ | ------------------------------- |
-| LandingPage | `components/landing/LandingPage.tsx` | Composes all sections           |
-| Navbar      | `components/layout/Navbar.tsx`       | Logo, Log in, Start preparing   |
-| Hero        | `components/landing/Hero.tsx`        | Headline, subheadline, CTAs     |
-| Features    | `components/landing/Features.tsx`    | 3 value props, `id="features"`  |
-| HowItWorks  | `components/landing/HowItWorks.tsx`  | 4 steps                         |
-| SocialProof | `components/landing/SocialProof.tsx` | GCE Board Buea placeholder      |
-| BottomCta   | `components/landing/BottomCta.tsx`   | Start preparing                 |
-| Footer      | `components/layout/Footer.tsx`       | Login, Privacy, Contact, © 2026 |
+| Component   | Path                                                               | Notes                           |
+| ----------- | ------------------------------------------------------------------ | ------------------------------- |
+| LandingPage | `components/landing/LandingPage.tsx`                               | Composes all sections           |
+| Navbar      | `components/layout/Navbar.tsx`                                     | Logo, Log in, Start preparing   |
+| Hero        | `components/landing/Hero.tsx`                                      | Headline, subheadline, CTAs     |
+| Features    | `components/landing/Features.tsx`                                  | 3 value props, `id="features"`  |
+| HowItWorks  | `components/landing/HowItWorks.tsx`                                | 4 steps                         |
+| SocialProof | _Removed_ — superseded by hero social proof + testimonials section |
+| BottomCta   | `components/landing/BottomCta.tsx`                                 | Start preparing                 |
+| Footer      | `components/layout/Footer.tsx`                                     | Login, Privacy, Contact, © 2026 |
 
 ### Auth redirect
 
@@ -123,9 +123,9 @@ None — static landing + cookie check in middleware only.
 
 ## Browser validation (manual)
 
-- [ ] Unauthenticated: CTAs → `/register`, `/login`; scroll to features works
-- [ ] Set `authjs.session-token` cookie → visit `/` → redirects to `/dashboard`
-- [ ] 360px viewport — no horizontal scroll, no console errors
+- [x] Unauthenticated: CTAs → `/register`, `/login`; scroll to features works
+- [x] Set `authjs.session-token` cookie → visit `/` → redirects to `/dashboard` (verified 2026-07-09)
+- [x] 360px viewport — responsive layout; 1280px verified in browser QA (Unit 03b)
 
 ## Documentation updates (after merge)
 
@@ -158,3 +158,5 @@ None — static landing + cookie check in middleware only.
 - Plausible events on landing (optional later)
 - Full auth forms (Unit 06)
 - Teal Forest rebrand (Unit 31 — uses Unit 02 Exam Blue tokens)
+
+**Full Lovable mockup** (dark/light, 6 features, examinations grid, pricing, etc.) → **Unit 03b** — `docs/context/specs/03b-landing-marketing-refresh.md`

@@ -2,6 +2,8 @@
 
 Living document. Updated after every component is built. Read this before building any new component — match existing patterns exactly before inventing new ones.
 
+Last updated: July 2026 | Unit 03b landing marketing refresh
+
 ---
 
 ## How to Use
@@ -18,22 +20,47 @@ After building any component — update this file with: component name, file pat
 
 ## Layout Components
 
-| Component     | Path                                  | Notes                                          |
-| ------------- | ------------------------------------- | ---------------------------------------------- |
-| Navbar        | `components/layout/Navbar.tsx`        | Landing nav — logo, Log in, Start preparing    |
-| Footer        | `components/layout/Footer.tsx`        | Login, Privacy, Contact links, © ExamEdge 2026 |
-| OfflineBanner | `components/layout/OfflineBanner.tsx` | _Not built_                                    |
+| Component       | Path                                    | Notes                                                                                               |
+| --------------- | --------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| MarketingNavbar | `components/layout/MarketingNavbar.tsx` | Sticky `top-0 z-30`, anchors `#features` `#boards` `#how` `#pricing`, theme toggle, `/register` CTA |
+| MarketingFooter | `components/layout/MarketingFooter.tsx` | 3-column footer: brand, Examinations, Company + © 2026                                              |
+| ExamEdgeLogo    | `components/layout/ExamEdgeLogo.tsx`    | BookOpen mark + Clash Display wordmark                                                              |
+| ThemeProvider   | `components/layout/ThemeProvider.tsx`   | Light/dark context, `localStorage` + `prefers-color-scheme`                                         |
+| ThemeToggle     | `components/layout/ThemeToggle.tsx`     | Sun/moon toggle, `aria-label`, 44px target                                                          |
+| Navbar          | `components/layout/Navbar.tsx`          | _Legacy Unit 03 — not used on landing_                                                              |
+| Footer          | `components/layout/Footer.tsx`          | _Legacy Unit 03 — superseded by MarketingFooter on landing_                                         |
 
-## Landing Components (Unit 03)
+---
 
-| Component   | Path                                 | Notes                                           |
-| ----------- | ------------------------------------ | ----------------------------------------------- |
-| LandingPage | `components/landing/LandingPage.tsx` | Composes all landing sections                   |
-| Hero        | `components/landing/Hero.tsx`        | Headline, subheadline, primary + secondary CTAs |
-| Features    | `components/landing/Features.tsx`    | 3 value props with lucide icons, `#features`    |
-| HowItWorks  | `components/landing/HowItWorks.tsx`  | 4 steps: Register → Practice → Mark → Verify    |
-| SocialProof | `components/landing/SocialProof.tsx` | Africa / GCE Board Buea placeholder             |
-| BottomCta   | `components/landing/BottomCta.tsx`   | Repeat Start preparing CTA                      |
+## Landing Components (Unit 03 + 03b)
+
+| Component           | Path                                         | Notes                                                                     |
+| ------------------- | -------------------------------------------- | ------------------------------------------------------------------------- |
+| LandingPage         | `components/landing/LandingPage.tsx`         | Server component; composes all sections; data from `getLandingPageData()` |
+| Hero                | `components/landing/Hero.tsx`                | Navy band, board pills, 4-line headline, CTAs → `/register` + `#how`      |
+| MasteryMapPreview   | `components/landing/MasteryMapPreview.tsx`   | Hero widget: heatmap, Preview badge, honest `—` stats when not live       |
+| MasteryHeatmap      | `components/landing/MasteryHeatmap.tsx`      | Ported from `exam-edge-path`; `--mastery-*` cell colours                  |
+| Features            | `components/landing/Features.tsx`            | 6 cards, `id="features"` `scroll-mt-16`, eyebrow + headline               |
+| FeatureCard         | `components/landing/FeatureCard.tsx`         | Icon tile + title + description; used by Features                         |
+| ExaminationsSection | `components/landing/ExaminationsSection.tsx` | Client tabs for boards; `id="boards"`; subject grid from curriculum       |
+| HowItWorks          | `components/landing/HowItWorks.tsx`          | 3 steps (01–03), `id="how"`                                               |
+| TestimonialsSection | `components/landing/TestimonialsSection.tsx` | Teal gradient band; empty placeholder cards when no verified quotes       |
+| PricingSection      | `components/landing/PricingSection.tsx`      | 3 tiers (Free / Student / School), `id="pricing"`, CTAs → `/register`     |
+| OfflineBanner       | `components/landing/OfflineBanner.tsx`       | 2G / offline strip with WifiOff + ShieldCheck                             |
+| BottomCta           | `components/landing/BottomCta.tsx`           | Navy CTA band via `landing-hero-band`                                     |
+| RegisterCtaLink     | `components/landing/RegisterCtaLink.tsx`     | Client Link → `/register` + `register_cta_clicked` Plausible event        |
+| PlausibleScript     | `components/layout/PlausibleScript.tsx`      | Loads Plausible when `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` is set                |
+
+### Landing data
+
+| Module                        | Path                              | Notes                                     |
+| ----------------------------- | --------------------------------- | ----------------------------------------- |
+| getLandingPageData            | `lib/landing/get-landing-data.ts` | Entry point; honest nulls until analytics |
+| trackEvent / trackRegisterCta | `lib/analytics.ts`                | Plausible wrapper (Unit 07 foundation)    |
+| landing-content               | `constants/landing-content.ts`    | Features, steps, pricing, hero pills      |
+| landing-curriculum            | `constants/landing-curriculum.ts` | Board tabs + subjects by board            |
+| landing-fixtures              | `constants/landing-fixtures.ts`   | Preview heatmap topic levels              |
+| landing types                 | `types/landing.ts`                | `LandingPageData`, `VerifiedTestimonial`  |
 
 ---
 
@@ -64,10 +91,10 @@ After building any component — update this file with: component name, file pat
 
 ## Math Components
 
-| Component   | Path                              | Notes                         |
-| ----------- | --------------------------------- | ----------------------------- |
-| MathDisplay | `components/math/MathDisplay.tsx` | KaTeX wrapper, error boundary |
-| MathInput   | `components/math/MathInput.tsx`   | MathQuill, client-only        |
+| Component   | Path                              | Notes                                         |
+| ----------- | --------------------------------- | --------------------------------------------- |
+| MathDisplay | `components/math/MathDisplay.tsx` | KaTeX wrapper, error boundary, `trust: false` |
+| MathInput   | `components/math/MathInput.tsx`   | MathQuill WYSIWYG, client-only, `ssr: false`  |
 
 ---
 
@@ -106,7 +133,7 @@ After building any component — update this file with: component name, file pat
 
 ## UI Primitives (shadcn)
 
-Installed Unit 02 — themed with ExamEdge tokens from `globals.css`.
+Installed Unit 02 — themed with Teal Forest tokens from `globals.css`.
 
 | Component | Path                         | Variants / notes                                                                 |
 | --------- | ---------------------------- | -------------------------------------------------------------------------------- |
@@ -126,10 +153,11 @@ Installed Unit 02 — themed with ExamEdge tokens from `globals.css`.
 
 ## Page Compositions
 
-| Page            | Path                                         | Key Components Used                                                             |
-| --------------- | -------------------------------------------- | ------------------------------------------------------------------------------- |
-| Landing         | `app/page.tsx`                               | LandingPage, Navbar, Hero, Features, HowItWorks, SocialProof, BottomCta, Footer |
-| Dashboard       | `app/(student)/dashboard/page.tsx`           | _Stub — Unit 15_                                                                |
-| Study Session   | `app/(student)/study/[topicId]/page.tsx`     | _Not built_                                                                     |
-| Exam Simulation | `app/(student)/exam/[simulationId]/page.tsx` | _Not built_                                                                     |
-| Admin Queue     | `app/(admin)/questions/page.tsx`             | _Not built_                                                                     |
+| Page            | Path                                         | Key Components Used                                                                                                                                                 |
+| --------------- | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Landing         | `app/page.tsx`                               | MarketingNavbar, Hero, MasteryMapPreview, Features, ExaminationsSection, HowItWorks, TestimonialsSection, PricingSection, OfflineBanner, BottomCta, MarketingFooter |
+| Math Dev        | `app/dev/math/page.tsx`                      | MathPlayground, MathDisplay, MathInput                                                                                                                              |
+| Dashboard       | `app/(student)/dashboard/page.tsx`           | _Stub — Unit 15_                                                                                                                                                    |
+| Study Session   | `app/(student)/study/[topicId]/page.tsx`     | _Not built_                                                                                                                                                         |
+| Exam Simulation | `app/(student)/exam/[simulationId]/page.tsx` | _Not built_                                                                                                                                                         |
+| Admin Queue     | `app/(admin)/questions/page.tsx`             | _Not built_                                                                                                                                                         |
